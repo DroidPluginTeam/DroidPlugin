@@ -1,0 +1,18 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.1.0'
+    }
+}
+
+ext {
+    compileSdkVersion = 22
+    buildToolsVersion = "22.0.1"
+}
+
+allprojects.each { p ->
+    p.buildDir "bin"
+}

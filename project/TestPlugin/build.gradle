@@ -1,0 +1,76 @@
+apply plugin: 'android'
+
+dependencies {
+    compile "com.android.support:support-v4:21.0.2"
+    compile "com.android.support:gridlayout-v7:21.0.2"
+    compile "com.android.support:cardview-v7:21.0.2"
+    compile "com.android.support:appcompat-v7:18.0.+"
+
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile project(':Libraries:DroidPlugin')
+}
+
+
+android {
+    signingConfigs {
+        MySignConfig {
+            storeFile file(readProperty("key.store", "key.store"))
+            keyAlias readProperty("key.alias", "key.alias")
+            keyPassword readProperty("key.alias.password", "key.alias.password")
+            storePassword readProperty("key.store.password", "key.store.password")
+        }
+    }
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        instrumentTest.setRoot('tests')
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+    lintOptions {
+        abortOnError false
+    }
+    dexOptions {
+        jumboMode false
+    }
+
+    defaultConfig {
+        multiDexEnabled = false
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            pseudoLocalesEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "proguard-project.txt"
+            signingConfig signingConfigs.MySignConfig
+        }
+    }
+
+
+}
+
+//
+def readProperty(key, defaultValue) {
+    def value = System.getenv(key)
+    if (value != null && value.length() > 0) {
+        return value
+    }
+
+    if (project.hasProperty(key)) {
+        return project.property(key)
+    }
+    return defaultValue
+}
