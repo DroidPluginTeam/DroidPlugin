@@ -1,0 +1,4 @@
+include ':Libraries:DroidPlugin'
+include ':TestPlugin'
+include ':Test:ApiTest'
+rootProject.name = 'DroidPlugin'

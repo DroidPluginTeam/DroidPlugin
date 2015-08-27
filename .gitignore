@@ -1,0 +1,11 @@
+/project/Libraries/DroidPlugin/gen
+/project/Libraries/DroidPlugin/bin
+/project/Test/ApiTest/gen
+/project/Test/ApiTest/bin
+/project/TestPlugin/gen
+/project/TestPlugin/bin
+/project/gradle
+/project/.gradle
+/project/.idea
+/project/build
+/project/local.properties
