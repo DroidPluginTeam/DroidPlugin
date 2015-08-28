@@ -67,7 +67,7 @@ public class PluginHelper implements ServiceConnection {
         long b = System.currentTimeMillis();
         try {
             try {
-                fuckMiUiLbeSecurity();
+                fixMiUiLbeSecurity();
             } catch (Throwable e) {
                 Log.e(TAG, "fixMiUiLbeSecurity has error", e);
             }
@@ -102,7 +102,7 @@ public class PluginHelper implements ServiceConnection {
     }
 
     //解决小米JLB22.0 4.1.1系统自带的小米安全中心（lbe.security.miui）广告拦截组件导致的插件白屏问题
-    private void fuckMiUiLbeSecurity() throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private void fixMiUiLbeSecurity() throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         //卸载掉LBE安全的ApplicationLoaders.mLoaders钩子
         Class ApplicationLoaders = Class.forName("android.app.ApplicationLoaders");
