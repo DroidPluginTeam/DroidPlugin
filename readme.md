@@ -94,7 +94,7 @@ It is very simple integrate Droid Plugin to your proejct：
    
 	For installation, `filepath` set to path of the .apk file, and `flags` set to 0.
 
-	For upgrade, `filepath` set to `PackageManagerCompat.INSTALL_REPLACE_EXISTING`.
+	For upgrade, `filepath` set to path of the .apk file, and `flags` set to `PackageManagerCompat.INSTALL_REPLACE_EXISTING`.
         
     
 2. **Uninstall**，use this method：
