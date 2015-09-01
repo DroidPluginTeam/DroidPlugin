@@ -1,63 +1,66 @@
 Droid Plugin
 ======
 
-DroidPlugin 是***360手机助手***在Android系统上实现了一种新的**插件机制**:它可以在无需安装、修改的情况下运行APK文件,此机制对改进大型APP的架构，实现多团队协作开发具有一定的好处。
+DroidPlugin is a new **Plugin Framework** developed and maintained by the Android app-store team at Qihoo 360 (NYSE:QIHU).
+It enables the host app run any third-party apk without installation, modification or repackage, which benefit a lot for
+collaborative development on Android.
+
 -------
 
+[中文文档](https://github.com/Qihoo360/DroidPlugin/blob/master/readme_cn.md "中文文档")
 
-
-##定义：
-
-   
-   **HOST程序**：插件的宿主。
-   
-   **插件**：免安装运行的APK
-
-##限制和缺陷:
+##Problems to be solved:
     
- 1. 无法在插件中发送具有自定义资源的`Notification`，例如： 
-     a.  带自定义RemoteLayout的Notification
-     b.  图标通过R.drawable.XXX指定的通知（插件系统会自动将其转化为Bitmap）
- 2. 无法在插件中注册一些具有特殊Intent Filter的`Service`、`Activity`、`BroadcastReceiver`、`ContentProvider`等组件以供Android系统、已经安装的其他APP调用。
- 3. 对`Activity`的LaunchMode支持不够好，Activity Stack管理存在一定缺陷。Activity的`onNewIntent`函数可能不会被触发。  （此为BUG，未来会修复）
- 3. 缺乏对Native层的Hook，对某些带native代码的apk支持不好，可能无法运行。比如一部分游戏无法当作插件运行。      
+ 1. Unable to send `Notification` with customized Resouces，eg：
+ 
+     a.  Notification with customed RemoteLayout, which means `Notification`'s `contentView`，`tickerView`，
+     `bigContentView` and `headsUpContentView` must be null.
+
+     b.  Notification with icon customized by R.drawable.XXX. The framework will transform it to Bitmap instead.
+
+ 2. Unable to define individual `Intent Filter` for the plugged app's `Service`、`Activity`、`BroadcastReceiver`
+ and `ContentProvider`. So the plugged app is invisible for the outside system and app.
+
+ 3. Unable to support all `LaunchMode` of `Activity`，thus the `onNewIntent` method can not be called.
+
+ 3. Without `Hook` to the `Native` layer, thus apk (e.g. a large part of games) with `native` code cannot be loaded.
     
-##特点：
-  1. 支持Androd 2.3以上系统
-  2. 插件APK完全不需做任何修改，可以独立安装运行、也可以做插件运行。要以插件模式运行某个APK，你**无需**重新编译、无需知道其源码。
-  3. 插件的四大组件完全不需要在Host程序中注册，支持Service、Activity、BroadcastReceiver、ContentProvider四大组件
-  4. 插件之间、Host程序与插件之间会互相认为对方已经"安装"在系统上了。
-  5. API低侵入性：极少的API。HOST程序只是需要一行代码即可集成Droid Plugin
-  6. 超强隔离：插件之间、插件与Host之间完全的代码级别的隔离：不能互相调用对方的代码。通讯只能使用Android系统级别的通讯方法。
-  7. 支持所有系统API
-  8. 资源完全隔离：插件之间、与Host之间实现了资源完全隔离，不会出现资源窜用的情况。
-  9. 实现了进程管理，插件的空进程会被及时回收，占用内存低。
-  10. 插件的静态广播会被当作动态处理，如果插件没有运行（即没有插件进程运行），其静态广播也永远不回被触发。
+##Features：
+  1. Compatible to Android 2.3 and later versions
+  2. Given its .apk file, the plugged app could be run either independently or as plugin of the host, **NO** source code needed.
+  3. Unnecessary to register the plugged app's `Service`、`Activity`、`BroadcastReceiver`、`ContentProvider` in the host.
+  4. The plugged app are recognized as *Installed* by the host and other plugged apps
+  5. Very low level of code invasion, in deed just one line code to integrate DroidPlugin into the host app.
+  6. Complete code level separation between host and plugged apps, only system level message passing method provide by Android allowed.
+  7. All system API supported
+  8. Resources management are also completely separated between host and plugged apps.
+  9. Process management for plugged apps, idle processed of the plugged app will be timely recycled to guarantee minimum memory usage.
+  10. Static broadcast of plugged app will be treated as dynamic, thus the static broadcasting will never be trigger if
+  the plugged app are not activated.
     
-##使用方法：
+##Usage：
 
-####集成
+####Integrate with the host apps
 
-在host中集成Droid Plugin项目非常简单：
+It is very simple integrate Droid Plugin to your proejct：
 
-1. 我们只是需要将Droid Plugin当作一个lib工程应用到主项目中，然后：
+1. Import Droid Plugin project to your project as a lib.
 
-2. 在`AndroidManifest.xml`中使用插件的`com.morgoo.droidplugin.PluginApplication`：
+2. Include following attributes in host's `AndroidManifest.xml`：
 
 
 		<application android:name="com.morgoo.droidplugin.PluginApplication" 
 					 android:label="@string/app_name"
 					 android:icon="@drawable/ic_launcher" 
 
-   
            
-3. 如果你使用自定义的`Application`，那么你需要在自定义的Application class `onCreate`和`attachBaseContext`方法中添加如下代码：
+3. Or，if you use customized `Application`，add following code in the methods `onCreate` and `attachBaseContext`:
     
 	    @Override
 	    public void onCreate() {
 	        super.onCreate();
-	        //这里必须在super.onCreate方法之后，顺序不能变
-	        PluginHelper.getInstance().applicationOnCreate(getBaseContext());
+
+	        PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
 	    }
 	      
 	    @Override
@@ -65,7 +68,8 @@ DroidPlugin 是***360手机助手***在Android系统上实现了一种新的**�
 	        PluginHelper.getInstance().applicationAttachBaseContext(base);
 	    }
 
-4.  将插件中`Libraries\DroidPlugin\AndroidManifest.xml`中**所有**的`provider`对应的`authorities`修改成自己的，默认为`com.morgoo.droidplugin_stub_P00`，如下：
+4.  **All**  `provider`'s `authorities` value in DroidPlugin's `Libraries\DroidPlugin\AndroidManifest.xml`
+ default to be `com.morgoo.droidplugin_stub_P00`, e.g. :
 
 	    <provider
             android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
@@ -73,7 +77,7 @@ DroidPlugin 是***360手机助手***在Android系统上实现了一种新的**�
             android:exported="false"
             android:label="@string/stub_name_povider" />
 
-	可以修改为自己的包名，如: `com.example.droidplugin_stub_P00` 防止跟其它本插件使用者冲突：
+	You'd better change it to avoid conflict with other instances, e.g.:
 
 	    <provider
             android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
@@ -81,31 +85,32 @@ DroidPlugin 是***360手机助手***在Android系统上实现了一种新的**�
             android:exported="false"
             android:label="@string/stub_name_povider" />
 
-5.  集成完成。
 
-####安装、卸载插件：
+####Install、Uninstall or Upgrade the plugged app：
 
-1. **安装、更新插件**,使用如下方法：
+1. **Install/Upgrade**，use this method：
 
-		int PluginManager.getInstance().installPackage(String filepath, int flags)
+		int PluginManager.getInstance().installPackage(String filepath, int flags);
    
-	说明：安装插件到插件系统中，`filepath`为插件apk路径，`flags`可以设置为0，如果要更新插件，则设置为`PackageManagerCompat.INSTALL_REPLACE_EXISTING`返回值及其含义请参见`PackageManagerCompat`类中的相关字段。
+	For installation, `filepath` set to path of the .apk file, and `flags` set to 0.
+
+	For upgrade, `filepath` set to `PackageManagerCompat.INSTALL_REPLACE_EXISTING`.
         
     
-2. **卸载插件**，使用如下方法：
-    
+2. **Uninstall**，use this method：
 
 	    int PluginManager.getInstance().deletePackage(String packageName,int flags);
 
-          
-	说明：从插件系统中卸载某个插件，`packageName`传插件包名即可，`flags`传0。
+	`packageName` is package name of the plugged app，`flags = 0`。
 
-3. **启动插件**：启动插件的`Activity`、`Service`等都和你启动一个以及安装在系统中的app一样，使用系统提供的相关API即可。组件间通讯也是如此。
+3. **Activate**
+
+    Just use android's API, same for communication between components.
+
+### Remark：
+
+    Please feel free to report bugs or email for help.
     
-
-##实现原理：
+### Thanks：
     
- 请参见源码
-
-### 支持：
-	任何问题可以在项目中提交bug报告，也可以发送邮件以寻求帮助。
+    Translation by Ming Song（gnosoir@hotmail.com）    
