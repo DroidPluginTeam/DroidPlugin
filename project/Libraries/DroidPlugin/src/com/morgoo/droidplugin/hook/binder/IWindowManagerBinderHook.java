@@ -69,7 +69,7 @@ public class IWindowManagerBinderHook extends BinderHook {
     protected void onInstall(ClassLoader classLoader) throws Throwable {
         super.onInstall(classLoader);
         try {
-            Class claszz = Class.forName("com.android.internal.policy.PhoneWindow$WindowManagerHolder");
+            Class claszz = Class.forName("com.android.internal.policy.impl.PhoneWindow$WindowManagerHolder");
             FieldUtils.writeStaticField(claszz, "sWindowManager", MyServiceManager.getProxiedObj(getServiceName()));
         } catch (Exception e) {
             Log.w(TAG, "onInstall writeStaticField to sWindowManager fail", e);
