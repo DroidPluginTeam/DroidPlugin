@@ -4,8 +4,7 @@ Droid Plugin
 [中文文档](https://github.com/Qihoo360/DroidPlugin/blob/master/readme_cn.md "中文文档")
 
 DroidPlugin is a new **Plugin Framework** developed and maintained by the Android app-store team at Qihoo 360 (NYSE:QIHU).
-It enables the host app run any third-party apk without installation, modification or repackage, which benefit a lot for
-collaborative development on Android.
+It enables the host app run any third-party apk without installation, modification and repackage, which benefit a lot for collaborative development on Android.
 
 -------
 
@@ -13,19 +12,19 @@ collaborative development on Android.
 
 ##Problems to be solved:
     
- 1. Unable to send `Notification` with customized Resouces，eg：
+ 1. Unable to send `Notification` with custom Resources，eg：
  
-     a.  Notification with customed RemoteLayout, which means `Notification`'s `contentView`，`tickerView`，
+     a.  Notification with custom RemoteLayout, which means `Notification`'s `contentView`，`tickerView`，
      `bigContentView` and `headsUpContentView` must be null.
 
      b.  Notification with icon customized by R.drawable.XXX. The framework will transform it to Bitmap instead.
 
- 2. Unable to define individual `Intent Filter` for the plugged app's `Service`、`Activity`、`BroadcastReceiver`
+ 2. Unable to define specified `Intent Filter` for the plugged app's `Service`、`Activity`、`BroadcastReceiver`
  and `ContentProvider`. So the plugged app is invisible for the outside system and app.
 
- 3. Unable to support all `LaunchMode` of `Activity`，thus the `onNewIntent` method can not be called.
+ 3. Unable to support all `LaunchMode` of `Activity`, has problems with Activity stack management. `Activity`'s `onNewIntent` method may not be called (This is a bug, will be fixed in the future).
 
- 3. Without `Hook` to the `Native` layer, thus apk (e.g. a large part of games) with `native` code cannot be loaded.
+ 3. Lack of `Hook` to the `Native` layer, thus apk (e.g. a majority of game apps) with `native` code cannot be loaded as plugin.
     
 ##Features：
   1. Compatible to Android 2.3 and later versions
@@ -51,37 +50,37 @@ It is very simple integrate Droid Plugin to your proejct：
 2. Include following attributes in host's `AndroidManifest.xml`：
 
 
-		<application android:name="com.morgoo.droidplugin.PluginApplication" 
-					 android:label="@string/app_name"
-					 android:icon="@drawable/ic_launcher" 
+      <application android:name="com.morgoo.droidplugin.PluginApplication" 
+           android:label="@string/app_name"
+           android:icon="@drawable/ic_launcher" 
 
            
-3. Or，if you use customized `Application`，add following code in the methods `onCreate` and `attachBaseContext`:
+3. Or, if you use customized `Application`，add following code in the methods `onCreate` and `attachBaseContext`:
     
-	    @Override
-	    public void onCreate() {
-	        super.onCreate();
+      @Override
+      public void onCreate() {
+          super.onCreate();
 
-	        PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
-	    }
-	      
-	    @Override
-	    protected void attachBaseContext(Context base) {
-	        PluginHelper.getInstance().applicationAttachBaseContext(base);
-	    }
+          PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
+      }
+        
+      @Override
+      protected void attachBaseContext(Context base) {
+          PluginHelper.getInstance().applicationAttachBaseContext(base);
+      }
 
 4.  **All**  `provider`'s `authorities` value in DroidPlugin's `Libraries\DroidPlugin\AndroidManifest.xml`
  default to be `com.morgoo.droidplugin_stub_P00`, e.g. :
 
-	    <provider
+      <provider
             android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
             android:authorities="com.morgoo.droidplugin_stub_P00"
             android:exported="false"
             android:label="@string/stub_name_povider" />
 
-	You'd better change it to avoid conflict with other instances, e.g.:
+  You'd better change it to avoid conflict with other instances, e.g.:
 
-	    <provider
+      <provider
             android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
             android:authorities="com.example.droidplugin_stub_P00"
             android:exported="false"
@@ -90,20 +89,20 @@ It is very simple integrate Droid Plugin to your proejct：
 
 ####Install、Uninstall or Upgrade the plugged app：
 
-1. **Install/Upgrade**，use this method：
+1. **Install/Upgrade**, use this method：
 
-		int PluginManager.getInstance().installPackage(String filepath, int flags);
+    int PluginManager.getInstance().installPackage(String filepath, int flags);
    
-	For installation, `filepath` set to path of the .apk file, and `flags` set to 0.
+  For installation, `filepath` set to path of the .apk file, and `flags` set to 0.
 
-	For upgrade, `filepath` set to path of the .apk file, and  `flags` set to `PackageManagerCompat.INSTALL_REPLACE_EXISTING`.
+  For upgrade, `filepath` set to path of the .apk file, and  `flags` set to `PackageManagerCompat.INSTALL_REPLACE_EXISTING`.
         
     
-2. **Uninstall**，use this method：
+2. **Uninstall**, use this method：
 
-	    int PluginManager.getInstance().deletePackage(String packageName,int flags);
+      int PluginManager.getInstance().deletePackage(String packageName,int flags);
 
-	`packageName` is package name of the plugged app，`flags = 0`。
+  `packageName` is package name of the plugged app，`flags = 0`。
 
 3. **Activate**
 
@@ -111,7 +110,8 @@ It is very simple integrate Droid Plugin to your proejct：
 
 ### Remark：
 
-    Please feel free to report bugs or email for help.
+    Please feel free to [report bugs](https://github.com/Qihoo360/DroidPlugin/issues) or ask for help via email.
+    
     
 ### Thanks：
     
