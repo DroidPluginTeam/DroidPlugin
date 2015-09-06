@@ -48,70 +48,72 @@ It is very simple integrate Droid Plugin to your proejct：
 1. Import Droid Plugin project to your project as a lib.
 
 2. Include following attributes in host's `AndroidManifest.xml`：
-
-
-      <application android:name="com.morgoo.droidplugin.PluginApplication" 
-           android:label="@string/app_name"
-           android:icon="@drawable/ic_launcher" 
+	
+		<application android:name="com.morgoo.droidplugin.PluginApplication" 
+			android:label="@string/app_name"
+			android:icon="@drawable/ic_launcher" >
 
            
 3. Or, if you use customized `Application`，add following code in the methods `onCreate` and `attachBaseContext`:
     
-      @Override
-      public void onCreate() {
-          super.onCreate();
-
-          PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
-      }
+		@Override
+		public void onCreate() {
+			super.onCreate();
+			PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
+		}
         
-      @Override
-      protected void attachBaseContext(Context base) {
-          PluginHelper.getInstance().applicationAttachBaseContext(base);
-      }
+		@Override
+		protected void attachBaseContext(Context base) {
+			PluginHelper.getInstance().applicationAttachBaseContext(base);
+		}
 
 4.  **All**  `provider`'s `authorities` value in DroidPlugin's `Libraries\DroidPlugin\AndroidManifest.xml`
  default to be `com.morgoo.droidplugin_stub_P00`, e.g. :
 
-      <provider
-            android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
-            android:authorities="com.morgoo.droidplugin_stub_P00"
-            android:exported="false"
-            android:label="@string/stub_name_povider" />
+		<provider
+				android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
+				android:authorities="com.morgoo.droidplugin_stub_P00"
+				android:exported="false"
+				android:label="@string/stub_name_povider" />
 
-  You'd better change it to avoid conflict with other instances, e.g.:
-
-      <provider
-            android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
-            android:authorities="com.example.droidplugin_stub_P00"
-            android:exported="false"
-            android:label="@string/stub_name_povider" />
+	You'd better change it to avoid conflict with other instances, e.g.:
+		
+		<provider
+				android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
+				android:authorities="com.example.droidplugin_stub_P00"
+				android:exported="false"
+				android:label="@string/stub_name_povider" />
 
 
 ####Install、Uninstall or Upgrade the plugged app：
 
 1. **Install/Upgrade**, use this method：
-
-    int PluginManager.getInstance().installPackage(String filepath, int flags);
+ 
+		int PluginManager.getInstance().installPackage(String filepath, int flags);
    
-  For installation, `filepath` set to path of the .apk file, and `flags` set to 0.
+	For installation, `filepath` set to path of the .apk file, and `flags` set to 0.
 
-  For upgrade, `filepath` set to path of the .apk file, and  `flags` set to `PackageManagerCompat.INSTALL_REPLACE_EXISTING`.
+	For upgrade, `filepath` set to path of the .apk file, and  `flags` set to `PackageManagerCompat.INSTALL_REPLACE_EXISTING`.
         
     
 2. **Uninstall**, use this method：
 
-      int PluginManager.getInstance().deletePackage(String packageName,int flags);
+		int PluginManager.getInstance().deletePackage(String packageName,int flags);
 
-  `packageName` is package name of the plugged app，`flags = 0`。
+	`packageName` is package name of the plugged app，`flags = 0`。
 
 3. **Activate**
 
     Just use android's API, same for communication between components.
 
-### Remark：
+## Remark：
 
-    Please feel free to [report bugs](https://github.com/Qihoo360/DroidPlugin/issues) or ask for help via email.
-    
+Please feel free to [report bugs](https://github.com/Qihoo360/DroidPlugin/issues) or ask for help via email.
+
+##Who is using Droid Plugin?
+	
+ [360 App Store](http://sj.360.cn "360 App Store")
+
     
 ### Thanks：
     
