@@ -35,6 +35,7 @@ import com.morgoo.droidplugin.hook.binder.IInputMethodManagerBinderHook;
 import com.morgoo.droidplugin.hook.binder.IMediaRouterServiceBinderHook;
 import com.morgoo.droidplugin.hook.binder.IMountServiceBinder;
 import com.morgoo.droidplugin.hook.binder.INotificationManagerBinderHook;
+import com.morgoo.droidplugin.hook.binder.ISearchManagerBinderHook;
 import com.morgoo.droidplugin.hook.binder.ISessionManagerBinderHook;
 import com.morgoo.droidplugin.hook.binder.IWifiManagerBinderHook;
 import com.morgoo.droidplugin.hook.binder.IWindowManagerBinderHook;
@@ -112,6 +113,8 @@ public class HookFactory {
 
     public final void installHook(Context context, ClassLoader classLoader) throws Throwable {
         installHook(new IClipboardBinderHook(context), classLoader);
+        //for ISearchManager
+        installHook(new ISearchManagerBinderHook(context), classLoader);
         //for INotificationManager
         installHook(new INotificationManagerBinderHook(context), classLoader);
         installHook(new IMountServiceBinder(context), classLoader);
