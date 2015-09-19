@@ -70,7 +70,7 @@ public class IContentServiceHandle extends BaseHookHandle {
                     if (provider != null) {
                         ProviderInfo info = PluginManager.getInstance().selectStubProviderInfo(authority);
                         Uri.Builder newUri = new Uri.Builder();
-                        newUri.scheme(info.authority);
+                        newUri.scheme("content");
                         newUri.authority(uri.getAuthority());
                         newUri.path(uri.getPath());
                         newUri.query(uri.getQuery());
