@@ -159,4 +159,13 @@ public class PluginInstrumentation extends Instrumentation {
             }
         }
     }
+
+    @Override
+    public void callActivityOnNewIntent(Activity activity, Intent intent) {
+        if (activity != null && intent != null){
+            intent.setClassName(activity.getPackageName(),activity.getClass().getName());
+        }
+
+        super.callActivityOnNewIntent(activity, intent);
+    }
 }

@@ -38,7 +38,7 @@ public class IContentServiceCompat {
 
     public static Class Class() throws ClassNotFoundException {
         if (sClass == null) {
-            sClass = Class.forName("android.content.ContentResolver");
+            sClass = Class.forName("android.content.IContentService");
         }
         return sClass;
     }
