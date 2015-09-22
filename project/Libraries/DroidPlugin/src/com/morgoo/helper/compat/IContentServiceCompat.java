@@ -38,13 +38,13 @@ public class IContentServiceCompat {
 
     public static Class Class() throws ClassNotFoundException {
         if (sClass == null) {
-            sClass = Class.forName("android.database.IContentObserver");
+            sClass = Class.forName("android.content.ContentResolver");
         }
         return sClass;
     }
 
     public static Object asInterface( IBinder binder) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Class clazz = Class.forName("android.database.IContentObserver$Stub");
+        Class clazz = Class.forName("android.content.IContentService$Stub");
         return MethodUtils.invokeStaticMethod(clazz, "asInterface", binder);
     }
 }
