@@ -820,7 +820,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         try {
             PackageManager pm = mContext.getPackageManager();
             PackageInfo info = pm.getPackageArchiveInfo(filepath, 0);
-
             if (info == null) {
                 return PackageManagerCompat.INSTALL_FAILED_INVALID_APK;
             }
