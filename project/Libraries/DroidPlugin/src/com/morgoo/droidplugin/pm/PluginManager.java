@@ -252,10 +252,7 @@ public class PluginManager implements ServiceConnection {
     public ActivityInfo getActivityInfo(ComponentName className, int flags) throws NameNotFoundException, RemoteException {
 
         try {
-            if (className == null) {
-                return null;
-            }
-            if (mPluginManager != null && className != null) {
+            if (className != null && mPluginManager != null) {
                 return mPluginManager.getActivityInfo(className, flags);
             } else {
                 Log.w(TAG, "Plugin Package Manager Service not be connect");
@@ -284,11 +281,8 @@ public class PluginManager implements ServiceConnection {
     }
 
     public ServiceInfo getServiceInfo(ComponentName className, int flags) throws NameNotFoundException, RemoteException {
-        if (className == null) {
-            return null;
-        }
         try {
-            if (mPluginManager != null && className != null) {
+            if (className != null && mPluginManager != null) {
                 return mPluginManager.getServiceInfo(className, flags);
             } else {
                 Log.w(TAG, "Plugin Package Manager Service not be connect");
@@ -302,11 +296,8 @@ public class PluginManager implements ServiceConnection {
     }
 
     public ProviderInfo getProviderInfo(ComponentName className, int flags) throws NameNotFoundException, RemoteException {
-        if (className == null) {
-            return null;
-        }
         try {
-            if (mPluginManager != null && className != null) {
+            if (className != null && mPluginManager != null) {
                 return mPluginManager.getProviderInfo(className, flags);
             } else {
                 Log.w(TAG, "Plugin Package Manager Service not be connect");
