@@ -1279,6 +1279,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         List<RunningAppProcessInfo> infos = am.getRunningAppProcesses();
         boolean success = false;
         for (RunningAppProcessInfo info : infos) {
+            Arrays.sort(info.pkgList);
             if (info.pkgList != null && Arrays.binarySearch(info.pkgList, pluginPackageName) >= 0 && info.pid != android.os.Process.myPid()) {
                 Log.i(TAG, "killBackgroundProcesses(%s),pkgList=%s,pid=%s", pluginPackageName, Arrays.toString(info.pkgList), info.pid);
                 android.os.Process.killProcess(info.pid);
