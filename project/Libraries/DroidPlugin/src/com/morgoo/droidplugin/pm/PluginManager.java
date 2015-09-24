@@ -269,11 +269,8 @@ public class PluginManager implements ServiceConnection {
     }
 
     public ActivityInfo getReceiverInfo(ComponentName className, int flags) throws NameNotFoundException, RemoteException {
-        if (className == null) {
-            return null;
-        }
         try {
-            if (mPluginManager != null && className != null) {
+            if (className != null && mPluginManager != null) {
                 return mPluginManager.getReceiverInfo(className, flags);
             } else {
                 Log.w(TAG, "Plugin Package Manager Service not be connect");
