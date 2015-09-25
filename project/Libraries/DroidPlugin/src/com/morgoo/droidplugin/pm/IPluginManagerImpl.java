@@ -1280,7 +1280,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         boolean success = false;
         for (RunningAppProcessInfo info : infos) {
             if (info.pkgList != null) {
-                String[] pkgListCopy = info.pkgList.clone();
+                String[] pkgListCopy = Arrays.copyOf(info.pkgList, info.pkgList.length);
                 Arrays.sort(pkgListCopy);
                 if (Arrays.binarySearch(pkgListCopy, pluginPackageName) >= 0 && info.pid != android.os.Process.myPid()) {
                     Log.i(TAG, "killBackgroundProcesses(%s),pkgList=%s,pid=%s", pluginPackageName, Arrays.toString(info.pkgList), info.pid);
