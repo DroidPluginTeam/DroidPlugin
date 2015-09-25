@@ -19,7 +19,6 @@
 ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
 **
 **/
-
 package com.morgoo.helper.compat;
 
 import android.os.IBinder;
@@ -29,22 +28,22 @@ import com.morgoo.droidplugin.reflect.MethodUtils;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/5/21.
+ * Created by wyw on 15-9-18.
  */
-public class IContentServiceCompat {
-
+public class ISearchManagerCompat {
 
     private static Class sClass;
 
     public static Class Class() throws ClassNotFoundException {
         if (sClass == null) {
-            sClass = Class.forName("android.content.IContentService");
+            sClass = Class.forName("android.app.ISearchManager");
         }
         return sClass;
     }
 
-    public static Object asInterface( IBinder binder) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Class clazz = Class.forName("android.content.IContentService$Stub");
+    public static Object asInterface(IBinder binder) throws ClassNotFoundException
+            , NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Class clazz = Class.forName("android.app.ISearchManager$Stub");
         return MethodUtils.invokeStaticMethod(clazz, "asInterface", binder);
     }
 }
