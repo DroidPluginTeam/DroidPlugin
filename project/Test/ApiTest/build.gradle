@@ -2,7 +2,7 @@ apply plugin: 'android'
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
-    compile project(':Libraries:DroidPlugin')
+//    compile project(':Libraries:DroidPlugin')
 }
 
 android {
