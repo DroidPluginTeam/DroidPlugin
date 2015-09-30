@@ -179,7 +179,7 @@
     <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
     <uses-permission android:name="com.qihoo.appstore.rtservice.ACCESS_RTSERVICE"/>
     <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
-
+    <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS"/>
 
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
