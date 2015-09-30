@@ -1064,13 +1064,13 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     private String findSoPath(Set<String> soPaths) {
         if (soPaths != null && soPaths.size() > 0) {
             for (String soPath : soPaths) {
-                if (soPath.contains(Build.CPU_ABI)) {
+                if (!TextUtils.isEmpty(Build.CPU_ABI) && soPath.contains(Build.CPU_ABI)) {
                     return soPath;
                 }
             }
 
             for (String soPath : soPaths) {
-                if (soPath.contains(Build.CPU_ABI2)) {
+                if (!TextUtils.isEmpty(Build.CPU_ABI2) && soPath.contains(Build.CPU_ABI2)) {
                     return soPath;
                 }
             }
