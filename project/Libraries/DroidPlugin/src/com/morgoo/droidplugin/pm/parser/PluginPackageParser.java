@@ -36,7 +36,9 @@ import android.content.pm.ServiceInfo;
 import android.content.pm.Signature;
 import android.os.Build;
 import android.text.TextUtils;
+
 import com.morgoo.droidplugin.core.PluginDirHelper;
+import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.helper.ComponentNameComparator;
 
 import java.io.File;
@@ -412,12 +414,33 @@ public class PluginPackageParser {
             applicationInfo.publicSourceDir = mPluginFile.getPath();
         }
 
+
         if (applicationInfo.dataDir == null) {
             applicationInfo.dataDir = PluginDirHelper.getPluginDataDir(mHostContext, applicationInfo.packageName);
         }
 
-        applicationInfo.uid = mHostPackageInfo.applicationInfo.uid;
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (FieldUtils.readField(applicationInfo, "scanSourceDir", true) == null) {
+                    FieldUtils.writeField(applicationInfo, "scanSourceDir", applicationInfo.dataDir, true);
+                }
+            }
+        } catch (Throwable e) {
+            //Do nothing
+        }
 
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (FieldUtils.readField(applicationInfo, "scanPublicSourceDir", true) == null) {
+                    FieldUtils.writeField(applicationInfo, "scanPublicSourceDir", applicationInfo.dataDir, true);
+                }
+            }
+        } catch (Throwable e) {
+            //Do nothing
+        }
+
+
+        applicationInfo.uid = mHostPackageInfo.applicationInfo.uid;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             if (applicationInfo.nativeLibraryDir == null) {
