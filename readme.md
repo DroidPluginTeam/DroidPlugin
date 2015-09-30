@@ -1,7 +1,7 @@
 Droid Plugin
 ======
 
-[中文文档](https://github.com/Qihoo360/DroidPlugin/blob/master/readme_cn.md "中文文档")
+[中文文档](readme_cn.md "中文文档")
 
 DroidPlugin is a new **Plugin Framework** developed and maintained by the Android app-store team at Qihoo 360 (NYSE:QIHU).
 It enables the host app run any third-party apk without installation, modification and repackage, which benefit a lot for collaborative development on Android.
