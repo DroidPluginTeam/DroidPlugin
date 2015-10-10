@@ -31,6 +31,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.text.TextUtils;
 
 import com.morgoo.droidplugin.core.Env;
 import com.morgoo.droidplugin.core.PluginProcessManager;
@@ -87,8 +88,11 @@ public class PluginInstrumentation extends Instrumentation {
         try {
             mOldContext = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && PluginManager.getInstance().isPluginPackage(activity.getPackageName())) {
-                mOldContext = FieldUtils.readField(ActivityThreadCompat.currentActivityThread(), "mInitialApplication", true);
-                FieldUtils.writeField(ActivityThreadCompat.currentActivityThread(), "mInitialApplication", activity.getApplicationContext(), true);
+                Context oldContext = (Context) FieldUtils.readField(ActivityThreadCompat.currentActivityThread(), "mInitialApplication", true);
+                if (!TextUtils.equals(oldContext.getPackageName(), activity.getPackageName())) {
+                    FieldUtils.writeField(ActivityThreadCompat.currentActivityThread(), "mInitialApplication", activity.getApplicationContext(), true);
+                    mOldContext = oldContext;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
