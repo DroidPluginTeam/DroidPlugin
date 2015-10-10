@@ -84,12 +84,6 @@ public class PluginInstrumentation extends Instrumentation {
             }
         }
 
-        if (mTarget != null) {
-            mTarget.callActivityOnCreate(activity, icicle);
-        } else {
-            super.callActivityOnCreate(activity, icicle);
-        }
-
         try {
             mOldContext = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && PluginManager.getInstance().isPluginPackage(activity.getPackageName())) {
@@ -98,6 +92,12 @@ public class PluginInstrumentation extends Instrumentation {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (mTarget != null) {
+            mTarget.callActivityOnCreate(activity, icicle);
+        } else {
+            super.callActivityOnCreate(activity, icicle);
         }
     }
 
