@@ -175,6 +175,20 @@ public class PluginInstrumentation extends Instrumentation {
             Log.e(TAG, "onCallApplicationOnCreate", e);
         }
 
+// 上几次提交仍然不能完美解决WebView加载asset资源问题。如果打开此处的注释则可以完美解决。但，如果打开，则可能会存在插件与host程序、运行在同一个进程的插件之间的mInitialApplication冲突，抢mInitialApplication的情况。故应慎之又慎！
+//        try {
+//            mOldContext = null;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && PluginManager.getInstance().isPluginPackage(app.getPackageName())) {
+//                Context oldContext = (Context) FieldUtils.readField(ActivityThreadCompat.currentActivityThread(), "mInitialApplication", true);
+//                if (!TextUtils.equals(oldContext.getPackageName(), app.getPackageName())) {
+//                    FieldUtils.writeField(ActivityThreadCompat.currentActivityThread(), "mInitialApplication", app.getApplicationContext(), true);
+//                    mOldContext = oldContext;
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         if (mTarget != null) {
             mTarget.callApplicationOnCreate(app);
         } else {
