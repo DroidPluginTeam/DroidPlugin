@@ -82,7 +82,6 @@ public class IContentServiceHandle extends BaseHookHandle {
                     }
                 }
             }
-            Log.e(TAG, "beforeInvoke %s %s", method.getName(), Arrays.toString(args));
             return super.beforeInvoke(receiver, method, args);
         }
     }
