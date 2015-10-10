@@ -44,6 +44,7 @@ import com.morgoo.droidplugin.hook.proxy.IPackageManagerHook;
 import com.morgoo.droidplugin.hook.proxy.InstrumentationHook;
 import com.morgoo.droidplugin.hook.proxy.LibCoreHook;
 import com.morgoo.droidplugin.hook.proxy.PluginCallbackHook;
+import com.morgoo.droidplugin.hook.proxy.WebViewFactoryProviderHook;
 import com.morgoo.droidplugin.hook.xhook.SQLiteDatabaseHook;
 import com.morgoo.helper.Log;
 
@@ -123,6 +124,9 @@ public class HookFactory {
         installHook(new IWindowManagerBinderHook(context), classLoader);
         if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP_MR1) {
             installHook(new IGraphicsStatsBinderHook(context), classLoader);
+        }
+        if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+            installHook(new WebViewFactoryProviderHook(context), classLoader);
         }
         if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
             installHook(new IMediaRouterServiceBinderHook(context), classLoader);
