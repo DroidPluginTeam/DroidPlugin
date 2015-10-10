@@ -28,6 +28,7 @@ import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
 
@@ -37,7 +38,9 @@ import com.morgoo.droidplugin.hook.HookFactory;
 import com.morgoo.droidplugin.hook.binder.IWindowManagerBinderHook;
 import com.morgoo.droidplugin.hook.proxy.IPackageManagerHook;
 import com.morgoo.droidplugin.pm.PluginManager;
+import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.helper.Log;
+import com.morgoo.helper.compat.ActivityThreadCompat;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2014/12/5.
@@ -62,6 +65,8 @@ public class PluginInstrumentation extends Instrumentation {
     }
 
 
+    private Object mOldContext = null;
+
     @Override
     public void callActivityOnCreate(Activity activity, Bundle icicle) {
         if (enable) {
@@ -84,7 +89,18 @@ public class PluginInstrumentation extends Instrumentation {
         } else {
             super.callActivityOnCreate(activity, icicle);
         }
+
+        try {
+            mOldContext = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && PluginManager.getInstance().isPluginPackage(activity.getPackageName())) {
+                mOldContext = FieldUtils.readField(ActivityThreadCompat.currentActivityThread(), "mInitialApplication", true);
+                FieldUtils.writeField(ActivityThreadCompat.currentActivityThread(), "mInitialApplication", activity.getApplicationContext(), true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     private void onActivityCreated(Activity activity) throws RemoteException {
         try {
@@ -97,7 +113,8 @@ public class PluginInstrumentation extends Instrumentation {
                     PluginManager.getInstance().onActivityCreated(stubInfo, targetInfo);
                 }
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     private void onActivityDestory(Activity activity) throws RemoteException {
@@ -124,6 +141,15 @@ public class PluginInstrumentation extends Instrumentation {
             } catch (RemoteException e) {
                 Log.e(TAG, "callActivityOnDestroy:onActivityDestory", e);
             }
+        }
+
+        try {
+            if (mOldContext != null) {
+                FieldUtils.writeField(ActivityThreadCompat.currentActivityThread(), "mInitialApplication", mOldContext, true);
+            }
+            mOldContext = null;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -162,8 +188,8 @@ public class PluginInstrumentation extends Instrumentation {
 
     @Override
     public void callActivityOnNewIntent(Activity activity, Intent intent) {
-        if (activity != null && intent != null){
-            intent.setClassName(activity.getPackageName(),activity.getClass().getName());
+        if (activity != null && intent != null) {
+            intent.setClassName(activity.getPackageName(), activity.getClass().getName());
         }
 
         super.callActivityOnNewIntent(activity, intent);
