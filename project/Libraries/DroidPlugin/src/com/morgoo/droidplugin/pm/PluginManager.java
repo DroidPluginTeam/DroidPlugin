@@ -66,6 +66,8 @@ public class PluginManager implements ServiceConnection {
     public static final String ACTION_PACKAGE_REMOVED = "com.morgoo.doirplugin.PACKAGE_REMOVED";
     public static final int INSTALL_FAILED_NO_REQUESTEDPERMISSION = -100001;
 
+    public static final String STUB_AUTHORITY_NAME = "com.morgoo.droidplugin_stub";
+
 
     private static final String TAG = PluginManager.class.getSimpleName();
 

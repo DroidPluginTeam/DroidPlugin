@@ -117,7 +117,7 @@ public class PluginProcessManager {
 
             if (packageInfo.providers != null) {
                 for (ProviderInfo info : packageInfo.providers) {
-                    if (!sProcessList.contains(info.processName) && info.processName != null && info.authority != null && info.authority.indexOf("com.morgoo.droidplugin_stub") < 0) {
+                    if (!sProcessList.contains(info.processName) && info.processName != null && info.authority != null && info.authority.indexOf(PluginManager.STUB_AUTHORITY_NAME) < 0) {
                         sProcessList.add(info.processName);
                     }
                 }
