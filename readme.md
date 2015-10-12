@@ -65,6 +65,7 @@ It is very simple integrate Droid Plugin to your proejct：
 		@Override
 		protected void attachBaseContext(Context base) {
 			PluginHelper.getInstance().applicationAttachBaseContext(base);
+            super.attachBaseContext(base);
 		}
 
 4.  **All**  `provider`'s `authorities` value in DroidPlugin's `Libraries\DroidPlugin\AndroidManifest.xml`

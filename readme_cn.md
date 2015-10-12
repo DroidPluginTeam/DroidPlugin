@@ -63,6 +63,7 @@ DroidPlugin 是***360手机助手***在Android系统上实现了一种新的**�
 	    @Override
 	    protected void attachBaseContext(Context base) {
 	        PluginHelper.getInstance().applicationAttachBaseContext(base);
+            super.attachBaseContext(base);
 	    }
 
 4.  将插件中`Libraries\DroidPlugin\AndroidManifest.xml`中**所有**的`provider`对应的`authorities`修改成自己的，默认为`com.morgoo.droidplugin_stub_P00`，如下：
