@@ -81,6 +81,9 @@ DroidPlugin 是***360手机助手***在Android系统上实现了一种新的**�
             android:authorities="com.example.droidplugin_stub_P00"
             android:exported="false"
             android:label="@string/stub_name_povider" />
+    并且修改```PluginManager.STUB_AUTHORITY_NAME``` 为你的值:
+
+		PluginManager.STUB_AUTHORITY_NAME="com.example.droidplugin_stub"
 
 5.  集成完成。
 

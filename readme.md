@@ -84,6 +84,9 @@ It is very simple integrate Droid Plugin to your proejct：
 				android:authorities="com.example.droidplugin_stub_P00"
 				android:exported="false"
 				android:label="@string/stub_name_povider" />
+    and change ```PluginManager.STUB_AUTHORITY_NAME``` to your value:
+
+		PluginManager.STUB_AUTHORITY_NAME="com.example.droidplugin_stub"
 
 
 ####Install、Uninstall or Upgrade the plugged app：
