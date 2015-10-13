@@ -29,6 +29,7 @@ import com.morgoo.droidplugin.hook.BaseHookHandle;
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
 import com.morgoo.droidplugin.reflect.MethodUtils;
 import com.morgoo.droidplugin.reflect.Utils;
+import com.morgoo.helper.Log;
 import com.morgoo.helper.MyProxy;
 import com.morgoo.helper.compat.WebViewFactoryCompat;
 
@@ -40,6 +41,8 @@ import java.util.List;
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2014/10/10.
  */
 public class WebViewFactoryProviderHookHandle extends BaseHookHandle {
+
+    private static final String TAG = WebViewFactoryProviderHookHandle.class.getSimpleName();
 
     public WebViewFactoryProviderHookHandle(Context hostContext) {
         super(hostContext);
@@ -58,14 +61,29 @@ public class WebViewFactoryProviderHookHandle extends BaseHookHandle {
                 Object provider = WebViewFactoryCompat.getProvider();
                 if (provider != null) {
                     ClassLoader cl = provider.getClass().getClassLoader();
-                    sContentMain = Class.forName("org.chromium.content.app.ContentMain", true, cl);
+
+                    try {
+                        sContentMain = Class.forName("org.chromium.content.app.ContentMain", true, cl);
+                    } catch (ClassNotFoundException e) {
+                    }
+
+                    if (sContentMain == null) {
+                        try {
+                            sContentMain = Class.forName("com.android.org.chromium.content.app.ContentMain", true, cl);
+                        } catch (ClassNotFoundException e) {
+                        }
+                    }
+
+                    if (sContentMain == null) {
+                        throw new ClassNotFoundException(String.format("Can not found class %s or %s in classloader %s", "org.chromium.content.app.ContentMain", "com.android.org.chromium.content.app.ContentMain", cl));
+                    }
                 }
             }
             if (sContentMain != null) {
                 MethodUtils.invokeStaticMethod(sContentMain, "initApplicationContext", context.getApplicationContext());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "fixWebViewAsset error", e);
         }
     }
 
