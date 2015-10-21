@@ -199,7 +199,7 @@
 
         <!--预注册一些Activity，为了插件使用-->
         <activity
-            android:name=".stub.ActivityStub$StandardP00"
+            android:name=".stub.ActivityStub$P00$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -213,7 +213,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleInstanceP00"
+            android:name=".stub.ActivityStub$P00$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -227,7 +227,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTaskP00"
+            android:name=".stub.ActivityStub$P00$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -241,7 +241,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTopP00"
+            android:name=".stub.ActivityStub$P00$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -257,7 +257,7 @@
 
 
         <activity
-            android:name=".stub.ActivityStub$Dialog$StandardP00"
+            android:name=".stub.ActivityStub$Dialog$P00$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -271,7 +271,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleInstanceP00"
+            android:name=".stub.ActivityStub$Dialog$P00$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -285,7 +285,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTaskP00"
+            android:name=".stub.ActivityStub$Dialog$P00$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -299,7 +299,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTopP00"
+            android:name=".stub.ActivityStub$Dialog$P00$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -331,7 +331,7 @@
 
         <!--第二个插件-->
         <activity
-            android:name=".stub.ActivityStub$StandardP01"
+            android:name=".stub.ActivityStub$P01$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -346,7 +346,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleInstanceP01"
+            android:name=".stub.ActivityStub$P01$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -361,7 +361,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTaskP01"
+            android:name=".stub.ActivityStub$P01$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -376,7 +376,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTopP01"
+            android:name=".stub.ActivityStub$P01$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -392,7 +392,7 @@
         </activity>
 
         <activity
-            android:name=".stub.ActivityStub$Dialog$StandardP01"
+            android:name=".stub.ActivityStub$Dialog$P01$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -407,7 +407,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleInstanceP01"
+            android:name=".stub.ActivityStub$Dialog$P01$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -422,7 +422,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTaskP01"
+            android:name=".stub.ActivityStub$Dialog$P01$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -437,7 +437,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTopP01"
+            android:name=".stub.ActivityStub$Dialog$P01$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -471,7 +471,7 @@
 
         <!--第三个插件-->
         <activity
-            android:name=".stub.ActivityStub$StandardP02"
+            android:name=".stub.ActivityStub$P02$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -486,7 +486,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleInstanceP02"
+            android:name=".stub.ActivityStub$P02$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -501,7 +501,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTaskP02"
+            android:name=".stub.ActivityStub$P02$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -516,7 +516,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTopP02"
+            android:name=".stub.ActivityStub$P02$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -532,7 +532,7 @@
         </activity>
 
         <activity
-            android:name=".stub.ActivityStub$Dialog$StandardP02"
+            android:name=".stub.ActivityStub$Dialog$P02$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -547,7 +547,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleInstanceP02"
+            android:name=".stub.ActivityStub$Dialog$P02$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -562,7 +562,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTaskP02"
+            android:name=".stub.ActivityStub$Dialog$P02$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -577,7 +577,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTopP02"
+            android:name=".stub.ActivityStub$Dialog$P02$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -612,7 +612,7 @@
 
         <!--第四个插件-->
         <activity
-            android:name=".stub.ActivityStub$StandardP03"
+            android:name=".stub.ActivityStub$P03$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -627,7 +627,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleInstanceP03"
+            android:name=".stub.ActivityStub$P03$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -642,7 +642,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTaskP03"
+            android:name=".stub.ActivityStub$P03$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -657,7 +657,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTopP03"
+            android:name=".stub.ActivityStub$P03$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -674,7 +674,7 @@
 
 
         <activity
-            android:name=".stub.ActivityStub$Dialog$StandardP03"
+            android:name=".stub.ActivityStub$Dialog$P03$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -689,7 +689,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleInstanceP03"
+            android:name=".stub.ActivityStub$Dialog$P03$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -704,7 +704,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTaskP03"
+            android:name=".stub.ActivityStub$Dialog$P03$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -719,7 +719,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTopP03"
+            android:name=".stub.ActivityStub$Dialog$P03$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -754,7 +754,7 @@
 
         <!--第五个插件-->
         <activity
-            android:name=".stub.ActivityStub$StandardP04"
+            android:name=".stub.ActivityStub$P04$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -769,7 +769,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleInstanceP04"
+            android:name=".stub.ActivityStub$P04$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -784,7 +784,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTaskP04"
+            android:name=".stub.ActivityStub$P04$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -799,7 +799,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTopP04"
+            android:name=".stub.ActivityStub$P04$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -815,7 +815,7 @@
         </activity>
 
         <activity
-            android:name=".stub.ActivityStub$Dialog$StandardP04"
+            android:name=".stub.ActivityStub$Dialog$P04$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -830,7 +830,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleInstanceP04"
+            android:name=".stub.ActivityStub$Dialog$P04$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -845,7 +845,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTaskP04"
+            android:name=".stub.ActivityStub$Dialog$P04$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -860,7 +860,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTopP04"
+            android:name=".stub.ActivityStub$Dialog$P04$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -894,7 +894,7 @@
 
         <!--第六个插件-->
         <activity
-            android:name=".stub.ActivityStub$StandardP05"
+            android:name=".stub.ActivityStub$P05$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -909,7 +909,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleInstanceP05"
+            android:name=".stub.ActivityStub$P05$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -924,7 +924,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTaskP05"
+            android:name=".stub.ActivityStub$P05$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -939,7 +939,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTopP05"
+            android:name=".stub.ActivityStub$P05$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -955,7 +955,7 @@
         </activity>
 
         <activity
-            android:name=".stub.ActivityStub$Dialog$StandardP05"
+            android:name=".stub.ActivityStub$Dialog$P05$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -970,7 +970,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleInstanceP05"
+            android:name=".stub.ActivityStub$Dialog$P05$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -985,7 +985,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTaskP05"
+            android:name=".stub.ActivityStub$Dialog$P05$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1000,7 +1000,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTopP05"
+            android:name=".stub.ActivityStub$Dialog$P05$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1035,7 +1035,7 @@
 
         <!--第七个插件-->
         <activity
-            android:name=".stub.ActivityStub$StandardP06"
+            android:name=".stub.ActivityStub$P06$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1050,7 +1050,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleInstanceP06"
+            android:name=".stub.ActivityStub$P06$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1065,7 +1065,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTaskP06"
+            android:name=".stub.ActivityStub$P06$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1080,7 +1080,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTopP06"
+            android:name=".stub.ActivityStub$P06$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1097,7 +1097,7 @@
 
 
         <activity
-            android:name=".stub.ActivityStub$Dialog$StandardP06"
+            android:name=".stub.ActivityStub$Dialog$P06$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1112,7 +1112,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleInstanceP06"
+            android:name=".stub.ActivityStub$Dialog$P06$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1127,7 +1127,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTaskP06"
+            android:name=".stub.ActivityStub$Dialog$P06$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1142,7 +1142,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTopP06"
+            android:name=".stub.ActivityStub$Dialog$P06$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1178,7 +1178,7 @@
 
         <!--第八个插件-->
         <activity
-            android:name=".stub.ActivityStub$StandardP07"
+            android:name=".stub.ActivityStub$P07$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1193,7 +1193,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleInstanceP07"
+            android:name=".stub.ActivityStub$P07$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1208,7 +1208,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTaskP07"
+            android:name=".stub.ActivityStub$P07$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1223,7 +1223,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTopP07"
+            android:name=".stub.ActivityStub$P07$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1239,7 +1239,7 @@
         </activity>
 
         <activity
-            android:name=".stub.ActivityStub$Dialog$StandardP07"
+            android:name=".stub.ActivityStub$Dialog$P07$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1254,7 +1254,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleInstanceP07"
+            android:name=".stub.ActivityStub$Dialog$P07$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1269,7 +1269,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTaskP07"
+            android:name=".stub.ActivityStub$Dialog$P07$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1284,7 +1284,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTopP07"
+            android:name=".stub.ActivityStub$Dialog$P07$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1320,7 +1320,7 @@
 
         <!--第九个插件-->
         <activity
-            android:name=".stub.ActivityStub$StandardP08"
+            android:name=".stub.ActivityStub$P08$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1335,7 +1335,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleInstanceP08"
+            android:name=".stub.ActivityStub$P08$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1350,7 +1350,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTaskP08"
+            android:name=".stub.ActivityStub$P08$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1365,7 +1365,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$SingleTopP08"
+            android:name=".stub.ActivityStub$P08$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1381,7 +1381,7 @@
         </activity>
 
         <activity
-            android:name=".stub.ActivityStub$Dialog$StandardP08"
+            android:name=".stub.ActivityStub$Dialog$P08$Standard"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1396,7 +1396,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleInstanceP08"
+            android:name=".stub.ActivityStub$Dialog$P08$SingleInstance"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1411,7 +1411,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTaskP08"
+            android:name=".stub.ActivityStub$Dialog$P08$SingleTask"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"
@@ -1426,7 +1426,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".stub.ActivityStub$Dialog$SingleTopP08"
+            android:name=".stub.ActivityStub$Dialog$P08$SingleTop"
             android:allowTaskReparenting="true"
             android:excludeFromRecents="true"
             android:exported="false"

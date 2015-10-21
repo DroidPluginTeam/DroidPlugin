@@ -29,245 +29,315 @@ import android.app.Activity;
  */
 public abstract class ActivityStub extends Activity {
 
+    private static class SingleInstanceStub extends ActivityStub {
+    }
+
+    private static class SingleTaskStub extends ActivityStub {
+    }
+
+    private static class SingleTopStub extends ActivityStub {
+    }
+
+    private static class StandardStub extends ActivityStub {
+    }
+
+
     //p1
-    public static class SingleInstanceP00 extends ActivityStub {
+    public static class P00{
+
+        public static class SingleInstance extends SingleInstanceStub {
+        }
+
+        public static class SingleTask extends SingleTaskStub {
+        }
+
+        public static class SingleTop extends SingleTopStub {
+        }
+
+        public static class Standard extends StandardStub {
+        }
     }
 
-    public static class SingleTaskP00 extends ActivityStub {
-    }
-
-    public static class SingleTopP00 extends ActivityStub {
-    }
-
-    public static class StandardP00 extends ActivityStub {
-    }
 
 
     //p2
-    public static class SingleInstanceP01 extends ActivityStub {
-    }
+    public static class P01{
 
-    public static class SingleTaskP01 extends ActivityStub {
-    }
+        public static class SingleInstance extends SingleInstanceStub {
+        }
 
-    public static class SingleTopP01 extends ActivityStub {
-    }
+        public static class SingleTask extends SingleTaskStub {
+        }
 
-    public static class StandardP01 extends ActivityStub {
+        public static class SingleTop extends SingleTopStub {
+        }
+
+        public static class Standard extends StandardStub {
+        }
     }
 
     //p3
-    public static class SingleInstanceP02 extends ActivityStub {
-    }
+    public static class P02{
 
-    public static class SingleTaskP02 extends ActivityStub {
-    }
+        public static class SingleInstance extends SingleInstanceStub {
+        }
 
-    public static class SingleTopP02 extends ActivityStub {
-    }
+        public static class SingleTask extends SingleTaskStub {
+        }
 
-    public static class StandardP02 extends ActivityStub {
+        public static class SingleTop extends SingleTopStub {
+        }
+
+        public static class Standard extends StandardStub {
+        }
     }
 
 
     //p4
-    public static class SingleInstanceP03 extends ActivityStub {
-    }
+    public static class P03{
 
-    public static class SingleTaskP03 extends ActivityStub {
-    }
+        public static class SingleInstance extends SingleInstanceStub {
+        }
 
-    public static class SingleTopP03 extends ActivityStub {
-    }
+        public static class SingleTask extends SingleTaskStub {
+        }
 
-    public static class StandardP03 extends ActivityStub {
+        public static class SingleTop extends SingleTopStub {
+        }
+
+        public static class Standard extends StandardStub {
+        }
     }
 
     //p5
-    public static class SingleInstanceP04 extends ActivityStub {
-    }
+    public static class P04{
 
-    public static class SingleTaskP04 extends ActivityStub {
-    }
+        public static class SingleInstance extends SingleInstanceStub {
+        }
 
-    public static class SingleTopP04 extends ActivityStub {
-    }
+        public static class SingleTask extends SingleTaskStub {
+        }
 
-    public static class StandardP04 extends ActivityStub {
+        public static class SingleTop extends SingleTopStub {
+        }
+
+        public static class Standard extends StandardStub {
+        }
     }
 
     //p6
-    public static class SingleInstanceP05 extends ActivityStub {
-    }
+    public static class P05{
 
-    public static class SingleTaskP05 extends ActivityStub {
-    }
+        public static class SingleInstance extends SingleInstanceStub {
+        }
 
-    public static class SingleTopP05 extends ActivityStub {
-    }
+        public static class SingleTask extends SingleTaskStub {
+        }
 
-    public static class StandardP05 extends ActivityStub {
+        public static class SingleTop extends SingleTopStub {
+        }
+
+        public static class Standard extends StandardStub {
+        }
     }
 
     //p7
-    public static class SingleInstanceP06 extends ActivityStub {
-    }
+    public static class P06{
 
-    public static class SingleTaskP06 extends ActivityStub {
-    }
+        public static class SingleInstance extends SingleInstanceStub {
+        }
 
-    public static class SingleTopP06 extends ActivityStub {
-    }
+        public static class SingleTask extends SingleTaskStub {
+        }
 
-    public static class StandardP06 extends ActivityStub {
+        public static class SingleTop extends SingleTopStub {
+        }
+
+        public static class Standard extends StandardStub {
+        }
     }
 
     //p8
-    public static class SingleInstanceP07 extends ActivityStub {
-    }
+    public static class P07{
 
-    public static class SingleTaskP07 extends ActivityStub {
-    }
+        public static class SingleInstance extends SingleInstanceStub {
+        }
 
-    public static class SingleTopP07 extends ActivityStub {
-    }
+        public static class SingleTask extends SingleTaskStub {
+        }
 
-    public static class StandardP07 extends ActivityStub {
+        public static class SingleTop extends SingleTopStub {
+        }
+
+        public static class Standard extends StandardStub {
+        }
     }
 
     //p9
-    public static class SingleInstanceP08 extends ActivityStub {
-    }
+    public static class P08{
 
-    public static class SingleTaskP08 extends ActivityStub {
-    }
+        public static class SingleInstance extends SingleInstanceStub {
+        }
 
-    public static class SingleTopP08 extends ActivityStub {
-    }
+        public static class SingleTask extends SingleTaskStub {
+        }
 
-    public static class StandardP08 extends ActivityStub {
+        public static class SingleTop extends SingleTopStub {
+        }
+
+        public static class Standard extends StandardStub {
+        }
     }
 
 
     public static class Dialog {
 
         //p1
-        public static class SingleInstanceP00 extends ActivityStub {
+        public static class P00{
+
+            public static class SingleInstance extends SingleInstanceStub {
+            }
+
+            public static class SingleTask extends SingleTaskStub {
+            }
+
+            public static class SingleTop extends SingleTopStub {
+            }
+
+            public static class Standard extends StandardStub {
+            }
         }
 
-        public static class SingleTaskP00 extends ActivityStub {
-        }
-
-        public static class SingleTopP00 extends ActivityStub {
-        }
-
-        public static class StandardP00 extends ActivityStub {
-        }
 
 
         //p2
-        public static class SingleInstanceP01 extends ActivityStub {
-        }
+        public static class P01{
 
-        public static class SingleTaskP01 extends ActivityStub {
-        }
+            public static class SingleInstance extends SingleInstanceStub {
+            }
 
-        public static class SingleTopP01 extends ActivityStub {
-        }
+            public static class SingleTask extends SingleTaskStub {
+            }
 
-        public static class StandardP01 extends ActivityStub {
+            public static class SingleTop extends SingleTopStub {
+            }
+
+            public static class Standard extends StandardStub {
+            }
         }
 
         //p3
-        public static class SingleInstanceP02 extends ActivityStub {
-        }
+        public static class P02{
 
-        public static class SingleTaskP02 extends ActivityStub {
-        }
+            public static class SingleInstance extends SingleInstanceStub {
+            }
 
-        public static class SingleTopP02 extends ActivityStub {
-        }
+            public static class SingleTask extends SingleTaskStub {
+            }
 
-        public static class StandardP02 extends ActivityStub {
+            public static class SingleTop extends SingleTopStub {
+            }
+
+            public static class Standard extends StandardStub {
+            }
         }
 
 
         //p4
-        public static class SingleInstanceP03 extends ActivityStub {
-        }
+        public static class P03{
 
-        public static class SingleTaskP03 extends ActivityStub {
-        }
+            public static class SingleInstance extends SingleInstanceStub {
+            }
 
-        public static class SingleTopP03 extends ActivityStub {
-        }
+            public static class SingleTask extends SingleTaskStub {
+            }
 
-        public static class StandardP03 extends ActivityStub {
+            public static class SingleTop extends SingleTopStub {
+            }
+
+            public static class Standard extends StandardStub {
+            }
         }
 
         //p5
-        public static class SingleInstanceP04 extends ActivityStub {
-        }
+        public static class P04{
 
-        public static class SingleTaskP04 extends ActivityStub {
-        }
+            public static class SingleInstance extends SingleInstanceStub {
+            }
 
-        public static class SingleTopP04 extends ActivityStub {
-        }
+            public static class SingleTask extends SingleTaskStub {
+            }
 
-        public static class StandardP04 extends ActivityStub {
+            public static class SingleTop extends SingleTopStub {
+            }
+
+            public static class Standard extends StandardStub {
+            }
         }
 
         //p6
-        public static class SingleInstanceP05 extends ActivityStub {
-        }
+        public static class P05{
 
-        public static class SingleTaskP05 extends ActivityStub {
-        }
+            public static class SingleInstance extends SingleInstanceStub {
+            }
 
-        public static class SingleTopP05 extends ActivityStub {
-        }
+            public static class SingleTask extends SingleTaskStub {
+            }
 
-        public static class StandardP05 extends ActivityStub {
+            public static class SingleTop extends SingleTopStub {
+            }
+
+            public static class Standard extends StandardStub {
+            }
         }
 
         //p7
-        public static class SingleInstanceP06 extends ActivityStub {
-        }
+        public static class P06{
 
-        public static class SingleTaskP06 extends ActivityStub {
-        }
+            public static class SingleInstance extends SingleInstanceStub {
+            }
 
-        public static class SingleTopP06 extends ActivityStub {
-        }
+            public static class SingleTask extends SingleTaskStub {
+            }
 
-        public static class StandardP06 extends ActivityStub {
+            public static class SingleTop extends SingleTopStub {
+            }
+
+            public static class Standard extends StandardStub {
+            }
         }
 
         //p8
-        public static class SingleInstanceP07 extends ActivityStub {
-        }
+        public static class P07{
 
-        public static class SingleTaskP07 extends ActivityStub {
-        }
+            public static class SingleInstance extends SingleInstanceStub {
+            }
 
-        public static class SingleTopP07 extends ActivityStub {
-        }
+            public static class SingleTask extends SingleTaskStub {
+            }
 
-        public static class StandardP07 extends ActivityStub {
+            public static class SingleTop extends SingleTopStub {
+            }
+
+            public static class Standard extends StandardStub {
+            }
         }
 
         //p9
-        public static class SingleInstanceP08 extends ActivityStub {
+        public static class P08{
+
+            public static class SingleInstance extends SingleInstanceStub {
+            }
+
+            public static class SingleTask extends SingleTaskStub {
+            }
+
+            public static class SingleTop extends SingleTopStub {
+            }
+
+            public static class Standard extends StandardStub {
+            }
         }
 
-        public static class SingleTaskP08 extends ActivityStub {
-        }
-
-        public static class SingleTopP08 extends ActivityStub {
-        }
-
-        public static class StandardP08 extends ActivityStub {
-        }
     }
 }
