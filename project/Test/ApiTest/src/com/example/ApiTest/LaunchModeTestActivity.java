@@ -49,16 +49,15 @@ public abstract class LaunchModeTestActivity extends Activity implements View.On
         StringBuilder sb = new StringBuilder();
         ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> infos = am.getRunningTasks(Integer.MAX_VALUE);
-        int i = 0;
-        for (ActivityManager.RunningTaskInfo info : infos) {
-            sb.append("<font color=\"#ff0000\">Stack" + i+"</font>").append("<br/>");
+        for (int i = 0; i < infos.size(); i++) {
+            ActivityManager.RunningTaskInfo info = infos.get(i);
+            sb.append("<font color=\"#ff0000\">Stack" + i + "</font>").append("<br/>");
             sb.append("\t <b><i>ID:</i></b>" + info.id).append("<br/>");
             sb.append("\t <b><i>Num Running:</i></b>" + info.numRunning).append("<br/>");
             sb.append("\t <b><i>Num Activities:</i></b>" + info.numActivities).append("<br/>");
             sb.append("\t <b><i>Description:</i></b>" + info.description).append("<br/>");
             sb.append("\t <b><i>Top Activity:</i></b>" + toComponentName(info.topActivity)).append("<br/>");
             sb.append("\t <b><i>Base Activity:</i></b>" + toComponentName(info.baseActivity)).append("<br/>");
-            i++;
         }
         return sb.toString();
     }
