@@ -42,6 +42,38 @@ public abstract class LaunchModeTestActivity extends Activity implements View.On
             startActivity(new Intent(this, SingleTaskActivity.class));
         } else if (id == R.id.button4) {
             startActivity(new Intent(this, SingleInstanceActivity.class));
+        } else if (id == R.id.button4) {
+            startActivity(new Intent(this, SingleInstanceActivity.class));
+        } else if (id == R.id.button5) {
+            startActivity(new Intent(this, SingleTopActivity.SingleTopActivity1.class));
+        } else if (id == R.id.button6) {
+            startActivity(new Intent(this, SingleTopActivity.SingleTopActivity2.class));
+        } else if (id == R.id.button7) {
+            startActivity(new Intent(this, SingleTopActivity.SingleTopActivity3.class));
+        } else if (id == R.id.button8) {
+            startActivity(new Intent(this, SingleTopActivity.SingleTopActivity4.class));
+        } else if (id == R.id.button9) {
+            startActivity(new Intent(this, SingleTopActivity.SingleTopActivity5.class));
+        } else if (id == R.id.button10) {
+            startActivity(new Intent(this, SingleTaskActivity.SingleTaskActivity1.class));
+        } else if (id == R.id.button11) {
+            startActivity(new Intent(this, SingleTaskActivity.SingleTaskActivity2.class));
+        } else if (id == R.id.button12) {
+            startActivity(new Intent(this, SingleTaskActivity.SingleTaskActivity3.class));
+        } else if (id == R.id.button13) {
+            startActivity(new Intent(this, SingleTaskActivity.SingleTaskActivity4.class));
+        } else if (id == R.id.button14) {
+            startActivity(new Intent(this, SingleTaskActivity.SingleTaskActivity5.class));
+        } else if (id == R.id.button15) {
+            startActivity(new Intent(this, SingleInstanceActivity.SingleInstanceActivity1.class));
+        } else if (id == R.id.button16) {
+            startActivity(new Intent(this, SingleInstanceActivity.SingleInstanceActivity2.class));
+        } else if (id == R.id.button17) {
+            startActivity(new Intent(this, SingleInstanceActivity.SingleInstanceActivity3.class));
+        } else if (id == R.id.button18) {
+            startActivity(new Intent(this, SingleInstanceActivity.SingleInstanceActivity4.class));
+        } else if (id == R.id.button19) {
+            startActivity(new Intent(this, SingleInstanceActivity.SingleInstanceActivity5.class));
         }
     }
 
