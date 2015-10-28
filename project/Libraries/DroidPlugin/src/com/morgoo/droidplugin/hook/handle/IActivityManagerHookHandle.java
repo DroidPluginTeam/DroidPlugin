@@ -39,6 +39,7 @@ import android.os.Build.VERSION_CODES;
 import android.text.TextUtils;
 
 import com.morgoo.droidplugin.PluginManagerService;
+import com.morgoo.droidplugin.am.RunningActivities;
 import com.morgoo.droidplugin.core.Env;
 import com.morgoo.droidplugin.core.PluginProcessManager;
 import com.morgoo.droidplugin.hook.BaseHookHandle;
@@ -220,6 +221,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
+
+            RunningActivities.beforeStartActivity();
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 //2.3
         /*public int startActivity(IApplicationThread caller,

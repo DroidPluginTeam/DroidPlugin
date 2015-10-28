@@ -467,10 +467,31 @@ class RunningProcesList {
 
 
     boolean isStubInfoUsed(ProviderInfo stubInfo) {
+        //TODO
         return false;
     }
 
     boolean isStubInfoUsed(ServiceInfo stubInfo) {
+        //TODO
+        return false;
+    }
+
+    boolean isStubInfoUsed(ActivityInfo stubInfo, ActivityInfo targetInfo, String stubProcessName) {
+        for (Integer pid : items.keySet()) {
+            ProcessItem item = items.get(pid);
+            if (TextUtils.equals(item.stubProcessName, stubProcessName)) {
+                Set<ActivityInfo> infos = item.activityInfosMap.get(stubInfo.name);
+                if (infos != null && infos.size() > 0) {
+                    for (ActivityInfo info : infos) {
+                        if (TextUtils.equals(info.name, targetInfo.name)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            }
+        }
         return false;
     }
 

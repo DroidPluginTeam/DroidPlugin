@@ -101,7 +101,7 @@ class StaticProcessList {
 
 
         PackageManager pm = mHostContext.getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
+        List<ResolveInfo> activities = pm.queryIntentActivities(intent, PackageManager.GET_META_DATA);
         for (ResolveInfo activity : activities) {
             addActivityInfo(activity.activityInfo);
         }

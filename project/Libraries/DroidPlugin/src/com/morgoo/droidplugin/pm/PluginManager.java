@@ -67,6 +67,7 @@ public class PluginManager implements ServiceConnection {
     public static final int INSTALL_FAILED_NO_REQUESTEDPERMISSION = -100001;
 
     public static final String STUB_AUTHORITY_NAME = "com.morgoo.droidplugin_stub";
+    public static final int STUB_NO_ACTIVITY_MAX_NUM = 4;
 
 
     private static final String TAG = PluginManager.class.getSimpleName();

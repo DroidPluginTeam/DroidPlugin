@@ -269,17 +269,17 @@ public class MyActivityManagerService extends BaseActivityManagerService {
     @Override
     public ActivityInfo selectStubActivityInfo(int callingPid, int callingUid, ActivityInfo targetInfo) throws RemoteException {
         runProcessGC();
-        if (targetInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TASK) {
-            targetInfo.launchMode = ActivityInfo.LAUNCH_MULTIPLE;
-        }
-
-        if (targetInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_INSTANCE) {
-            targetInfo.launchMode = ActivityInfo.LAUNCH_MULTIPLE;
-        }
-
-        if (targetInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TOP) {
-            targetInfo.launchMode = ActivityInfo.LAUNCH_MULTIPLE;
-        }
+//        if (targetInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TASK) {
+//            targetInfo.launchMode = ActivityInfo.LAUNCH_MULTIPLE;
+//        }
+//
+//        if (targetInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_INSTANCE) {
+//            targetInfo.launchMode = ActivityInfo.LAUNCH_MULTIPLE;
+//        }
+//
+//        if (targetInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TOP) {
+//            targetInfo.launchMode = ActivityInfo.LAUNCH_MULTIPLE;
+//        }
 
         boolean Window_windowIsTranslucent = false;
         boolean Window_windowIsFloating = false;
@@ -310,8 +310,13 @@ public class MyActivityManagerService extends BaseActivityManagerService {
             List<ActivityInfo> stubInfos = mStaticProcessList.getActivityInfoForProcessName(stubProcessName1, useDialogStyle);
             for (ActivityInfo stubInfo : stubInfos) {
                 if (stubInfo.launchMode == targetInfo.launchMode) {
-                    mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
-                    return stubInfo;
+                    if (stubInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
+                        mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
+                        return stubInfo;
+                    } else if (!mRunningProcessList.isStubInfoUsed(stubInfo, targetInfo, stubProcessName1)) {
+                        mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
+                        return stubInfo;
+                    }
                 }
             }
         }
@@ -323,16 +328,26 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                 if (mRunningProcessList.isPkgEmpty(stubProcessName)) {//空进程，没有运行任何插件包。
                     for (ActivityInfo stubInfo : stubInfos) {
                         if (stubInfo.launchMode == targetInfo.launchMode) {
-                            mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
-                            return stubInfo;
+                            if (stubInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
+                                mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
+                                return stubInfo;
+                            } else if (!mRunningProcessList.isStubInfoUsed(stubInfo, targetInfo, stubProcessName1)) {
+                                mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
+                                return stubInfo;
+                            }
                         }
                     }
                     throw throwException("没有找到合适的StubInfo");
                 } else if (mRunningProcessList.isPkgCanRunInProcess(targetInfo.packageName, stubProcessName, targetInfo.processName)) {
                     for (ActivityInfo stubInfo : stubInfos) {
                         if (stubInfo.launchMode == targetInfo.launchMode) {
-                            mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
-                            return stubInfo;
+                            if (stubInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
+                                mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
+                                return stubInfo;
+                            } else if (!mRunningProcessList.isStubInfoUsed(stubInfo, targetInfo, stubProcessName1)) {
+                                mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
+                                return stubInfo;
+                            }
                         }
                     }
                     throw throwException("没有找到合适的StubInfo");
@@ -342,8 +357,13 @@ public class MyActivityManagerService extends BaseActivityManagerService {
             } else { //该预定义的进程没有。
                 for (ActivityInfo stubInfo : stubInfos) {
                     if (stubInfo.launchMode == targetInfo.launchMode) {
-                        mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
-                        return stubInfo;
+                        if (stubInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
+                            mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
+                            return stubInfo;
+                        } else if (!mRunningProcessList.isStubInfoUsed(stubInfo, targetInfo, stubProcessName1)) {
+                            mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
+                            return stubInfo;
+                        }
                     }
                 }
                 throw throwException("没有找到合适的StubInfo");

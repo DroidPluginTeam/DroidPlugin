@@ -25,12 +25,14 @@ package com.morgoo.droidplugin.hook.handle;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Instrumentation;
+import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.RemoteException;
 
+import com.morgoo.droidplugin.am.RunningActivities;
 import com.morgoo.droidplugin.core.Env;
 import com.morgoo.droidplugin.core.PluginProcessManager;
 import com.morgoo.droidplugin.hook.HookFactory;
@@ -38,6 +40,10 @@ import com.morgoo.droidplugin.hook.binder.IWindowManagerBinderHook;
 import com.morgoo.droidplugin.hook.proxy.IPackageManagerHook;
 import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.helper.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.WeakHashMap;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2014/12/5.
@@ -61,6 +67,9 @@ public class PluginInstrumentation extends Instrumentation {
         mHostContext = hostContext;
     }
 
+
+
+
     @Override
     public void callActivityOnCreate(Activity activity, Bundle icicle) {
         if (enable) {
@@ -78,6 +87,8 @@ public class PluginInstrumentation extends Instrumentation {
             }
         }
 
+
+
         if (mTarget != null) {
             mTarget.callActivityOnCreate(activity, icicle);
         } else {
@@ -93,6 +104,7 @@ public class PluginInstrumentation extends Instrumentation {
                 ActivityInfo targetInfo = targetIntent.getParcelableExtra(Env.EXTRA_TARGET_INFO);
                 ActivityInfo stubInfo = targetIntent.getParcelableExtra(Env.EXTRA_STUB_INFO);
                 if (targetInfo != null && stubInfo != null) {
+                    RunningActivities.onActivtyCreate(activity, targetInfo, stubInfo);
                     activity.setRequestedOrientation(targetInfo.screenOrientation);
                     PluginManager.getInstance().onActivityCreated(stubInfo, targetInfo);
                 }
@@ -119,6 +131,8 @@ public class PluginInstrumentation extends Instrumentation {
         } else {
             super.callActivityOnDestroy(activity);
         }
+        RunningActivities.onActivtyDestory(activity);
+
         if (enable) {
             try {
                 onActivityDestory(activity);
