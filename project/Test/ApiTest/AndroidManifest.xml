@@ -6,11 +6,11 @@
 
     <uses-sdk android:minSdkVersion="9" />
 
-    <android:uses-permission
+    <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
 
@@ -79,23 +79,23 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".SingleTopActivity$SingleTopActivity1"
-            android:label="@string/title_activity_single_top"
+            android:label="@string/title_activity_single_top1"
             android:launchMode="singleTop" />
         <activity
             android:name=".SingleTopActivity$SingleTopActivity2"
-            android:label="@string/title_activity_single_top"
+            android:label="@string/title_activity_single_top2"
             android:launchMode="singleTop" />
         <activity
             android:name=".SingleTopActivity$SingleTopActivity3"
-            android:label="@string/title_activity_single_top"
+            android:label="@string/title_activity_single_top3"
             android:launchMode="singleTop" />
         <activity
             android:name=".SingleTopActivity$SingleTopActivity4"
-            android:label="@string/title_activity_single_top"
+            android:label="@string/title_activity_single_top4"
             android:launchMode="singleTop" />
         <activity
             android:name=".SingleTopActivity$SingleTopActivity5"
-            android:label="@string/title_activity_single_top"
+            android:label="@string/title_activity_single_top5"
             android:launchMode="singleTop" />
 
 
@@ -106,23 +106,23 @@
 
         <activity
             android:name=".SingleTaskActivity$SingleTaskActivity1"
-            android:label="@string/title_activity_single_task"
+            android:label="@string/title_activity_single_task1"
             android:launchMode="singleTask" />
         <activity
             android:name=".SingleTaskActivity$SingleTaskActivity2"
-            android:label="@string/title_activity_single_task"
+            android:label="@string/title_activity_single_task2"
             android:launchMode="singleTask" />
         <activity
             android:name=".SingleTaskActivity$SingleTaskActivity3"
-            android:label="@string/title_activity_single_task"
+            android:label="@string/title_activity_single_task3"
             android:launchMode="singleTask" />
         <activity
             android:name=".SingleTaskActivity$SingleTaskActivity4"
-            android:label="@string/title_activity_single_task"
+            android:label="@string/title_activity_single_task4"
             android:launchMode="singleTask" />
         <activity
             android:name=".SingleTaskActivity$SingleTaskActivity5"
-            android:label="@string/title_activity_single_task"
+            android:label="@string/title_activity_single_task5"
             android:launchMode="singleTask" />
 
         <activity
@@ -131,23 +131,23 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".SingleInstanceActivity$SingleInstanceActivity1"
-            android:label="@string/title_activity_single_instance"
+            android:label="@string/title_activity_single_instance1"
             android:launchMode="singleInstance" />
         <activity
             android:name=".SingleInstanceActivity$SingleInstanceActivity2"
-            android:label="@string/title_activity_single_instance"
+            android:label="@string/title_activity_single_instance2"
             android:launchMode="singleInstance" />
         <activity
             android:name=".SingleInstanceActivity$SingleInstanceActivity3"
-            android:label="@string/title_activity_single_instance"
+            android:label="@string/title_activity_single_instance3"
             android:launchMode="singleInstance" />
         <activity
             android:name=".SingleInstanceActivity$SingleInstanceActivity4"
-            android:label="@string/title_activity_single_instance"
+            android:label="@string/title_activity_single_instance4"
             android:launchMode="singleInstance" />
         <activity
             android:name=".SingleInstanceActivity$SingleInstanceActivity5"
-            android:label="@string/title_activity_single_instance"
+            android:label="@string/title_activity_single_instance5"
             android:launchMode="singleInstance" />
 
 

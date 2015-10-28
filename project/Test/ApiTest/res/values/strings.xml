@@ -6,7 +6,22 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_single_top">SingleTopActivity</string>
+    <string name="title_activity_single_top1">SingleTopActivity1</string>
+    <string name="title_activity_single_top2">SingleTopActivity2</string>
+    <string name="title_activity_single_top3">SingleTopActivity3</string>
+    <string name="title_activity_single_top4">SingleTopActivity4</string>
+    <string name="title_activity_single_top5">SingleTopActivity5</string>
     <string name="title_activity_single_task">SingleTaskActivity</string>
+    <string name="title_activity_single_task1">SingleTaskActivity1</string>
+    <string name="title_activity_single_task2">SingleTaskActivity2</string>
+    <string name="title_activity_single_task3">SingleTaskActivity3</string>
+    <string name="title_activity_single_task4">SingleTaskActivity4</string>
+    <string name="title_activity_single_task5">SingleTaskActivity5</string>
     <string name="title_activity_single_instance">SingleInstanceActivity</string>
+    <string name="title_activity_single_instance1">SingleInstanceActivity1</string>
+    <string name="title_activity_single_instance2">SingleInstanceActivity2</string>
+    <string name="title_activity_single_instance3">SingleInstanceActivity3</string>
+    <string name="title_activity_single_instance4">SingleInstanceActivity4</string>
+    <string name="title_activity_single_instance5">SingleInstanceActivity5</string>
     <string name="title_activity_activity_test">ActivityTestActivity</string>
 </resources>
