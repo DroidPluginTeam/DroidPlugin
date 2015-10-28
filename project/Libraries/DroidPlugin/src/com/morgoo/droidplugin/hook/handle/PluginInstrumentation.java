@@ -25,10 +25,14 @@ package com.morgoo.droidplugin.hook.handle;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Instrumentation;
-import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
 
@@ -40,10 +44,6 @@ import com.morgoo.droidplugin.hook.binder.IWindowManagerBinderHook;
 import com.morgoo.droidplugin.hook.proxy.IPackageManagerHook;
 import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.helper.Log;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.WeakHashMap;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2014/12/5.
@@ -68,8 +68,6 @@ public class PluginInstrumentation extends Instrumentation {
     }
 
 
-
-
     @Override
     public void callActivityOnCreate(Activity activity, Bundle icicle) {
         if (enable) {
@@ -85,8 +83,9 @@ public class PluginInstrumentation extends Instrumentation {
             } catch (RemoteException e) {
                 Log.e(TAG, "callActivityOnCreate:onActivityCreated", e);
             }
-        }
 
+
+        }
 
 
         if (mTarget != null) {
@@ -107,9 +106,27 @@ public class PluginInstrumentation extends Instrumentation {
                     RunningActivities.onActivtyCreate(activity, targetInfo, stubInfo);
                     activity.setRequestedOrientation(targetInfo.screenOrientation);
                     PluginManager.getInstance().onActivityCreated(stubInfo, targetInfo);
+                    fixTaskDescription(activity, targetInfo);
                 }
             }
         } catch (Exception e) {
+        }
+    }
+
+    private void fixTaskDescription(Activity activity, ActivityInfo targetInfo) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            PackageManager pm = mHostContext.getPackageManager();
+            String lablel = String.valueOf(targetInfo.loadLabel(pm));
+            Drawable icon = targetInfo.loadIcon(pm);
+            Bitmap bitmap = null;
+            if (icon instanceof BitmapDrawable) {
+                bitmap = ((BitmapDrawable) icon).getBitmap();
+            }
+            if (bitmap != null) {
+                activity.setTaskDescription(new android.app.ActivityManager.TaskDescription(lablel, bitmap));
+            } else {
+                activity.setTaskDescription(new android.app.ActivityManager.TaskDescription(lablel));
+            }
         }
     }
 
