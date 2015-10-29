@@ -411,12 +411,12 @@ public class PluginProcessManager {
                     } catch (InvocationTargetException e) {
                         Throwable cause = e.getCause();
                         if (cause != null) {
-                            cause.printStackTrace();
+                            Log.w(TAG, "Fake system service faile", e);
                         } else {
-                            e.printStackTrace();
+                            Log.w(TAG, "Fake system service faile", e);
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Log.w(TAG, "Fake system service faile", e);
                     }
                 }
                 mServiceCache = FieldUtils.readField(originContext, "mServiceCache");
