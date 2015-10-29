@@ -23,6 +23,7 @@
 package com.morgoo.droidplugin.am;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
@@ -80,6 +81,8 @@ public abstract class BaseActivityManagerService {
 
     public void onReportMyProcessName(int callingPid, int callingUid, String stubProcessName, String targetProcessName, String targetPkg) {
     }
+
+    public abstract void onActivtyOnNewIntent(int callingPid, int callingUid, ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent);
 
     private static class ProcessCookie {
         private ProcessCookie(int pid, int uid) {

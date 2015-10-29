@@ -963,4 +963,18 @@ public class PluginManager implements ServiceConnection {
             return PackageManager.SIGNATURE_NO_MATCH;
         }
     }
+
+    public void onActivtyOnNewIntent(ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent) throws RemoteException {
+        try {
+            if (mPluginManager != null) {
+                mPluginManager.onActivtyOnNewIntent(stubInfo, targetInfo, intent);
+            } else {
+                Log.w(TAG, "Plugin Package Manager Service not be connect");
+            }
+        } catch (RemoteException e) {
+            throw e;
+        } catch (Exception e) {
+            Log.e(TAG, "onActivtyOnNewIntent", e);
+        }
+    }
 }

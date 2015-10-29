@@ -192,21 +192,21 @@ class RunningProcesList {
         private void addActivityInfo(String stubActivityName, ActivityInfo info) {
             if (!targetActivityInfos.containsKey(info.name)) {
                 targetActivityInfos.put(info.name, info);
+            }
 
-                //pkgs
-                if (!pkgs.contains(info.packageName)) {
-                    pkgs.add(info.packageName);
-                }
+            //pkgs
+            if (!pkgs.contains(info.packageName)) {
+                pkgs.add(info.packageName);
+            }
 
-                //stub map to activity info
-                Set<ActivityInfo> list = activityInfosMap.get(stubActivityName);
-                if (list == null) {
-                    list = new TreeSet<ActivityInfo>(sComponentInfoComparator);
-                    list.add(info);
-                    activityInfosMap.put(stubActivityName, list);
-                } else {
-                    list.add(info);
-                }
+            //stub map to activity info
+            Set<ActivityInfo> list = activityInfosMap.get(stubActivityName);
+            if (list == null) {
+                list = new TreeSet<ActivityInfo>(sComponentInfoComparator);
+                list.add(info);
+                activityInfosMap.put(stubActivityName, list);
+            } else {
+                list.add(info);
             }
         }
 

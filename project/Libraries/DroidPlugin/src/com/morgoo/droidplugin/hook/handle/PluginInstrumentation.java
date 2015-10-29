@@ -110,6 +110,24 @@ public class PluginInstrumentation extends Instrumentation {
                 }
             }
         } catch (Exception e) {
+            Log.i(TAG, "onActivityCreated fail", e);
+        }
+    }
+
+    private void onActivityOnNewIntent(Activity activity, Intent intent) throws RemoteException {
+        //
+        try {
+            Intent targetIntent = activity.getIntent();
+            if (targetIntent != null) {
+                ActivityInfo targetInfo = targetIntent.getParcelableExtra(Env.EXTRA_TARGET_INFO);
+                ActivityInfo stubInfo = targetIntent.getParcelableExtra(Env.EXTRA_STUB_INFO);
+                if (targetInfo != null && stubInfo != null) {
+                    RunningActivities.onActivtyOnNewIntent(activity, targetInfo, stubInfo, intent);
+                    PluginManager.getInstance().onActivtyOnNewIntent(stubInfo, targetInfo, intent);
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "onActivityCreated fail", e);
         }
     }
 
@@ -198,6 +216,19 @@ public class PluginInstrumentation extends Instrumentation {
             intent.setClassName(activity.getPackageName(), activity.getClass().getName());
         }
 
-        super.callActivityOnNewIntent(activity, intent);
+        if (enable) {
+            try {
+                onActivityOnNewIntent(activity, intent);
+            } catch (RemoteException e) {
+                Log.e(TAG, "callActivityOnNewIntent:onActivityOnNewIntent", e);
+            }
+        }
+        if (mTarget != null) {
+            mTarget.callActivityOnNewIntent(activity, intent);
+        } else {
+            super.callActivityOnNewIntent(activity, intent);
+        }
     }
+
+
 }

@@ -1345,4 +1345,10 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     public void onDestroy() {
         mActivityManagerService.onDestory();
     }
+
+    @Override
+    public void onActivtyOnNewIntent(ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent) throws RemoteException{
+        mActivityManagerService.onActivtyOnNewIntent(Binder.getCallingPid(), Binder.getCallingUid(), stubInfo, targetInfo, intent);
+    }
+
 }

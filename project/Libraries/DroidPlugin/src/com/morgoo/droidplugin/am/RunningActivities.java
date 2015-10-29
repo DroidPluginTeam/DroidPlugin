@@ -2,6 +2,7 @@ package com.morgoo.droidplugin.am;
 
 import android.app.Activity;
 import android.app.LocalActivityManager;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 
@@ -27,6 +28,10 @@ public class RunningActivities {
     private static Map<Integer, RunningActivityRecord> mRunningSingleTopActivityList = new HashMap<>();
     private static Map<Integer, RunningActivityRecord> mRunningSingleTaskActivityList = new HashMap<>();
     private static Map<Integer, RunningActivityRecord> mRunningSingleInstanceActivityList = new HashMap<>();
+
+    public static void onActivtyOnNewIntent(Activity activity, ActivityInfo targetInfo, ActivityInfo stubInfo, Intent intent) {
+        //TODO
+    }
 
 
     private static class RunningActivityRecord {

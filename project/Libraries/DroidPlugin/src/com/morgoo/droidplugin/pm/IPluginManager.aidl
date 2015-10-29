@@ -144,4 +144,6 @@ interface IPluginManager {
       void onProviderCreated(in ProviderInfo stubInfo,in ProviderInfo targetInfo);
 
       void reportMyProcessName(in String stubProcessName,in String targetProcessName, String targetPkg);
+
+      void onActivtyOnNewIntent(in ActivityInfo stubInfo,in ActivityInfo targetInfo, in Intent intent);
 }

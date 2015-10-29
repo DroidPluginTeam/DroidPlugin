@@ -241,6 +241,11 @@ public class MyActivityManagerService extends BaseActivityManagerService {
     }
 
     @Override
+    public void onActivtyOnNewIntent(int callingPid, int callingUid,ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent) {
+        mRunningProcessList.addActivityInfo(callingPid, callingUid, stubInfo, targetInfo);
+    }
+
+    @Override
     public void onServiceCreated(int callingPid, int callingUid, ServiceInfo stubInfo, ServiceInfo targetInfo) {
         mRunningProcessList.addServiceInfo(callingPid, callingUid, stubInfo, targetInfo);
     }
