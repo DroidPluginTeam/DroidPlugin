@@ -157,21 +157,30 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                         try {
                             ClassLoader pluginClassLoader = PluginProcessManager.getPluginClassLoader(component.getPackageName());
                             setIntentClassLoader(newIntent, pluginClassLoader);
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchMethodException e) {
-                            e.printStackTrace();
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (InvocationTargetException e) {
-                            e.printStackTrace();
+                        } catch (Exception e) {
+                            Log.w(TAG, "Set Class Loader to new Intent fail", e);
                         }
+//                        Log.i(TAG, "ZYActivity Replace %s/%s by %s/%s", activityInfo.packageName, activityInfo.name, component.getPackageName(), component.getShortClassName());
                         newIntent.setComponent(component);
                         newIntent.putExtra(Env.EXTRA_TARGET_INTENT, intent);
                         String callingPackage = (String) args[1];
                         if (TextUtils.equals(mHostContext.getPackageName(), callingPackage)) {
                             newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP && activityInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
+//                                newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+//                            }
                         }
+
+//                        if (activityInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
+//
+//                        } else if (activityInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_INSTANCE) {
+//
+//                        } else if (activityInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TASK) {
+//                            newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        } else if (activityInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TOP) {
+//                            newIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                        }
+
                         args[intentOfArgIndex] = newIntent;
                         args[1] = mHostContext.getPackageName();
                     } else {

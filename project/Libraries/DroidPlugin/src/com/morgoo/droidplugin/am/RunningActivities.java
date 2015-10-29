@@ -3,6 +3,7 @@ package com.morgoo.droidplugin.am;
 import android.app.Activity;
 import android.app.LocalActivityManager;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 
 import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.helper.Log;
@@ -84,17 +85,11 @@ public class RunningActivities {
                 if (record.stubActivityInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
                     continue;
                 } else if (record.stubActivityInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TOP) {
-                    if (mRunningSingleTopActivityList.size() >= PluginManager.STUB_NO_ACTIVITY_MAX_NUM - 2) {
-                        doFinshIt(mRunningSingleTopActivityList);
-                    }
+                    doFinshIt(mRunningSingleTopActivityList);
                 } else if (record.stubActivityInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TASK) {
-                    if (mRunningSingleTaskActivityList.size() >= PluginManager.STUB_NO_ACTIVITY_MAX_NUM - 2) {
-                        doFinshIt(mRunningSingleTopActivityList);
-                    }
+                    doFinshIt(mRunningSingleTopActivityList);
                 } else if (record.stubActivityInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_INSTANCE) {
-                    if (mRunningSingleInstanceActivityList.size() >= PluginManager.STUB_NO_ACTIVITY_MAX_NUM - 2) {
-                        doFinshIt(mRunningSingleTopActivityList);
-                    }
+                    doFinshIt(mRunningSingleTopActivityList);
                 }
             }
         }
@@ -122,14 +117,24 @@ public class RunningActivities {
     };
 
     private static void doFinshIt(Map<Integer, RunningActivityRecord> runningActivityList) {
-        if (runningActivityList != null && runningActivityList.size() > 0) {
+        if (runningActivityList != null && runningActivityList.size() >= PluginManager.STUB_NO_ACTIVITY_MAX_NUM - 1) {
             List<RunningActivityRecord> activitys = new ArrayList<>(runningActivityList.size());
             activitys.addAll(runningActivityList.values());
             Collections.sort(activitys, sRunningActivityRecordComparator);
             RunningActivityRecord record = activitys.get(0);
             if (record.activity != null && !record.activity.isFinishing()) {
                 record.activity.finish();
-                Log.d(TAG, "ZYactivity.finish stub=%s target=%s", record.stubActivityInfo, record.targetActivityInfo);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    record.activity.finishAndRemoveTask();
+//                    record.activity.releaseInstance();
+//                } else {
+//                    record.activity.finish();
+//                }
+//
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                    record.activity.finishAffinity();
+//                }
+//                Log.d(TAG, "ZYActivity.finish stub=%s target=%s", record.stubActivityInfo, record.targetActivityInfo);
             }
         }
 
