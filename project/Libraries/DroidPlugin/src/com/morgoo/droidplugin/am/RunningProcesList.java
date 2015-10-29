@@ -22,19 +22,15 @@
 
 package com.morgoo.droidplugin.am;
 
-import android.app.ActivityManager;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ComponentInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
-import android.content.pm.Signature;
 import android.os.RemoteException;
 import android.text.TextUtils;
 
-import com.morgoo.droidplugin.pm.IPluginManagerImpl;
 import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.helper.Log;
 
@@ -483,7 +479,7 @@ class RunningProcesList {
                 Set<ActivityInfo> infos = item.activityInfosMap.get(stubInfo.name);
                 if (infos != null && infos.size() > 0) {
                     for (ActivityInfo info : infos) {
-                        if (TextUtils.equals(info.name, targetInfo.name)) {
+                        if (TextUtils.equals(info.name, targetInfo.name) && TextUtils.equals(info.packageName, targetInfo.packageName)) {
                             return false;
                         }
                     }
