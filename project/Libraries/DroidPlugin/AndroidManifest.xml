@@ -172,6 +172,8 @@
     <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="com.qihoo.appstore.rtservice.ACCESS_RTSERVICE" />
     <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature
