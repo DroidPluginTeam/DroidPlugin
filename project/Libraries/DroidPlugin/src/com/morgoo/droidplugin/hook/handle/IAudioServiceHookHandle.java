@@ -26,6 +26,7 @@ import android.content.Context;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.text.TextUtils;
+
 import com.morgoo.droidplugin.hook.BaseHookHandle;
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
 
@@ -51,6 +52,7 @@ public class IAudioServiceHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("setMasterVolume", new setMasterVolume(mHostContext));
         sHookedMethodHandlers.put("requestAudioFocus", new requestAudioFocus(mHostContext));
         sHookedMethodHandlers.put("registerRemoteControlClient", new registerRemoteControlClient(mHostContext));
+
     }
 
     private static class MyBaseHandler extends HookedMethodHandler {
@@ -63,11 +65,12 @@ public class IAudioServiceHookHandle extends BaseHookHandle {
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
             if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
                 if (args != null && args.length > 0) {
-                    int index = args.length - 1;
-                    if (args[index] instanceof String) {
-                        String callingPkg = (String) args[index];
-                        if (!TextUtils.equals(callingPkg, mHostContext.getPackageName())) {
-                            args[index] = mHostContext.getPackageName();
+                    for (int index = 0; index < args.length; index++) {
+                        if (args[index] instanceof String) {
+                            String callingPkg = (String) args[index];
+                            if (!TextUtils.equals(callingPkg, mHostContext.getPackageName())) {
+                                args[index] = mHostContext.getPackageName();
+                            }
                         }
                     }
                 }
