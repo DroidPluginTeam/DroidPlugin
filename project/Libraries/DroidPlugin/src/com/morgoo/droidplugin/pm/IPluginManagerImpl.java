@@ -1351,4 +1351,9 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         mActivityManagerService.onActivtyOnNewIntent(Binder.getCallingPid(), Binder.getCallingUid(), stubInfo, targetInfo, intent);
     }
 
+    @Override
+    public int getMyPid(){
+        return android.os.Process.myPid();
+    }
+
 }

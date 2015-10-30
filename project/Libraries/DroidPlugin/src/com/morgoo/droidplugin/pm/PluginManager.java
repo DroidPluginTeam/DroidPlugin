@@ -977,4 +977,20 @@ public class PluginManager implements ServiceConnection {
             Log.e(TAG, "onActivtyOnNewIntent", e);
         }
     }
+
+    public int getMyPid() throws RemoteException {
+        try {
+            if (mPluginManager != null) {
+               return mPluginManager.getMyPid();
+            } else {
+                Log.w(TAG, "Plugin Package Manager Service not be connect");
+                return -1;
+            }
+        } catch (RemoteException e) {
+            throw e;
+        } catch (Exception e) {
+            Log.e(TAG, "getMyPid", e);
+            return -1;
+        }
+    }
 }
