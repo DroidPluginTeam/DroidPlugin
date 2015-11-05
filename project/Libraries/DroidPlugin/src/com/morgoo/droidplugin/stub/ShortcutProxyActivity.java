@@ -24,7 +24,10 @@ package com.morgoo.droidplugin.stub;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.RemoteException;
 
 import com.morgoo.droidplugin.core.Env;
 import com.morgoo.droidplugin.pm.PluginManager;
@@ -47,8 +50,14 @@ public class ShortcutProxyActivity extends Activity {
                 if (forwordIntent != null) {
                     forwordIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     forwordIntent.putExtras(intent);
+                    //安全审核问题
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                        forwordIntent.setSelector(null);
+                    }
                     if (PluginManager.getInstance().isConnected()) {
-                        startActivity(forwordIntent);
+                        if (isPlugin(forwordIntent)) {
+                            startActivity(forwordIntent);
+                        }
                         finish();
                     } else {
                         waitAndStart(forwordIntent);
@@ -65,13 +74,24 @@ public class ShortcutProxyActivity extends Activity {
         }
     }
 
+    private boolean isPlugin(Intent intent) {
+        try {
+            ResolveInfo info = PluginManager.getInstance().resolveIntent(intent, null, 0);
+            return info != null && PluginManager.getInstance().isPluginPackage(info.resolvePackageName);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private void waitAndStart(final Intent forwordIntent) {
         new Thread() {
             @Override
             public void run() {
                 try {
                     PluginManager.getInstance().waitForConnected();
-                    startActivity(forwordIntent);
+                    if (isPlugin(forwordIntent)) {
+                        startActivity(forwordIntent);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -90,14 +110,16 @@ public class ShortcutProxyActivity extends Activity {
                 String intentUri = intent.getStringExtra(Env.EXTRA_TARGET_INTENT_URI);
                 if (intentUri != null) {
                     try {
-                        return Intent.parseUri(intentUri, 0);
+                        Intent res= Intent.parseUri(intentUri, 0);
+                        return res;
                     } catch (URISyntaxException e) {
                     }
                 } else if (forwordIntent != null) {
                     return forwordIntent;
                 }
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         return null;
     }
 }
