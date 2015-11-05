@@ -1082,7 +1082,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
                                 List<ApplicationInfo> infos = PluginManager.getInstance().getInstalledApplications(flags);
                                 if (infos != null && infos.size() > 0) {
                                     final List<ApplicationInfo> packageInfos = new ArrayList<ApplicationInfo>();
-                                    populateList.invoke(invokeResult, packageInfos, PackageInfo.CREATOR);
+                                    populateList.invoke(invokeResult, packageInfos, ApplicationInfo.CREATOR);
                                     packageInfos.addAll(infos);
                                     Object parceledListSlice = invokeResult.getClass().newInstance();
                                     for (ApplicationInfo info : packageInfos) {
