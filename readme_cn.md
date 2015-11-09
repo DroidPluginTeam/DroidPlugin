@@ -1,7 +1,7 @@
 Droid Plugin
 ======
 
-DroidPlugin 是***360手机助手***在Android系统上实现了一种新的**插件机制**:它可以在无需安装、修改的情况下运行APK文件,此机制对改进大型APP的架构，实现多团队协作开发具有一定的好处。
+DroidPlugin 是***360手机助手***在Android系统上实现了一种新的***插件机制***:它可以在无需安装、修改的情况下运行APK文件,此机制对改进大型APP的架构，实现多团队协作开发具有一定的好处。
 -------
 
 
@@ -19,7 +19,6 @@ DroidPlugin 是***360手机助手***在Android系统上实现了一种新的**�
      a.  带自定义RemoteLayout的Notification
      b.  图标通过R.drawable.XXX指定的通知（插件系统会自动将其转化为Bitmap）
  2. 无法在插件中注册一些具有特殊Intent Filter的`Service`、`Activity`、`BroadcastReceiver`、`ContentProvider`等组件以供Android系统、已经安装的其他APP调用。
- 3. 对`Activity`的LaunchMode支持不够好，Activity Stack管理存在一定缺陷。Activity的`onNewIntent`函数可能不会被触发。  （此为BUG，未来会修复）
  3. 缺乏对Native层的Hook，对某些带native代码的apk支持不好，可能无法运行。比如一部分游戏无法当作插件运行。      
     
 ##特点：

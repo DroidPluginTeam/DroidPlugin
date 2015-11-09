@@ -22,8 +22,6 @@ It enables the host app run any third-party apk without installation, modificati
  2. Unable to define specified `Intent Filter` for the plugged app's `Service`、`Activity`、`BroadcastReceiver`
  and `ContentProvider`. So the plugged app is invisible for the outside system and app.
 
- 3. Unable to support all `LaunchMode` of `Activity`, has problems with Activity stack management. `Activity`'s `onNewIntent` method may not be called (This is a bug, will be fixed in the future).
-
  3. Lack of `Hook` to the `Native` layer, thus apk (e.g. a majority of game apps) with `native` code cannot be loaded as plugin.
     
 ##Features：
