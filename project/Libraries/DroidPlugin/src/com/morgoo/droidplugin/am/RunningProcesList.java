@@ -22,9 +22,11 @@
 
 package com.morgoo.droidplugin.am;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ComponentInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
@@ -94,9 +96,20 @@ class RunningProcesList {
         //是否是持久化的app。
         for (ProcessItem processItem : items.values()) {
             if (processItem.pid == pid) {
+
+                if (processItem.pkgs != null && processItem.pkgs.size() > 0) {
+                    for (String pkg : processItem.pkgs) {
+                        if (isPersistentApp(pkg)) {
+                            return true;
+                        }
+                    }
+                }
+
                 if (processItem.targetActivityInfos != null && processItem.targetActivityInfos.size() > 0) {
                     for (ActivityInfo info : processItem.targetActivityInfos.values()) {
                         if ((info.applicationInfo.flags & ApplicationInfo.FLAG_PERSISTENT) != 0) {
+                            return true;
+                        } else if (isPersistentApp(info.packageName)) {
                             return true;
                         }
                     }
@@ -106,6 +119,8 @@ class RunningProcesList {
                     for (ProviderInfo info : processItem.targetProviderInfos.values()) {
                         if ((info.applicationInfo.flags & ApplicationInfo.FLAG_PERSISTENT) != 0) {
                             return true;
+                        } else if (isPersistentApp(info.packageName)) {
+                            return true;
                         }
                     }
                 }
@@ -114,6 +129,8 @@ class RunningProcesList {
                     for (ServiceInfo info : processItem.targetServiceInfos.values()) {
                         if ((info.applicationInfo.flags & ApplicationInfo.FLAG_PERSISTENT) != 0) {
                             return true;
+                        } else if (isPersistentApp(info.packageName)) {
+                            return true;
                         }
                     }
                 }
@@ -121,6 +138,28 @@ class RunningProcesList {
         }
 
         return false;
+    }
+
+    private boolean isPersistentApp(String packageName) {
+        try {
+            PackageInfo info = mHostContext.getPackageManager().getPackageInfo(packageName, PackageManager.GET_META_DATA);
+            if (info != null && info.applicationInfo.metaData != null && info.applicationInfo.metaData.containsKey(PluginManager.EXTRA_APP_PERSISTENT)) {
+                if ((info.applicationInfo.flags & ApplicationInfo.FLAG_PERSISTENT) != 0) {
+                    return true;
+                }
+                boolean isPersistentApp = info.applicationInfo.metaData.getBoolean(PluginManager.EXTRA_APP_PERSISTENT);
+                return isPersistentApp;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private Context mHostContext;
+
+    public void setContext(Context context) {
+        this.mHostContext = context;
     }
 
 

@@ -70,6 +70,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         super.onCreate(pluginManagerImpl);
         AttributeCache.init(mHostContext);
         mStaticProcessList.onCreate(mHostContext);
+        mRunningProcessList.setContext(mHostContext);
     }
 
     @Override
