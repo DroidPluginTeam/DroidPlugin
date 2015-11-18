@@ -76,8 +76,14 @@ public class ShortcutProxyActivity extends Activity {
 
     private boolean isPlugin(Intent intent) {
         try {
-            ResolveInfo info = PluginManager.getInstance().resolveIntent(intent, null, 0);
-            return info != null && PluginManager.getInstance().isPluginPackage(info.resolvePackageName);
+            String pkg = null;
+            if (intent.getComponent() != null && intent.getComponent().getPackageName() != null) {
+                pkg = intent.getComponent().getPackageName();
+            } else {
+                ResolveInfo info = PluginManager.getInstance().resolveIntent(intent, null, 0);
+                pkg = info.resolvePackageName;
+            }
+            return pkg != null && PluginManager.getInstance().isPluginPackage(pkg);
         } catch (Exception e) {
             return false;
         }
@@ -110,7 +116,7 @@ public class ShortcutProxyActivity extends Activity {
                 String intentUri = intent.getStringExtra(Env.EXTRA_TARGET_INTENT_URI);
                 if (intentUri != null) {
                     try {
-                        Intent res= Intent.parseUri(intentUri, 0);
+                        Intent res = Intent.parseUri(intentUri, 0);
                         return res;
                     } catch (URISyntaxException e) {
                     }
