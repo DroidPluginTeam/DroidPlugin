@@ -151,7 +151,7 @@
             android:label="@string/title_activity_single_instance5"
             android:launchMode="singleInstance" />
 
-
+       
         <activity
             android:name=".ActivityTestActivity"
             android:label="@string/title_activity_activity_test" >

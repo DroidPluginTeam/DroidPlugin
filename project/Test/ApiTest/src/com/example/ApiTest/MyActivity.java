@@ -2,6 +2,7 @@ package com.example.ApiTest;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -55,11 +56,11 @@ public class MyActivity extends Activity implements OnClickListener {
         } else if (id == R.id.button8) {
             try {
                 PackageManager pm = getPackageManager();
-                List<PackageInfo> infos = pm.getInstalledPackages(0);
+                List<ApplicationInfo> infos = pm.getInstalledApplications(0);
                 if (infos != null && infos.size() > 0) {
                     Log.e(TAG, "infos.size=" + infos.size());
-                    for (PackageInfo info : infos) {
-                        Log.e(TAG, "info.pkg=" + info.applicationInfo.loadLabel(pm) + ",pkg:" + info.packageName);
+                    for (ApplicationInfo info : infos) {
+                        Log.e(TAG, "info.pkg=" + info.loadLabel(pm) + ",pkg:" + info.packageName);
                     }
                 }
             } catch (Exception e) {
