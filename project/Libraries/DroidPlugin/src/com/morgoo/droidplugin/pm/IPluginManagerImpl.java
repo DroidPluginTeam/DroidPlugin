@@ -498,7 +498,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         try {
             enforcePluginFileExists();
             if (shouldNotBlockOtherInfo()) {
-                IntentMatcher.resolveServiceIntent(mContext, mPluginCache, intent, resolvedType, flags);
+                return IntentMatcher.resolveServiceIntent(mContext, mPluginCache, intent, resolvedType, flags);
             } else {
                 List<String> pkgs = mActivityManagerService.getPackageNamesByPid(Binder.getCallingPid());
                 List<ResolveInfo> infos = new ArrayList<ResolveInfo>();
