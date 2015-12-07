@@ -24,8 +24,13 @@ package com.morgoo.droidplugin.core;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,27 +45,46 @@ import java.util.List;
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/2/5.
  */
 public class PluginDirHelper {
+    private static final String TAG = PluginDirHelper.class.getSimpleName();
 
-
+    private static final String DATA_DIR_MODE = "701";
+    private static final String DEFAULT_DIR_MODE = "700";
     private static File sBaseDir = null;
 
     private static void init(Context context) {
         if (sBaseDir == null) {
             sBaseDir = new File(context.getCacheDir().getParentFile(), "Plugin");
-            enforceDirExists(sBaseDir);
+//            sBaseDir = context.getDir("plugin", Context.MODE_WORLD_READABLE);
+            enforceDirExists(sBaseDir, DATA_DIR_MODE);
         }
     }
 
-    private static String enforceDirExists(File file) {
+    private static String enforceDirExists(File file, String modeStr) {
         if (!file.exists()) {
             file.mkdirs();
+
+            String cmd = "";
+            try {
+                cmd = "chmod " + modeStr + " " + file.getPath();
+//                Log.d(TAG, "cmd: " + cmd);
+
+                ProcessBuilder pb = new ProcessBuilder(new String[]{"chmod", modeStr, file.getPath()});
+                pb.start();
+            } catch (IOException e) {
+                Log.e(TAG, "error in exec cmd: " + cmd, e);
+            }
         }
         return file.getPath();
+
+    }
+
+    private static String enforceDirExists(File file) {
+        return enforceDirExists(file, DEFAULT_DIR_MODE);
     }
 
     public static String makePluginBaseDir(Context context, String pluginInfoPackageName) {
         init(context);
-        return enforceDirExists(new File(sBaseDir, pluginInfoPackageName));
+        return enforceDirExists(new File(sBaseDir, pluginInfoPackageName), DATA_DIR_MODE);
     }
 
     public static String getBaseDir(Context context) {
@@ -69,7 +93,8 @@ public class PluginDirHelper {
     }
 
     public static String getPluginDataDir(Context context, String pluginInfoPackageName) {
-        return enforceDirExists(new File(makePluginBaseDir(context, pluginInfoPackageName), "data/" + pluginInfoPackageName));
+        String dataDir = enforceDirExists(new File(makePluginBaseDir(context, pluginInfoPackageName), "data"), DATA_DIR_MODE);
+        return enforceDirExists(new File(dataDir,pluginInfoPackageName), DATA_DIR_MODE);
     }
 
     public static String getPluginSignatureDir(Context context, String pluginInfoPackageName) {
