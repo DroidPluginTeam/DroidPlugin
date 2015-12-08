@@ -212,6 +212,7 @@ public class PluginInstrumentation extends Instrumentation {
 
     @Override
     public void callActivityOnNewIntent(Activity activity, Intent intent) {
+        intent = intent.getParcelableExtra(Env.EXTRA_TARGET_INTENT);
         if (activity != null && intent != null) {
             intent.setClassName(activity.getPackageName(), activity.getClass().getName());
         }
