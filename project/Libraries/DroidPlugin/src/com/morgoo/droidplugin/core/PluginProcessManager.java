@@ -196,7 +196,15 @@ public class PluginProcessManager {
                         apk = pluginInfo.applicationInfo.publicSourceDir;
                     }
                     if (apk != null) {
-                        ClassLoader classloader = new PluginClassLoader(apk, optimizedDirectory, libraryPath, ClassLoader.getSystemClassLoader());
+                        ClassLoader classloader = null;
+                        try {
+                            classloader = new PluginClassLoader(apk, optimizedDirectory, libraryPath, ClassLoader.getSystemClassLoader());
+                        } catch (Exception e) {
+                        }
+                        if(classloader==null){
+                            PluginDirHelper.cleanOptimizedDirectory(optimizedDirectory);
+                            classloader = new PluginClassLoader(apk, optimizedDirectory, libraryPath, ClassLoader.getSystemClassLoader());
+                        }
                         synchronized (loadedApk) {
                             FieldUtils.writeDeclaredField(loadedApk, "mClassLoader", classloader);
                         }
