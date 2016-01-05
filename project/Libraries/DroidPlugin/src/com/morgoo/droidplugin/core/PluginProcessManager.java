@@ -78,10 +78,16 @@ public class PluginProcessManager {
     private static Map<String, Object> sPluginLoadedApkCache = new WeakHashMap<String, Object>(1);
 
     public static String getCurrentProcessName(Context context) {
+        if (context == null)
+            return sCurrentProcessName;
+
         synchronized (sGetCurrentProcessNameLock) {
             if (sCurrentProcessName == null) {
                 ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
                 List<RunningAppProcessInfo> infos = activityManager.getRunningAppProcesses();
+                if (infos == null)
+                    return null;
+
                 for (RunningAppProcessInfo info : infos) {
                     if (info.pid == android.os.Process.myPid()) {
                         sCurrentProcessName = info.processName;
@@ -143,10 +149,12 @@ public class PluginProcessManager {
     }
 
     public static final boolean isPluginProcess(Context context) {
-        initProcessList(context);
         String currentProcessName = getCurrentProcessName(context);
-        return !TextUtils.equals(currentProcessName, context.getPackageName()) &&
-                !sProcessList.contains(currentProcessName);
+        if (TextUtils.equals(currentProcessName, context.getPackageName()))
+            return false;
+
+        initProcessList(context);
+        return !sProcessList.contains(currentProcessName);
     }
 
     public static ClassLoader getPluginClassLoader(String pkg) throws IllegalAccessException, NoSuchMethodException, ClassNotFoundException, InvocationTargetException {
