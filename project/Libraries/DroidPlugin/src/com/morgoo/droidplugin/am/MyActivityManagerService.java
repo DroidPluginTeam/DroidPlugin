@@ -63,6 +63,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
 
     public MyActivityManagerService(Context hostContext) {
         super(hostContext);
+        mRunningProcessList.setContext(mHostContext);
     }
 
     @Override
