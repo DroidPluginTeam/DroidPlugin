@@ -29,6 +29,7 @@ import android.text.TextUtils;
 
 import com.morgoo.droidplugin.hook.BaseHookHandle;
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
+import com.morgoo.droidplugin.pm.PluginManager;
 
 import java.lang.reflect.Method;
 
@@ -68,7 +69,7 @@ public class IAudioServiceHookHandle extends BaseHookHandle {
                     for (int index = 0; index < args.length; index++) {
                         if (args[index] instanceof String) {
                             String callingPkg = (String) args[index];
-                            if (!TextUtils.equals(callingPkg, mHostContext.getPackageName())) {
+                            if (!TextUtils.equals(callingPkg, mHostContext.getPackageName()) && PluginManager.getInstance().isPluginPackage(callingPkg)) {
                                 args[index] = mHostContext.getPackageName();
                             }
                         }

@@ -111,6 +111,7 @@ It is very simple integrate Droid Plugin to your proejct：
 ## Remark：
 
 Please feel free to [report bugs](https://github.com/Qihoo360/DroidPlugin/issues) or ask for help via email.
+QQ Group:318901026
 
 ##Who is using Droid Plugin?
 	

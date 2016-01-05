@@ -27,6 +27,7 @@ import android.text.TextUtils;
 
 import com.morgoo.droidplugin.hook.BaseHookHandle;
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
+import com.morgoo.droidplugin.pm.PluginManager;
 
 import java.lang.reflect.Method;
 
@@ -163,7 +164,7 @@ public class IWifiManagerHookHandle extends BaseHookHandle {
                     Object arg = args[i];
                     if (arg != null && arg instanceof String) {
                         String str = ((String) arg);
-                        if (!TextUtils.equals(str, mHostContext.getPackageName())) {
+                        if (!TextUtils.equals(str, mHostContext.getPackageName()) && PluginManager.getInstance().isPluginPackage(str)) {
                             args[i] = mHostContext.getPackageName();
                         }
                     }
