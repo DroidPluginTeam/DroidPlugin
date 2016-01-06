@@ -114,6 +114,12 @@ public class PluginManager implements ServiceConnection {
                         }
                     }
 
+                    mPluginManager.asBinder().linkToDeath(new IBinder.DeathRecipient() {
+                        @Override
+                        public void binderDied() {
+                            onServiceDisconnected(componentName);
+                        }
+                    }, 0);
 
                     Log.i(TAG, "PluginManager ready!");
                 } catch (Throwable e) {
@@ -168,9 +174,35 @@ public class PluginManager implements ServiceConnection {
         }
     }
 
+
+    /**
+     * 提供超时设置的waitForConnected版本
+     * @param timeout，当超时时间大于0时超时设置生效
+     */
+    public void waitForConnected(long timeout) {
+        if(timeout > 0){
+            if (isConnected()) {
+                return;
+            } else {
+                try {
+                    synchronized (mWaitLock) {
+                        mWaitLock.wait(timeout);
+                    }
+                } catch (InterruptedException e) {
+                    Log.i(TAG, "waitForConnected:" + e.getMessage());
+                }
+                Log.i(TAG, "waitForConnected finish");
+            }
+        }else{
+            waitForConnected();
+        }
+    }
+
+
+
     private IPluginManager mPluginManager;
 
-    private void connectToService() {
+    public void connectToService() {
         if (mPluginManager == null) {
             try {
                 Intent intent = new Intent(mHostContext, PluginManagerService.class);

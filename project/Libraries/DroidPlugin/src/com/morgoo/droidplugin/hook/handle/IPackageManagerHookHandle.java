@@ -953,65 +953,69 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
 
             //API 4.3_r1, 4.4_r1,5.0.2_r1
         /*public ParceledListSlice getInstalledPackages(int flags, int userId) throws RemoteException;*/
-            if (invokeResult != null && ParceledListSliceCompat.isParceledListSlice(invokeResult)) {
-                if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
-                    Method getListMethod = MethodUtils.getAccessibleMethod(invokeResult.getClass(), "getList");
-                    List data = (List) getListMethod.invoke(invokeResult);
-                    final int index0 = 0;
-                    if (args.length > index0 && args[index0] instanceof Integer) {
-                        int flags = (Integer) args[index0];
-                        List<PackageInfo> infos = PluginManager.getInstance().getInstalledPackages(flags);
-                        if (infos != null && infos.size() > 0) {
-                            data.addAll(infos);
-                        }
-                    }
-                } else {
-                    Method isLastSliceMethod = invokeResult.getClass().getMethod("isLastSlice");
-                    Method setLastSlice = invokeResult.getClass().getMethod("setLastSlice", boolean.class);
-                    Method appendMethod = invokeResult.getClass().getMethod("append", Parcelable.class);
-                    Method populateList = invokeResult.getClass().getMethod("populateList", List.class, Parcelable.Creator.class);
-                    if (!setLastSlice.isAccessible()) {
-                        setLastSlice.setAccessible(true);
-                    }
-                    if (!populateList.isAccessible()) {
-                        populateList.setAccessible(true);
-                    }
-                    if (!isLastSliceMethod.isAccessible()) {
-                        isLastSliceMethod.setAccessible(true);
-                    }
-                    if (!appendMethod.isAccessible()) {
-                        appendMethod.setAccessible(true);
-                    }
-                    boolean isLastSlice = (Boolean) isLastSliceMethod.invoke(invokeResult);
-                    if (isLastSlice) {
+            try {
+                if (invokeResult != null && ParceledListSliceCompat.isParceledListSlice(invokeResult)) {
+                    if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
+                        Method getListMethod = MethodUtils.getAccessibleMethod(invokeResult.getClass(), "getList");
+                        List data = (List) getListMethod.invoke(invokeResult);
                         final int index0 = 0;
                         if (args.length > index0 && args[index0] instanceof Integer) {
                             int flags = (Integer) args[index0];
                             List<PackageInfo> infos = PluginManager.getInstance().getInstalledPackages(flags);
                             if (infos != null && infos.size() > 0) {
-                                final List<PackageInfo> packageInfos = new ArrayList<PackageInfo>();
-                                populateList.invoke(invokeResult, packageInfos, PackageInfo.CREATOR);
-                                packageInfos.addAll(infos);
-                                Object parceledListSlice = invokeResult.getClass().newInstance();
-                                for (PackageInfo packageInfo : packageInfos) {
-                                    appendMethod.invoke(parceledListSlice, packageInfo);
+                                data.addAll(infos);
+                            }
+                        }
+                    } else {
+                        Method isLastSliceMethod = invokeResult.getClass().getMethod("isLastSlice");
+                        Method setLastSlice = invokeResult.getClass().getMethod("setLastSlice", boolean.class);
+                        Method appendMethod = invokeResult.getClass().getMethod("append", Parcelable.class);
+                        Method populateList = invokeResult.getClass().getMethod("populateList", List.class, Parcelable.Creator.class);
+                        if (!setLastSlice.isAccessible()) {
+                            setLastSlice.setAccessible(true);
+                        }
+                        if (!populateList.isAccessible()) {
+                            populateList.setAccessible(true);
+                        }
+                        if (!isLastSliceMethod.isAccessible()) {
+                            isLastSliceMethod.setAccessible(true);
+                        }
+                        if (!appendMethod.isAccessible()) {
+                            appendMethod.setAccessible(true);
+                        }
+                        boolean isLastSlice = (Boolean) isLastSliceMethod.invoke(invokeResult);
+                        if (isLastSlice) {
+                            final int index0 = 0;
+                            if (args.length > index0 && args[index0] instanceof Integer) {
+                                int flags = (Integer) args[index0];
+                                List<PackageInfo> infos = PluginManager.getInstance().getInstalledPackages(flags);
+                                if (infos != null && infos.size() > 0) {
+                                    final List<PackageInfo> packageInfos = new ArrayList<PackageInfo>();
+                                    populateList.invoke(invokeResult, packageInfos, PackageInfo.CREATOR);
+                                    packageInfos.addAll(infos);
+                                    Object parceledListSlice = invokeResult.getClass().newInstance();
+                                    for (PackageInfo packageInfo : packageInfos) {
+                                        appendMethod.invoke(parceledListSlice, packageInfo);
+                                    }
+                                    setLastSlice.invoke(parceledListSlice, true);
+                                    setFakedResult(parceledListSlice);
                                 }
-                                setLastSlice.invoke(parceledListSlice, true);
-                                setFakedResult(parceledListSlice);
                             }
                         }
                     }
-                }
-            } else if (invokeResult instanceof List) {
-                final int index0 = 0;
-                if (args.length > index0 && args[index0] instanceof Integer) {
-                    int flags = (Integer) args[index0];
-                    List<PackageInfo> infos = PluginManager.getInstance().getInstalledPackages(flags);
-                    if (infos != null && infos.size() > 0) {
-                        List old = (List) invokeResult;
-                        old.addAll(infos);
+                } else if (invokeResult instanceof List) {
+                    final int index0 = 0;
+                    if (args.length > index0 && args[index0] instanceof Integer) {
+                        int flags = (Integer) args[index0];
+                        List<PackageInfo> infos = PluginManager.getInstance().getInstalledPackages(flags);
+                        if (infos != null && infos.size() > 0) {
+                            List old = (List) invokeResult;
+                            old.addAll(infos);
+                        }
                     }
                 }
+            }catch (Exception e) {
+                e.printStackTrace();
             }
             super.afterInvoke(receiver, method, args, invokeResult);
         }

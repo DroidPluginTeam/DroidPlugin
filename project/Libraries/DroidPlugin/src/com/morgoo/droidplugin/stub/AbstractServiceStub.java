@@ -86,7 +86,7 @@ public abstract class AbstractServiceStub extends Service {
                     mCreator.onStart(this, intent, 0, startId);
                 }
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             handleException(e);
         }
         super.onStart(intent, startId);
@@ -116,7 +116,7 @@ public abstract class AbstractServiceStub extends Service {
         }
     }
 
-    private void handleException(Exception e) {
+    private void handleException(Throwable e) {
         Log.e(TAG, "handleException", e);
     }
 

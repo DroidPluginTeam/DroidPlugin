@@ -36,7 +36,7 @@ import java.util.List;
  * source_dir： /data/data/com.HOST.PACKAGE/Plugin/PLUGIN.PKG/apk/apk-1.apk
  * 数据目录： /data/data/com.HOST.PACKAGE/Plugin/PLUGIN.PKG/data/PLUGIN.PKG
  * dex缓存目录： /data/data/com.HOST.PACKAGE/Plugin/PLUGIN.PKG/dalvik-cache/
- * <p/>
+ * <p>
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/2/5.
  */
 public class PluginDirHelper {
@@ -125,5 +125,25 @@ public class PluginDirHelper {
     public static String getContextDataDir(Context context) {
         String dataDir = new File(Environment.getDataDirectory(), "data/").getPath();
         return new File(dataDir, context.getPackageName()).getPath();
+    }
+
+    public static void cleanOptimizedDirectory(String optimizedDirectory) {
+        try {
+            File dir = new File(optimizedDirectory);
+            if (dir.exists() && dir.isDirectory()) {
+                File[] files = dir.listFiles();
+                if (files != null && files.length > 0) {
+                    for (File f : files) {
+                        f.delete();
+                    }
+                }
+            }
+
+            if (dir.exists() && dir.isFile()) {
+                dir.delete();
+                dir.mkdirs();
+            }
+        } catch (Throwable e) {
+        }
     }
 }
