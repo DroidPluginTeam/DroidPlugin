@@ -176,7 +176,6 @@ public class PluginHelper implements ServiceConnection {
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         PluginProcessManager.setHookEnable(true, true);
-        PluginTricker.onDroidPluginInit(mContext);
     }
 
     @Override
