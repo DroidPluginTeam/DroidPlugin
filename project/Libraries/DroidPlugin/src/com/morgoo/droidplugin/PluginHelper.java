@@ -60,8 +60,11 @@ public class PluginHelper implements ServiceConnection {
     }
 
     public void applicationOnCreate(final Context baseContext) {
+        mContext = baseContext;
         initPlugin(baseContext);
     }
+
+    private Context mContext;
 
     private void initPlugin(Context baseContext) {
         long b = System.currentTimeMillis();
@@ -73,6 +76,7 @@ public class PluginHelper implements ServiceConnection {
             }
 
             try {
+                PluginPatchManager.getInstance().init(baseContext);
                 PluginProcessManager.installHook(baseContext);
             } catch (Throwable e) {
                 Log.e(TAG, "installHook has error", e);
@@ -172,6 +176,7 @@ public class PluginHelper implements ServiceConnection {
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         PluginProcessManager.setHookEnable(true, true);
+        PluginTricker.onDroidPluginInit(mContext);
     }
 
     @Override

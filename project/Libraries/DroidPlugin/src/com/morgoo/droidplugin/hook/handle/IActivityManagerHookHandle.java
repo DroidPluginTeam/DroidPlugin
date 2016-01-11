@@ -23,6 +23,7 @@
 package com.morgoo.droidplugin.hook.handle;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -32,13 +33,18 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
-import android.content.res.Resources;
-import android.os.*;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Looper;
+import android.os.RemoteException;
 import android.text.TextUtils;
 
 import com.morgoo.droidplugin.PluginManagerService;
+import com.morgoo.droidplugin.PluginPatchManager;
 import com.morgoo.droidplugin.am.RunningActivities;
 import com.morgoo.droidplugin.core.Env;
 import com.morgoo.droidplugin.core.PluginProcessManager;
@@ -56,7 +62,6 @@ import com.morgoo.helper.MyProxy;
 import com.morgoo.helper.compat.ActivityManagerCompat;
 import com.morgoo.helper.compat.ContentProviderHolderCompat;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,11 +149,15 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             super(hostContext);
         }
 
-        protected void doReplaceIntentForStartActivityAPIHigh(Object[] args) throws RemoteException {
+        protected boolean doReplaceIntentForStartActivityAPIHigh(Object[] args) throws RemoteException {
             int intentOfArgIndex = findFirstIntentIndexInArgs(args);
             if (args != null && args.length > 1 && intentOfArgIndex >= 0) {
                 Intent intent = (Intent) args[intentOfArgIndex];
                 //XXX String callingPackage = (String) args[1];
+                if (! PluginPatchManager.getInstance().canStartPluginActivity(intent)){
+                    PluginPatchManager.getInstance().startPluginActivity(intent);
+                    return false;
+                }
                 ActivityInfo activityInfo = resolveActivity(intent);
                 if (activityInfo != null && isPackagePlugin(activityInfo.packageName)) {
                     ComponentName component = selectProxyActivity(intent);
@@ -188,6 +197,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                     }
                 }
             }
+
+            return true;
         }
 
         private void setIntentClassLoader(Intent intent, ClassLoader classLoader) {
@@ -206,7 +217,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             }
         }
 
-        protected void doReplaceIntentForStartActivityAPILow(Object[] args) throws RemoteException {
+        protected boolean doReplaceIntentForStartActivityAPILow(Object[] args) throws RemoteException {
             int intentOfArgIndex = findFirstIntentIndexInArgs(args);
             if (args != null && args.length > 1 && intentOfArgIndex >= 0) {
                 Intent intent = (Intent) args[intentOfArgIndex];
@@ -226,12 +237,14 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                     }
                 }
             }
+            return true;
         }
 
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
 
             RunningActivities.beforeStartActivity();
+            boolean bRet = true;
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 //2.3
         /*public int startActivity(IApplicationThread caller,
@@ -251,7 +264,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             Intent intent, String resolvedType, IBinder resultTo, String resultWho,
             int requestCode, int flags, String profileFile,
             ParcelFileDescriptor profileFd, Bundle options) throws RemoteException;*/
-                doReplaceIntentForStartActivityAPILow(args);
+                bRet = doReplaceIntentForStartActivityAPILow(args);
             } else {
                 //api 18,19
          /*  public int startActivity(IApplicationThread caller, String callingPackage,
@@ -264,8 +277,13 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             Intent intent, String resolvedType, IBinder resultTo, String resultWho,
             int requestCode, int flags, ProfilerInfo profilerInfo,
             Bundle options) throws RemoteException;*/
-                doReplaceIntentForStartActivityAPIHigh(args);
+                bRet = doReplaceIntentForStartActivityAPIHigh(args);
             }
+            if (! bRet){
+                setFakedResult(Activity.RESULT_CANCELED);
+                return true;
+            }
+
             return super.beforeInvoke(receiver, method, args);
         }
     }
