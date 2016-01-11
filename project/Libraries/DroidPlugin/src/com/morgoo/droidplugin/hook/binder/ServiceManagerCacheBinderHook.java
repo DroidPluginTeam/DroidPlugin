@@ -38,6 +38,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -96,7 +97,7 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
             } else {
                 return method.invoke(originService, args);
             }
-        }  catch (InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             Throwable cause = e.getTargetException();
             if (cause != null && MyProxy.isMethodDeclaredThrowable(method, cause)) {
                 throw cause;
@@ -108,6 +109,27 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
                 RuntimeException runtimeException = !TextUtils.isEmpty(e.getMessage()) ? new RuntimeException(e.getMessage()) : new RuntimeException();
                 runtimeException.initCause(e);
                 throw runtimeException;
+            }
+        } catch (IllegalArgumentException e) {
+            try {
+                StringBuilder sb = new StringBuilder();
+                sb.append(" DROIDPLUGIN{");
+                if (method != null) {
+                    sb.append("method[").append(method.toString()).append("]");
+                } else {
+                    sb.append("method[").append("NULL").append("]");
+                }
+                if (args != null) {
+                    sb.append("args[").append(Arrays.toString(args)).append("]");
+                } else {
+                    sb.append("args[").append("NULL").append("]");
+                }
+                sb.append("}");
+
+                String message = e.getMessage() + sb.toString();
+                throw new IllegalArgumentException(message, e);
+            } catch (Throwable e1) {
+                throw e;
             }
         } catch (Throwable e) {
             if (MyProxy.isMethodDeclaredThrowable(method, e)) {

@@ -33,6 +33,7 @@ import com.morgoo.helper.MyProxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ abstract class BinderHook extends Hook implements InvocationHandler {
             } else {
                 return method.invoke(mOldObj, args);
             }
-        }  catch (InvocationTargetException e) {
+        } catch (InvocationTargetException e) {
             Throwable cause = e.getTargetException();
             if (cause != null && MyProxy.isMethodDeclaredThrowable(method, cause)) {
                 throw cause;
@@ -70,6 +71,27 @@ abstract class BinderHook extends Hook implements InvocationHandler {
                 RuntimeException runtimeException = !TextUtils.isEmpty(e.getMessage()) ? new RuntimeException(e.getMessage()) : new RuntimeException();
                 runtimeException.initCause(e);
                 throw runtimeException;
+            }
+        } catch (IllegalArgumentException e) {
+            try {
+                StringBuilder sb = new StringBuilder();
+                sb.append(" DROIDPLUGIN{");
+                if (method != null) {
+                    sb.append("method[").append(method.toString()).append("]");
+                } else {
+                    sb.append("method[").append("NULL").append("]");
+                }
+                if (args != null) {
+                    sb.append("args[").append(Arrays.toString(args)).append("]");
+                } else {
+                    sb.append("args[").append("NULL").append("]");
+                }
+                sb.append("}");
+
+                String message = e.getMessage() + sb.toString();
+                throw new IllegalArgumentException(message, e);
+            } catch (Throwable e1) {
+                throw e;
             }
         } catch (Throwable e) {
             if (MyProxy.isMethodDeclaredThrowable(method, e)) {

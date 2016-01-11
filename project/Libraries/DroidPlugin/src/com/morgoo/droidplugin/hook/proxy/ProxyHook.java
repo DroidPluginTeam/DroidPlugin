@@ -32,8 +32,7 @@ import com.morgoo.helper.MyProxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.UndeclaredThrowableException;
-import java.net.DatagramSocket;
+import java.util.Arrays;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/14.
@@ -73,6 +72,27 @@ public abstract class ProxyHook extends Hook implements InvocationHandler {
                 RuntimeException runtimeException = !TextUtils.isEmpty(e.getMessage()) ? new RuntimeException(e.getMessage()) : new RuntimeException();
                 runtimeException.initCause(e);
                 throw runtimeException;
+            }
+        } catch (IllegalArgumentException e) {
+            try {
+                StringBuilder sb = new StringBuilder();
+                sb.append(" DROIDPLUGIN{");
+                if (method != null) {
+                    sb.append("method[").append(method.toString()).append("]");
+                } else {
+                    sb.append("method[").append("NULL").append("]");
+                }
+                if (args != null) {
+                    sb.append("args[").append(Arrays.toString(args)).append("]");
+                } else {
+                    sb.append("args[").append("NULL").append("]");
+                }
+                sb.append("}");
+
+                String message = e.getMessage() + sb.toString();
+                throw new IllegalArgumentException(message, e);
+            } catch (Throwable e1) {
+                throw e;
             }
         } catch (Throwable e) {
             if (MyProxy.isMethodDeclaredThrowable(method, e)) {
