@@ -22,6 +22,7 @@
 
 package com.morgoo.droidplugin.hook.handle;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Instrumentation;
@@ -83,8 +84,6 @@ public class PluginInstrumentation extends Instrumentation {
             } catch (RemoteException e) {
                 Log.e(TAG, "callActivityOnCreate:onActivityCreated", e);
             }
-
-
         }
 
 
@@ -106,7 +105,9 @@ public class PluginInstrumentation extends Instrumentation {
                     RunningActivities.onActivtyCreate(activity, targetInfo, stubInfo);
                     activity.setRequestedOrientation(targetInfo.screenOrientation);
                     PluginManager.getInstance().onActivityCreated(stubInfo, targetInfo);
-                    fixTaskDescription(activity, targetInfo);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        fixTaskDescription(activity, targetInfo);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -131,6 +132,7 @@ public class PluginInstrumentation extends Instrumentation {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void fixTaskDescription(Activity activity, ActivityInfo targetInfo) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             PackageManager pm = mHostContext.getPackageManager();
@@ -212,10 +214,17 @@ public class PluginInstrumentation extends Instrumentation {
 
     @Override
     public void callActivityOnNewIntent(Activity activity, Intent intent) {
-        if (activity != null && intent != null) {
-            intent.setClassName(activity.getPackageName(), activity.getClass().getName());
+//        if (activity != null && intent != null) {
+//            intent.setClassName(activity.getPackageName(), activity.getClass().getName());
+//        }
+        try {
+            Intent newIntent = intent.getParcelableExtra(Env.EXTRA_TARGET_INTENT);
+            if (newIntent != null) {
+                intent = newIntent;
+            }
+        } catch (Throwable e) {
+            Log.e(TAG, "callActivityOnNewIntent:read EXTRA_TARGET_INTENT", e);
         }
-
         if (enable) {
             try {
                 onActivityOnNewIntent(activity, intent);
