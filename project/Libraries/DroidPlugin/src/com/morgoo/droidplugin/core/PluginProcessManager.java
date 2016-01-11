@@ -368,6 +368,8 @@ public class PluginProcessManager {
         
         //NSDManager init初始化anr的问题
         sSkipService.add("servicediscovery");
+        sSkipService.add("usagestats");
+
     }
 
 
