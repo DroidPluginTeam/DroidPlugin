@@ -46,10 +46,8 @@ import android.text.TextUtils;
 import com.morgoo.droidplugin.PluginManagerService;
 import com.morgoo.droidplugin.reflect.MethodUtils;
 import com.morgoo.helper.Log;
-import com.morgoo.helper.compat.PackageManagerCompat;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
