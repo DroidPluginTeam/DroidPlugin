@@ -168,7 +168,7 @@ public class PluginHelper implements ServiceConnection {
                 findLbeMessageAndRemoveIt(next);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "findLbeMessageAndRemoveIt:error on remove lbe message", e);
         }
 
     }
