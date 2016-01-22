@@ -33,6 +33,13 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -62,6 +69,7 @@ import com.morgoo.helper.MyProxy;
 import com.morgoo.helper.compat.ActivityManagerCompat;
 import com.morgoo.helper.compat.ContentProviderHolderCompat;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -154,7 +162,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             if (args != null && args.length > 1 && intentOfArgIndex >= 0) {
                 Intent intent = (Intent) args[intentOfArgIndex];
                 //XXX String callingPackage = (String) args[1];
-                if (! PluginPatchManager.getInstance().canStartPluginActivity(intent)){
+                if (!PluginPatchManager.getInstance().canStartPluginActivity(intent)) {
                     PluginPatchManager.getInstance().startPluginActivity(intent);
                     return false;
                 }
@@ -169,7 +177,6 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                         } catch (Exception e) {
                             Log.w(TAG, "Set Class Loader to new Intent fail", e);
                         }
-//                        Log.i(TAG, "ZYActivity Replace %s/%s by %s/%s", activityInfo.packageName, activityInfo.name, component.getPackageName(), component.getShortClassName());
                         newIntent.setComponent(component);
                         newIntent.putExtra(Env.EXTRA_TARGET_INTENT, intent);
                         String callingPackage = (String) args[1];
@@ -279,7 +286,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             Bundle options) throws RemoteException;*/
                 bRet = doReplaceIntentForStartActivityAPIHigh(args);
             }
-            if (! bRet){
+            if (!bRet) {
                 setFakedResult(Activity.RESULT_CANCELED);
                 return true;
             }
@@ -523,11 +530,14 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                 IIntentReceiver receiver, IntentFilter filter,
                 String requiredPermission, int userId) throws RemoteException;*/
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                final int index = 1;
-                if (args != null && args.length > index) {
-                    String callerPackage = (String) args[index];
-                    if (isPackagePlugin(callerPackage)) {
-                        args[index] = mHostContext.getPackageName();
+                if (args != null && args.length > 0) {
+                    for (int index = 0; index < args.length; index++) {
+                        if (args[index] instanceof String) {
+                            String callerPackage = (String) args[index];
+                            if (isPackagePlugin(callerPackage)) {
+                                args[index] = mHostContext.getPackageName();
+                            }
+                        }
                     }
                 }
             }
@@ -572,34 +582,49 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         private boolean checkAndProcessIntent(Intent intent) throws RemoteException {
             if (Env.ACTION_INSTALL_SHORTCUT.equals(intent.getAction())) {
                 //安装快捷方式的.我们都需要处理
-
-                Intent.ShortcutIconResource icon = intent.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE);
-                if (icon != null && !TextUtils.equals(icon.packageName, mHostContext.getPackageName())) {
-                    int resId = mHostContext.getResources().getIdentifier(icon.resourceName, "drawable", mHostContext.getPackageName());
-                    if (resId > 0) {
-                        Intent.ShortcutIconResource newIcon = Intent.ShortcutIconResource.fromContext(mHostContext, resId);
-                        intent.removeExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE);
-                        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, newIcon);
-                    } else {
-                        //我们拦截掉程序创建快捷方式的请求，因为该快捷方式指定的资源不存在。
-                        Log.w(TAG, "Blocked a created shortcut for %s,beacuse we can not found the icon resource in host package", intent);
-                        //throw new Resources.NotFoundException("Can not found the icon resource in host package");
-                    }
-                }
-
                 Intent shortcutIntent = intent.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
                 if (shortcutIntent != null) {
                     ComponentName componentName = shortcutIntent.resolveActivity(mHostContext.getPackageManager());
                     if (componentName != null && PluginManager.getInstance().isPluginPackage(componentName.getPackageName())) {
-                        //如果是插件，就把快捷方式Intent换成插件自己的，然后我们再
-                        Intent newShortcutIntent = new Intent(mHostContext, ShortcutProxyActivity.class);
+                        //如果是插件，就把快捷方式Intent换成插件自己的，然后我们再跳转
+                        Intent newShortcutIntent = new Intent(PluginManager.ACTION_SHORTCUT_PROXY);
+                        newShortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
                         newShortcutIntent.putExtra(Env.EXTRA_TARGET_INTENT, shortcutIntent);
                         newShortcutIntent.putExtra(Env.EXTRA_TARGET_INTENT_URI, shortcutIntent.toUri(0));
                         intent.removeExtra(Intent.EXTRA_SHORTCUT_INTENT);
                         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, newShortcutIntent);
+
+
+                        //替换图标
+                        Intent.ShortcutIconResource icon = intent.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE);
+                        if (icon != null && !TextUtils.equals(icon.packageName, mHostContext.getPackageName())) {
+                            try {
+                                Context context = PluginProcessManager.getPluginContext(icon.packageName);
+                                int resId = context.getResources().getIdentifier(icon.resourceName, "drawable", context.getPackageName());
+                                if (resId > 0) {
+                                    Drawable iconDrawable = context.getResources().getDrawable(resId);
+                                    Bitmap newIcon = drawableToBitMap(iconDrawable);
+                                    if (newIcon != null) {
+                                        intent.removeExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE);
+                                        intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, newIcon);
+                                        return true;
+                                    } else {
+                                        throw new Resources.NotFoundException(String.format("Can not found the icon resource in plugin package:%s", icon));
+                                    }
+                                } else {
+                                    throw new Resources.NotFoundException(String.format("Can not found the icon resource in plugin package:%s", icon));
+                                }
+                            } catch (Resources.NotFoundException e) {
+                                throw e;
+                            } catch (Throwable e) {
+                                Resources.NotFoundException exception = new Resources.NotFoundException(String.format("Can not found the icon resource in plugin package:%s", icon));
+                                exception.initCause(e);
+                                throw exception;
+                            }
+                        }
                     }
-                    return true;
                 }
+                return false;
             } else if (Env.ACTION_UNINSTALL_SHORTCUT.equals(intent.getAction())) {
                 //卸载快捷方式的。我们都需要处理
                 Intent shortcutIntent = intent.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
@@ -616,6 +641,20 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                 }
             }
             return false;
+        }
+
+        private Bitmap drawableToBitMap(Drawable drawable) {
+            if (drawable instanceof BitmapDrawable) {
+                BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
+                return bitmapDrawable.getBitmap();
+            } else {
+                Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+                Canvas canvas = new Canvas(bitmap);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight());
+                drawable.draw(canvas);
+                return bitmap;
+            }
         }
     }
 
