@@ -94,8 +94,8 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         boolean b = super.registerApplicationCallback(callingPid, callingUid, callback);
         mRunningProcessList.addItem(callingPid, callingUid);
         if (callingPid == android.os.Process.myPid()) {
-            String stubProcessName = mHostContext.getPackageName();
-            String targetProcessName = mHostContext.getPackageName();
+            String stubProcessName = Utils.getProcessName(mHostContext, callingPid);
+            String targetProcessName = Utils.getProcessName(mHostContext, callingPid);
             String targetPkg = mHostContext.getPackageName();
             mRunningProcessList.setProcessName(callingPid, stubProcessName, targetProcessName, targetPkg);
         }
