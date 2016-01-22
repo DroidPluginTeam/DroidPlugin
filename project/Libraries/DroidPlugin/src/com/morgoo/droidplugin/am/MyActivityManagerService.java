@@ -243,7 +243,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
     }
 
     @Override
-    public void onActivtyOnNewIntent(int callingPid, int callingUid,ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent) {
+    public void onActivtyOnNewIntent(int callingPid, int callingUid, ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent) {
         mRunningProcessList.addActivityInfo(callingPid, callingUid, stubInfo, targetInfo);
     }
 
@@ -306,7 +306,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                 Window_windowShowWallpaper = ent.array.getBoolean(R_Styleable_Window_windowShowWallpaper, false);
             }
         } catch (Throwable e) {
-            e.printStackTrace();
+            Log.e(TAG, "error on read com.android.internal.R$styleable", e);
         }
 
         boolean useDialogStyle = Window_windowIsTranslucent || Window_windowIsFloating || Window_windowShowWallpaper;

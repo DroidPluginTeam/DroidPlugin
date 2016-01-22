@@ -40,9 +40,6 @@ public class PluginPatchManager {
             return true;
 
         ComponentName name = intent.getComponent();
-        if (name != null){
-            android.util.Log.e("zhanglong", "canStartPluginActivity pkgName:" + name.getPackageName() + "class:" + name.getClassName());
-        }
         if (name != null && mContext != null && !name.getPackageName().equals(mContext.getPackageName()))
             return false;
 

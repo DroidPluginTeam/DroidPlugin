@@ -85,7 +85,7 @@ class RunningProcesList {
                         return processItem.stubProcessName;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "getStubProcessByTarget:error", e);
                 }
             }
         }
@@ -151,7 +151,7 @@ class RunningProcesList {
                 return isPersistentApp;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "isPersistentApp:error", e);
         }
         return false;
     }

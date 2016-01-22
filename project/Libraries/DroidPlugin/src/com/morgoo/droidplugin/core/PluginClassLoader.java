@@ -24,6 +24,8 @@ package com.morgoo.droidplugin.core;
 
 import android.os.Build;
 
+import com.morgoo.helper.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +68,7 @@ public class PluginClassLoader extends DexClassLoader {
                     return clazz;
                 }
             } catch (ClassNotFoundException e) {
+                Log.e("PluginClassLoader", "UCK QIKU:error", e);
             }
         }
         return super.loadClass(className, resolve);
