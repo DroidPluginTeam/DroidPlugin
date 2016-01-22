@@ -179,6 +179,9 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                         }
                         newIntent.setComponent(component);
                         newIntent.putExtra(Env.EXTRA_TARGET_INTENT, intent);
+                        newIntent.setFlags(intent.getFlags());
+
+
                         String callingPackage = (String) args[1];
                         if (TextUtils.equals(mHostContext.getPackageName(), callingPackage)) {
                             newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -235,6 +238,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                         Intent newIntent = new Intent();
                         newIntent.setComponent(component);
                         newIntent.putExtra(Env.EXTRA_TARGET_INTENT, intent);
+                        newIntent.setFlags(intent.getFlags());
                         if (TextUtils.equals(mHostContext.getPackageName(), activityInfo.packageName)) {
                             newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         }
@@ -2026,6 +2030,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                     Intent newIntent = new Intent();
                     newIntent.setClassName(proxyService.packageName, proxyService.name);
                     newIntent.putExtra(Env.EXTRA_TARGET_INTENT, intent);
+//                    newIntent.setFlags(intent.getFlags());
                     args[intentOfArgIndex] = newIntent;
                     return serviceInfo;
                 }
