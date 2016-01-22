@@ -190,7 +190,13 @@
         <activity
             android:name="com.morgoo.droidplugin.stub.ShortcutProxyActivity"
             android:exported="true"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            <intent-filter >
+                <action android:name="com.morgoo.droidplugin.ACTION_SHORTCUT_PROXY"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
 
         <!--预注册一些Activity，为了插件使用-->
