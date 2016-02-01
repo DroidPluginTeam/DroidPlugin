@@ -3,7 +3,7 @@ package com.example.ApiTest;
 /**
  * Created by zhangyong6 on 2015/3/2.
  */
-public class Service3 extends BaseService {
+public class Service3 extends Service1 {
 
     @Override
     String getTag() {
