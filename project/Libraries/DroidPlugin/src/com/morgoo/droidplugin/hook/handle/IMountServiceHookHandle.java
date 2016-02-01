@@ -25,12 +25,11 @@ package com.morgoo.droidplugin.hook.handle;
 import android.content.Context;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
-import android.os.Environment;
 import android.text.TextUtils;
+
 import com.morgoo.droidplugin.hook.BaseHookHandle;
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
 
-import java.io.File;
 import java.lang.reflect.Method;
 
 /**
@@ -67,10 +66,16 @@ public class IMountServiceHookHandle extends BaseHookHandle {
                 if (args != null && args.length > index1 && args[index1] instanceof String) {
                     String path = (String) args[index1];
 //                    String path1 = new File(Environment.getExternalStorageDirectory(), "Android/data/").getPath();
-                    final boolean isHostPath = path.indexOf("Android/data/" + mHostContext.getPackageName()) < 0;
-                    if (path != null && isHostPath) {
+                    final boolean isAndroiDataHostPath = path.indexOf("Android/data/" + mHostContext.getPackageName()) < 0;
+                    if (path != null && isAndroiDataHostPath) {
                         path = path.replaceFirst("Android/data/", "Android/data/" + mHostContext.getPackageName() + "/Plugin/");
                         args[index1] = path;
+                    } else {
+                        final boolean isAndroiObbHostPath = path.indexOf("Android/obb/" + mHostContext.getPackageName()) < 0;
+                        if (path != null && isAndroiObbHostPath) {
+                            path = path.replaceFirst("Android/obb/", "Android/obb/" + mHostContext.getPackageName() + "/Plugin/");
+                            args[index1] = path;
+                        }
                     }
                 }
             } else {
@@ -81,8 +86,14 @@ public class IMountServiceHookHandle extends BaseHookHandle {
 //                    String path1 = new File(Environment.getExternalStorageDirectory(), "Android/data/").getPath();
                     final boolean isHostPath = path.indexOf("Android/data/" + mHostContext.getPackageName()) < 0;
                     if (path != null && isHostPath) {
-                        path = path.replaceFirst("Android/data/", "Android/data/"+mHostContext.getPackageName()+"/Plugin/");
+                        path = path.replaceFirst("Android/data/", "Android/data/" + mHostContext.getPackageName() + "/Plugin/");
                         args[index1] = path;
+                    } else {
+                        final boolean isAndroiObbHostPath = path.indexOf("Android/obb/" + mHostContext.getPackageName()) < 0;
+                        if (path != null && isAndroiObbHostPath) {
+                            path = path.replaceFirst("Android/obb/", "Android/obb/" + mHostContext.getPackageName() + "/Plugin/");
+                            args[index1] = path;
+                        }
                     }
                 }
             }
