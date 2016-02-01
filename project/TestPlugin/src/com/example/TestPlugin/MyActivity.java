@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.morgoo.helper.Log;
 
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class MyActivity extends ActionBarActivity {
+public class MyActivity extends AppCompatActivity {
 
 
     private static final String TAG = "MyActivity";
@@ -61,6 +62,11 @@ public class MyActivity extends ActionBarActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mFragmentStatePagerAdapter);
 //        getPerms();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void getPerms() {

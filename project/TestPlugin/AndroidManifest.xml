@@ -3,7 +3,7 @@
           package="com.example.TestPlugin"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="9"/>
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="23"/>
     <application android:name="com.morgoo.droidplugin.PluginApplication" android:label="@string/app_name"
                  android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme">
         <activity

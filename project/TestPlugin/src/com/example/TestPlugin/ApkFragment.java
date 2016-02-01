@@ -1,5 +1,6 @@
 package com.example.TestPlugin;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ComponentName;
@@ -7,12 +8,12 @@ import android.content.DialogInterface;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.morgoo.droidplugin.pm.PluginManager;
 
 import java.io.File;
@@ -144,6 +146,37 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
     }
 
     private void startLoad() {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            startLoadInner();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0x1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 0x1) {
+            if (permissions != null && permissions.length > 0) {
+                for (int i = 0; i < permissions.length; i++) {
+                    String permisson = permissions[i];
+                    int grantResult = grantResults[i];
+                    if (Manifest.permission.READ_EXTERNAL_STORAGE.equals(permisson)) {
+                        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                            startLoadInner();
+                        } else {
+                            Toast.makeText(getActivity(), "没有授权，无法使用", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                for (String permisson : permissions) {
+
+                }
+            }
+        }
+    }
+
+    private void startLoadInner() {
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -159,19 +192,27 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
                 File file = Environment.getExternalStorageDirectory();
 
                 List<File> apks = new ArrayList<File>(10);
-                for (File apk : file.listFiles()) {
-                    if (apk.exists() && apk.getPath().toLowerCase().endsWith(".apk")) {
-                        apks.add(apk);
-                    }
-                }
-
-                file = new File(Environment.getExternalStorageDirectory(), "360Download");
-                if (file.exists() && file.isDirectory()) {
-                    for (File apk : file.listFiles()) {
+                File[] files = file.listFiles();
+                if (files != null) {
+                    for (File apk : files) {
                         if (apk.exists() && apk.getPath().toLowerCase().endsWith(".apk")) {
                             apks.add(apk);
                         }
                     }
+                }
+
+
+                file = new File(Environment.getExternalStorageDirectory(), "360Download");
+                if (file.exists() && file.isDirectory()) {
+                    File[] files1 = file.listFiles();
+                    if (files1 != null) {
+                        for (File apk : files1) {
+                            if (apk.exists() && apk.getPath().toLowerCase().endsWith(".apk")) {
+                                apks.add(apk);
+                            }
+                        }
+                    }
+
                 }
                 PackageManager pm = getActivity().getPackageManager();
                 for (final File apk : apks) {
@@ -180,12 +221,12 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
                             final PackageInfo info = pm.getPackageArchiveInfo(apk.getPath(), 0);
                             if (info != null && isViewCreated) {
                                 try {
-                                   handler.post(new Runnable() {
-                                       @Override
-                                       public void run() {
-                                           adapter.add(new ApkItem(getActivity(), info, apk.getPath()));
-                                       }
-                                   });
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            adapter.add(new ApkItem(getActivity(), info, apk.getPath()));
+                                        }
+                                    });
                                 } catch (Exception e) {
                                 }
                             }
