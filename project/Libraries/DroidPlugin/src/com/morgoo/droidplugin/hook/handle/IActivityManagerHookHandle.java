@@ -2062,7 +2062,12 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                 ServiceInfo proxyService = selectProxyService(intent);
                 if (proxyService != null) {
                     Intent newIntent = new Intent();
-//                    newIntent.setAction(proxyService.name + new Random().nextInt());
+                    //FIXBUG：https://github.com/Qihoo360/DroidPlugin/issues/122
+                    //如果插件中有两个Service：ServiceA和ServiceB，在bind ServiceA的时候会调用ServiceA的onBind并返回其IBinder对象，
+                    // 但是再次bind ServiceA的时候还是会返回ServiceA的IBinder对象，这是因为插件系统对多个Service使用了同一个StubService
+                    // 来代理，而系统对StubService的IBinder做了缓存的问题。这里设置一个Action则会穿透这种缓存。
+                    newIntent.setAction(proxyService.name + new Random().nextInt());
+
                     newIntent.setClassName(proxyService.packageName, proxyService.name);
                     newIntent.putExtra(Env.EXTRA_TARGET_INTENT, intent);
                     newIntent.setFlags(intent.getFlags());
