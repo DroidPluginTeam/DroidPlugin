@@ -1,6 +1,7 @@
 package com.morgoo.droidplugin.hook.handle;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.RemoteException;
 
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
@@ -16,12 +17,14 @@ class ReplaceCallingPackageHookedMethodHandler extends HookedMethodHandler {
 
     @Override
     protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
-        if (args != null && args.length > 0) {
-            for (int index = 0; index < args.length; index++) {
-                if (args[index] != null && (args[index] instanceof String)) {
-                    String str = ((String) args[index]);
-                    if (isPackagePlugin(str)) {
-                        args[index] = mHostContext.getPackageName();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (args != null && args.length > 0) {
+                for (int index = 0; index < args.length; index++) {
+                    if (args[index] != null && (args[index] instanceof String)) {
+                        String str = ((String) args[index]);
+                        if (isPackagePlugin(str)) {
+                            args[index] = mHostContext.getPackageName();
+                        }
                     }
                 }
             }
