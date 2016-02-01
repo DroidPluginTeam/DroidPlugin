@@ -25,6 +25,7 @@ package com.morgoo.droidplugin.hook.handle;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.IServiceConnection;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -39,7 +40,6 @@ import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -56,10 +56,10 @@ import com.morgoo.droidplugin.am.RunningActivities;
 import com.morgoo.droidplugin.core.Env;
 import com.morgoo.droidplugin.core.PluginProcessManager;
 import com.morgoo.droidplugin.hook.BaseHookHandle;
-import com.morgoo.droidplugin.hook.HookedMethodHandler;
 import com.morgoo.droidplugin.hook.proxy.IContentProviderHook;
 import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.droidplugin.reflect.FieldUtils;
+import com.morgoo.droidplugin.reflect.MethodUtils;
 import com.morgoo.droidplugin.reflect.Utils;
 import com.morgoo.droidplugin.stub.MyFakeIBinder;
 import com.morgoo.droidplugin.stub.ServcesManager;
@@ -69,10 +69,10 @@ import com.morgoo.helper.MyProxy;
 import com.morgoo.helper.compat.ActivityManagerCompat;
 import com.morgoo.helper.compat.ContentProviderHolderCompat;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/2/28.
@@ -151,7 +151,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
     }
 
-    private static class startActivity extends HookedMethodHandler {
+    private static class startActivity extends ReplaceCallingPackageHookedMethodHandler {
 
         public startActivity(Context hostContext) {
             super(hostContext);
@@ -416,7 +416,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             Bundle options, int userId) throws RemoteException;*/
     }
 
-    private static class startActivityIntentSender extends HookedMethodHandler {
+    private static class startActivityIntentSender extends ReplaceCallingPackageHookedMethodHandler {
 
         public startActivityIntentSender(Context hostContext) {
             super(hostContext);
@@ -485,7 +485,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class startActivityFromRecents extends HookedMethodHandler {
+    private static class startActivityFromRecents extends ReplaceCallingPackageHookedMethodHandler {
 
         public startActivityFromRecents(Context hostContext) {
             super(hostContext);
@@ -496,7 +496,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //DO NOTHING
     }
 
-    private static class finishActivity extends HookedMethodHandler {
+    private static class finishActivity extends ReplaceCallingPackageHookedMethodHandler {
 
         public finishActivity(Context hostContext) {
             super(hostContext);
@@ -511,7 +511,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //FIXME 先不修改。
     }
 
-    private static class registerReceiver extends HookedMethodHandler {
+    private static class registerReceiver extends ReplaceCallingPackageHookedMethodHandler {
 
         public registerReceiver(Context hostContext) {
             super(hostContext);
@@ -549,7 +549,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class broadcastIntent extends HookedMethodHandler {
+    private static class broadcastIntent extends ReplaceCallingPackageHookedMethodHandler {
 
         public broadcastIntent(Context hostContext) {
             super(hostContext);
@@ -662,7 +662,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class unbroadcastIntent extends HookedMethodHandler {
+    private static class unbroadcastIntent extends ReplaceCallingPackageHookedMethodHandler {
 
         public unbroadcastIntent(Context hostContext) {
             super(hostContext);
@@ -675,7 +675,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //TODO 广播相关的，研究完了再修改。
     }
 
-    private static class getCallingPackage extends HookedMethodHandler {
+    private static class getCallingPackage extends ReplaceCallingPackageHookedMethodHandler {
 
         public getCallingPackage(Context hostContext) {
             super(hostContext);
@@ -686,7 +686,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //FIXME  I don't know what function of this,just hook it.
     }
 
-    private static class getCallingActivity extends HookedMethodHandler {
+    private static class getCallingActivity extends ReplaceCallingPackageHookedMethodHandler {
 
         public getCallingActivity(Context hostContext) {
             super(hostContext);
@@ -698,7 +698,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //也不知道这个是干嘛的。是返回此Activity是由谁调起的么？
     }
 
-    private static class getAppTasks extends HookedMethodHandler {
+    private static class getAppTasks extends ReplaceCallingPackageHookedMethodHandler {
 
         public getAppTasks(Context hostContext) {
             super(hostContext);
@@ -708,7 +708,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //FIXME I don't know what function of this,just hook it.
     }
 
-    private static class addAppTask extends HookedMethodHandler {
+    private static class addAppTask extends ReplaceCallingPackageHookedMethodHandler {
 
         public addAppTask(Context hostContext) {
             super(hostContext);
@@ -720,7 +720,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //FIXME api21的不知道干嘛的，先不修改吧。
     }
 
-    private static class getTasks extends HookedMethodHandler {
+    private static class getTasks extends ReplaceCallingPackageHookedMethodHandler {
 
         public getTasks(Context hostContext) {
             super(hostContext);
@@ -752,7 +752,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 //        }
     }
 
-    private static class getServices extends HookedMethodHandler {
+    private static class getServices extends ReplaceCallingPackageHookedMethodHandler {
 
         public getServices(Context hostContext) {
             super(hostContext);
@@ -777,7 +777,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class getProcessesInErrorState extends HookedMethodHandler {
+    private static class getProcessesInErrorState extends ReplaceCallingPackageHookedMethodHandler {
 
         public getProcessesInErrorState(Context hostContext) {
             super(hostContext);
@@ -789,7 +789,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //FIXME I don't know what function of this,just hook it.
     }
 
-    private static class getContentProvider extends HookedMethodHandler {
+    private static class getContentProvider extends ReplaceCallingPackageHookedMethodHandler {
 
         public getContentProvider(Context hostContext) {
             super(hostContext);
@@ -902,7 +902,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             throws RemoteException;*/
     }
 
-    private static class removeContentProviderExternal extends HookedMethodHandler {
+    private static class removeContentProviderExternal extends ReplaceCallingPackageHookedMethodHandler {
 
         public removeContentProviderExternal(Context hostContext) {
             super(hostContext);
@@ -913,7 +913,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //TODO removeContentProviderExternal
     }
 
-    private static class publishContentProviders extends HookedMethodHandler {
+    private static class publishContentProviders extends ReplaceCallingPackageHookedMethodHandler {
 
         public publishContentProviders(Context hostContext) {
             super(hostContext);
@@ -925,7 +925,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //TODO 发布ContentProvider
     }
 
-    private static class getRunningServiceControlPanel extends HookedMethodHandler {
+    private static class getRunningServiceControlPanel extends ReplaceCallingPackageHookedMethodHandler {
 
         public getRunningServiceControlPanel(Context hostContext) {
             super(hostContext);
@@ -938,7 +938,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //通过服务名称拿PendingIntent？搞不懂，不改。
     }
 
-    private static class startService extends HookedMethodHandler {
+    private static class startService extends ReplaceCallingPackageHookedMethodHandler {
 
         public startService(Context hostContext) {
             super(hostContext);
@@ -971,7 +971,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class stopService extends HookedMethodHandler {
+    private static class stopService extends ReplaceCallingPackageHookedMethodHandler {
 
         public stopService(Context hostContext) {
             super(hostContext);
@@ -1000,7 +1000,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class stopServiceToken extends HookedMethodHandler {
+    private static class stopServiceToken extends ReplaceCallingPackageHookedMethodHandler {
 
         public stopServiceToken(Context hostContext) {
             super(hostContext);
@@ -1025,7 +1025,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class setServiceForeground extends HookedMethodHandler {
+    private static class setServiceForeground extends ReplaceCallingPackageHookedMethodHandler {
 
         public setServiceForeground(Context hostContext) {
             super(hostContext);
@@ -1046,7 +1046,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class bindService extends HookedMethodHandler {
+    private static class bindService extends ReplaceCallingPackageHookedMethodHandler {
 
         public bindService(Context hostContext) {
             super(hostContext);
@@ -1066,7 +1066,33 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             Intent service, String resolvedType,
             IServiceConnection connection, int flags, int userId) throws RemoteException;*/
             info = replaceFirstServiceIntentOfArgs(args);
+            int index = findIServiceConnectionIndex(method);
+            if (info != null && index >= 0) {
+                final Object oldIServiceConnection = args[index];
+                args[index] = new MyIServiceConnection(info) {
+
+                    public void connected(ComponentName name, IBinder service) {
+                        try {
+                            MethodUtils.invokeMethod(oldIServiceConnection, "connected", new ComponentName(mInfo.packageName, mInfo.name), service);
+                        } catch (Exception e) {
+                            Log.e(TAG, "invokeMethod connected", e);
+                        }
+                    }
+                };
+            }
             return super.beforeInvoke(receiver, method, args);
+        }
+
+        private int findIServiceConnectionIndex(Method method) {
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            if (parameterTypes != null && parameterTypes.length > 0) {
+                for (int index = 0; index < parameterTypes.length; index++) {
+                    if (parameterTypes[index] != null && TextUtils.equals(parameterTypes[index].getSimpleName(), "IServiceConnection")) {
+                        return index;
+                    }
+                }
+            }
+            return -1;
         }
 
         @Override
@@ -1079,9 +1105,17 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             info = null;
             super.afterInvoke(receiver, method, args, invokeResult);
         }
+
+        private abstract static class MyIServiceConnection extends IServiceConnection.Stub {
+            protected final ServiceInfo mInfo;
+
+            private MyIServiceConnection(ServiceInfo info) {
+                mInfo = info;
+            }
+        }
     }
 
-    private static class publishService extends HookedMethodHandler {
+    private static class publishService extends ReplaceCallingPackageHookedMethodHandler {
 
         public publishService(Context hostContext) {
             super(hostContext);
@@ -1101,7 +1135,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class unbindFinished extends HookedMethodHandler {
+    private static class unbindFinished extends ReplaceCallingPackageHookedMethodHandler {
 
         public unbindFinished(Context hostContext) {
             super(hostContext);
@@ -1117,7 +1151,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class peekService extends HookedMethodHandler {
+    private static class peekService extends ReplaceCallingPackageHookedMethodHandler {
 
         public peekService(Context hostContext) {
             super(hostContext);
@@ -1132,7 +1166,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class bindBackupAgent extends HookedMethodHandler {
+    private static class bindBackupAgent extends ReplaceCallingPackageHookedMethodHandler {
 
         public bindBackupAgent(Context hostContext) {
             super(hostContext);
@@ -1156,7 +1190,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class backupAgentCreated extends HookedMethodHandler {
+    private static class backupAgentCreated extends ReplaceCallingPackageHookedMethodHandler {
 
         public backupAgentCreated(Context hostContext) {
             super(hostContext);
@@ -1179,7 +1213,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class unbindBackupAgent extends HookedMethodHandler {
+    private static class unbindBackupAgent extends ReplaceCallingPackageHookedMethodHandler {
 
         public unbindBackupAgent(Context hostContext) {
             super(hostContext);
@@ -1202,7 +1236,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class killApplicationProcess extends HookedMethodHandler {
+    private static class killApplicationProcess extends ReplaceCallingPackageHookedMethodHandler {
 
         public killApplicationProcess(Context hostContext) {
             super(hostContext);
@@ -1227,7 +1261,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class startInstrumentation extends HookedMethodHandler {
+    private static class startInstrumentation extends ReplaceCallingPackageHookedMethodHandler {
 
         public startInstrumentation(Context hostContext) {
             super(hostContext);
@@ -1254,7 +1288,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //FIXME 单元测试用的。这个就不改了。
     }
 
-    private static class getActivityClassForToken extends HookedMethodHandler {
+    private static class getActivityClassForToken extends ReplaceCallingPackageHookedMethodHandler {
 
         public getActivityClassForToken(Context hostContext) {
             super(hostContext);
@@ -1266,7 +1300,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //通过token拿Activity？搞不懂，不改。
     }
 
-    private static class getPackageForToken extends HookedMethodHandler {
+    private static class getPackageForToken extends ReplaceCallingPackageHookedMethodHandler {
 
         public getPackageForToken(Context hostContext) {
             super(hostContext);
@@ -1278,7 +1312,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //通过token拿包名？搞不懂，不改。
     }
 
-    public static class getIntentSender extends HookedMethodHandler {
+    public static class getIntentSender extends ReplaceCallingPackageHookedMethodHandler {
 
         public getIntentSender(Context hostContext) {
             super(hostContext);
@@ -1449,7 +1483,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
     }
 
 
-    private static class clearApplicationUserData extends HookedMethodHandler {
+    private static class clearApplicationUserData extends ReplaceCallingPackageHookedMethodHandler {
 
         public clearApplicationUserData(Context hostContext) {
             super(hostContext);
@@ -1478,7 +1512,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class handleIncomingUser extends HookedMethodHandler {
+    private static class handleIncomingUser extends ReplaceCallingPackageHookedMethodHandler {
 
         public handleIncomingUser(Context hostContext) {
             super(hostContext);
@@ -1506,7 +1540,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class grantUriPermission extends HookedMethodHandler {
+    private static class grantUriPermission extends ReplaceCallingPackageHookedMethodHandler {
 
         public grantUriPermission(Context hostContext) {
             super(hostContext);
@@ -1535,7 +1569,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class getPersistedUriPermissions extends HookedMethodHandler {
+    private static class getPersistedUriPermissions extends ReplaceCallingPackageHookedMethodHandler {
 
         public getPersistedUriPermissions(Context hostContext) {
             super(hostContext);
@@ -1561,7 +1595,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class killBackgroundProcesses extends HookedMethodHandler {
+    private static class killBackgroundProcesses extends ReplaceCallingPackageHookedMethodHandler {
 
         public killBackgroundProcesses(Context hostContext) {
             super(hostContext);
@@ -1589,7 +1623,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class forceStopPackage extends HookedMethodHandler {
+    private static class forceStopPackage extends ReplaceCallingPackageHookedMethodHandler {
 
         public forceStopPackage(Context hostContext) {
             super(hostContext);
@@ -1615,7 +1649,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class getRunningAppProcesses extends HookedMethodHandler {
+    private static class getRunningAppProcesses extends ReplaceCallingPackageHookedMethodHandler {
 
         public getRunningAppProcesses(Context hostContext) {
             super(hostContext);
@@ -1668,7 +1702,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class getRunningExternalApplications extends HookedMethodHandler {
+    private static class getRunningExternalApplications extends ReplaceCallingPackageHookedMethodHandler {
 
         public getRunningExternalApplications(Context hostContext) {
             super(hostContext);
@@ -1711,7 +1745,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class getMyMemoryState extends HookedMethodHandler {
+    private static class getMyMemoryState extends ReplaceCallingPackageHookedMethodHandler {
 
         public getMyMemoryState(Context hostContext) {
             super(hostContext);
@@ -1722,7 +1756,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //DO NOTHING
     }
 
-    private static class crashApplication extends HookedMethodHandler {
+    private static class crashApplication extends ReplaceCallingPackageHookedMethodHandler {
 
         public crashApplication(Context hostContext) {
             super(hostContext);
@@ -1748,7 +1782,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class grantUriPermissionFromOwner extends HookedMethodHandler {
+    private static class grantUriPermissionFromOwner extends ReplaceCallingPackageHookedMethodHandler {
 
         public grantUriPermissionFromOwner(Context hostContext) {
             super(hostContext);
@@ -1775,7 +1809,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
     }
 
-    private static class checkGrantUriPermission extends HookedMethodHandler {
+    private static class checkGrantUriPermission extends ReplaceCallingPackageHookedMethodHandler {
 
         public checkGrantUriPermission(Context hostContext) {
             super(hostContext);
@@ -1805,7 +1839,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
     }
 
     /*ONLY for  API 15 or later*/
-    private static class startActivities extends HookedMethodHandler {
+    private static class startActivities extends ReplaceCallingPackageHookedMethodHandler {
 
 
         public startActivities(Context hostContext) {
@@ -1895,7 +1929,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
     }
 
     /*ONLY for   api 15 or later*/
-    private static class getPackageScreenCompatMode extends HookedMethodHandler {
+    private static class getPackageScreenCompatMode extends ReplaceCallingPackageHookedMethodHandler {
 
         public getPackageScreenCompatMode(Context hostContext) {
             super(hostContext);
@@ -1922,7 +1956,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
     }
 
     /*ONLY for   api 15 or later*/
-    private static class setPackageScreenCompatMode extends HookedMethodHandler {
+    private static class setPackageScreenCompatMode extends ReplaceCallingPackageHookedMethodHandler {
 
         public setPackageScreenCompatMode(Context hostContext) {
             super(hostContext);
@@ -1950,7 +1984,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
     }
 
     /*ONLY for   api 15 or later*/
-    private static class getPackageAskScreenCompat extends HookedMethodHandler {
+    private static class getPackageAskScreenCompat extends ReplaceCallingPackageHookedMethodHandler {
 
         public getPackageAskScreenCompat(Context hostContext) {
             super(hostContext);
@@ -1978,7 +2012,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
     }
 
     /*ONLY for  api 15 or later*/
-    private static class setPackageAskScreenCompat extends HookedMethodHandler {
+    private static class setPackageAskScreenCompat extends ReplaceCallingPackageHookedMethodHandler {
         public setPackageAskScreenCompat(Context hostContext) {
             super(hostContext);
         }
@@ -2006,7 +2040,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
     }
 
     /*ONLY for API 16 or later*/
-    private static class navigateUpTo extends HookedMethodHandler {
+    private static class navigateUpTo extends ReplaceCallingPackageHookedMethodHandler {
         public navigateUpTo(Context hostContext) {
             super(hostContext);
         }
@@ -2028,9 +2062,10 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                 ServiceInfo proxyService = selectProxyService(intent);
                 if (proxyService != null) {
                     Intent newIntent = new Intent();
+//                    newIntent.setAction(proxyService.name + new Random().nextInt());
                     newIntent.setClassName(proxyService.packageName, proxyService.name);
                     newIntent.putExtra(Env.EXTRA_TARGET_INTENT, intent);
-//                    newIntent.setFlags(intent.getFlags());
+                    newIntent.setFlags(intent.getFlags());
                     args[intentOfArgIndex] = newIntent;
                     return serviceInfo;
                 }
@@ -2136,7 +2171,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         //传入的是代理服务，要改成插件自己服务的信息。
     }
 
-    private class serviceDoneExecuting extends HookedMethodHandler {
+    private class serviceDoneExecuting extends ReplaceCallingPackageHookedMethodHandler {
         public serviceDoneExecuting(Context context) {
             super(context);
         }
