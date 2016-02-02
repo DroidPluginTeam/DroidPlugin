@@ -1,4 +1,4 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 dependencies {
     compile "com.android.support:support-v4:23.1.1"
@@ -43,24 +43,13 @@ android {
     lintOptions {
         abortOnError false
     }
-    dexOptions {
-        jumboMode false
-    }
-
-    defaultConfig {
-        multiDexEnabled = false
-    }
 
     buildTypes {
         release {
-            minifyEnabled true
-            pseudoLocalesEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), "proguard-project.txt"
             signingConfig signingConfigs.MySignConfig
         }
     }
-
-
 }
 
 //

@@ -1,15 +1,12 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
-//    compile project(':Libraries:DroidPlugin')
 }
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
-
-    project.buildDir = "bin"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     sourceSets {
         main {
@@ -30,11 +27,4 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    dexOptions {
-        jumboMode true
-    }
-
-
-
 }
