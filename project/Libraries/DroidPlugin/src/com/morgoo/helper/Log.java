@@ -49,6 +49,7 @@ public class Log {
     private static final int WARN = android.util.Log.WARN;
     private static final int ERROR = android.util.Log.ERROR;
     private static final int ASSERT = android.util.Log.ASSERT;
+    private static final long MAX_LOG_FILE = 1024 * 1024 * 8; //8MB
 
     private static boolean sDebug = false;
     private static boolean sFileLog = false;
@@ -138,7 +139,11 @@ public class Log {
             HookFactory.getInstance().setHookEnable(LibCoreHook.class, false);
 
 
-            writer = new PrintWriter(new FileWriter(getLogFile(), true));
+            File logFile = getLogFile();
+            if (logFile.length() > MAX_LOG_FILE) {
+                logFile.delete();
+            }
+            writer = new PrintWriter(new FileWriter(logFile, true));
             String msg = String.format(format, args);
             String log = String.format("%s %s-%s/%s %s/%s %s", sFormat.format(new Date()), Process.myPid(), Process.myUid(), getProcessName(), levelToStr(level), tag, msg);
             writer.println(log);
