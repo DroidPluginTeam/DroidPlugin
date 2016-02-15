@@ -134,19 +134,23 @@ public class PluginInstrumentation extends Instrumentation {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void fixTaskDescription(Activity activity, ActivityInfo targetInfo) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            PackageManager pm = mHostContext.getPackageManager();
-            String lablel = String.valueOf(targetInfo.loadLabel(pm));
-            Drawable icon = targetInfo.loadIcon(pm);
-            Bitmap bitmap = null;
-            if (icon instanceof BitmapDrawable) {
-                bitmap = ((BitmapDrawable) icon).getBitmap();
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                PackageManager pm = mHostContext.getPackageManager();
+                String lablel = String.valueOf(targetInfo.loadLabel(pm));
+                Drawable icon = targetInfo.loadIcon(pm);
+                Bitmap bitmap = null;
+                if (icon instanceof BitmapDrawable) {
+                    bitmap = ((BitmapDrawable) icon).getBitmap();
+                }
+                if (bitmap != null) {
+                    activity.setTaskDescription(new android.app.ActivityManager.TaskDescription(lablel, bitmap));
+                } else {
+                    activity.setTaskDescription(new android.app.ActivityManager.TaskDescription(lablel));
+                }
             }
-            if (bitmap != null) {
-                activity.setTaskDescription(new android.app.ActivityManager.TaskDescription(lablel, bitmap));
-            } else {
-                activity.setTaskDescription(new android.app.ActivityManager.TaskDescription(lablel));
-            }
+        } catch (Throwable e) {
+            Log.w(TAG, "fixTaskDescription fail", e);
         }
     }
 
