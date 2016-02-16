@@ -533,7 +533,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
        /*  public Intent registerReceiver(IApplicationThread caller, String callerPackage,
                 IIntentReceiver receiver, IntentFilter filter,
                 String requiredPermission, int userId) throws RemoteException;*/
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 if (args != null && args.length > 0) {
                     for (int index = 0; index < args.length; index++) {
                         if (args[index] instanceof String) {
