@@ -35,6 +35,8 @@ import com.morgoo.helper.compat.ActivityManagerNativeCompat;
 import com.morgoo.helper.compat.IActivityManagerCompat;
 import com.morgoo.helper.compat.SingletonCompat;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,6 +55,18 @@ public class IActivityManagerHook extends ProxyHook {
     @Override
     public BaseHookHandle createHookHandle() {
         return new IActivityManagerHookHandle(mHostContext);
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            return super.invoke(proxy, method, args);
+        } catch (SecurityException e) {
+            String msg = String.format("msg[%s],args[%s]", e.getMessage(), Arrays.toString(args));
+            SecurityException e1 = new SecurityException(msg);
+            e1.initCause(e);
+            throw e1;
+        }
     }
 
     @Override
