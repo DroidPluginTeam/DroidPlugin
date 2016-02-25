@@ -36,6 +36,10 @@ import java.lang.reflect.Method;
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/6.
  */
 public class IMountServiceHookHandle extends BaseHookHandle {
+
+    private static final String ANDROID_DATA = "Android/data/";
+    private static final String ANDROID_OBB = "Android/obb/";
+
     public IMountServiceHookHandle(Context context) {
         super(context);
     }
@@ -66,14 +70,14 @@ public class IMountServiceHookHandle extends BaseHookHandle {
                 if (args != null && args.length > index1 && args[index1] instanceof String) {
                     String path = (String) args[index1];
 //                    String path1 = new File(Environment.getExternalStorageDirectory(), "Android/data/").getPath();
-                    final boolean isAndroiDataHostPath = path.indexOf("Android/data/" + mHostContext.getPackageName()) < 0;
-                    if (path != null && isAndroiDataHostPath) {
-                        path = path.replaceFirst("Android/data/", "Android/data/" + mHostContext.getPackageName() + "/Plugin/");
-                        args[index1] = path;
-                    } else {
-                        final boolean isAndroiObbHostPath = path.indexOf("Android/obb/" + mHostContext.getPackageName()) < 0;
-                        if (path != null && isAndroiObbHostPath) {
-                            path = path.replaceFirst("Android/obb/", "Android/obb/" + mHostContext.getPackageName() + "/Plugin/");
+                    if (path != null) {
+                        final boolean isAndroiDataHostPath = path.indexOf(ANDROID_DATA) < 0;
+                        final boolean isAndroiObbHostPath = path.indexOf(ANDROID_OBB) < 0;
+                        if (isAndroiDataHostPath && !isAndroiObbHostPath) {
+                            path = path.replaceFirst(ANDROID_DATA, ANDROID_DATA + mHostContext.getPackageName() + "/Plugin/");
+                            args[index1] = path;
+                        } else if (!isAndroiDataHostPath && isAndroiObbHostPath) {
+                            path = path.replaceFirst(ANDROID_OBB, ANDROID_OBB + mHostContext.getPackageName() + "/Plugin/");
                             args[index1] = path;
                         }
                     }
@@ -84,14 +88,14 @@ public class IMountServiceHookHandle extends BaseHookHandle {
                 if (args != null && args.length > index1 && args[index1] instanceof String) {
                     String path = (String) args[index1];
 //                    String path1 = new File(Environment.getExternalStorageDirectory(), "Android/data/").getPath();
-                    final boolean isHostPath = path.indexOf("Android/data/" + mHostContext.getPackageName()) < 0;
-                    if (path != null && isHostPath) {
-                        path = path.replaceFirst("Android/data/", "Android/data/" + mHostContext.getPackageName() + "/Plugin/");
-                        args[index1] = path;
-                    } else {
-                        final boolean isAndroiObbHostPath = path.indexOf("Android/obb/" + mHostContext.getPackageName()) < 0;
-                        if (path != null && isAndroiObbHostPath) {
-                            path = path.replaceFirst("Android/obb/", "Android/obb/" + mHostContext.getPackageName() + "/Plugin/");
+                    if (path != null) {
+                        final boolean isAndroiDataHostPath = path.indexOf(ANDROID_DATA) < 0;
+                        final boolean isAndroiObbHostPath = path.indexOf(ANDROID_OBB) < 0;
+                        if (isAndroiDataHostPath && !isAndroiObbHostPath) {
+                            path = path.replaceFirst(ANDROID_DATA, ANDROID_DATA + mHostContext.getPackageName() + "/Plugin/");
+                            args[index1] = path;
+                        } else if (!isAndroiDataHostPath && isAndroiObbHostPath) {
+                            path = path.replaceFirst(ANDROID_OBB, ANDROID_OBB + mHostContext.getPackageName() + "/Plugin/");
                             args[index1] = path;
                         }
                     }
