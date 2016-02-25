@@ -32,6 +32,7 @@ import com.morgoo.droidplugin.hook.binder.IClipboardBinderHook;
 import com.morgoo.droidplugin.hook.binder.IContentServiceBinderHook;
 import com.morgoo.droidplugin.hook.binder.IGraphicsStatsBinderHook;
 import com.morgoo.droidplugin.hook.binder.IInputMethodManagerBinderHook;
+import com.morgoo.droidplugin.hook.binder.ILocationManagerBinderHook;
 import com.morgoo.droidplugin.hook.binder.IMediaRouterServiceBinderHook;
 import com.morgoo.droidplugin.hook.binder.IMountServiceBinder;
 import com.morgoo.droidplugin.hook.binder.INotificationManagerBinderHook;
@@ -141,7 +142,9 @@ public class HookFactory {
         if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
             installHook(new IInputMethodManagerBinderHook(context), classLoader);
         }
-
+        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            installHook(new ILocationManagerBinderHook(context), classLoader);
+        }
         installHook(new IPackageManagerHook(context), classLoader);
         installHook(new IActivityManagerHook(context), classLoader);
         installHook(new PluginCallbackHook(context), classLoader);

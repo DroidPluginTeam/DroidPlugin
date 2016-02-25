@@ -17,7 +17,7 @@ class ReplaceCallingPackageHookedMethodHandler extends HookedMethodHandler {
 
     @Override
     protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
             if (args != null && args.length > 0) {
                 for (int index = 0; index < args.length; index++) {
                     if (args[index] != null && (args[index] instanceof String)) {
