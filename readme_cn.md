@@ -109,6 +109,11 @@ DroidPlugin 是***360手机助手***在Android系统上实现了一种新的***�
 ##实现原理：
     
  请参见源码
+ 
+## FAQ
+	
+	[FAQ](https://github.com/Qihoo360/DroidPlugin/wiki/FAQ "FAQ")
+	
 
 ##谁在使用：
 	

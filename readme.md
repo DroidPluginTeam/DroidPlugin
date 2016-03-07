@@ -107,7 +107,11 @@ It is very simple integrate Droid Plugin to your proejct：
 3. **Activate**
 
     Just use android's API, same for communication between components.
-
+	
+## FAQ
+	
+	[FAQ](https://github.com/Qihoo360/DroidPlugin/wiki/FAQ "FAQ")
+	
 ## Remark：
 
 Please feel free to [report bugs](https://github.com/Qihoo360/DroidPlugin/issues) or ask for help via email.
