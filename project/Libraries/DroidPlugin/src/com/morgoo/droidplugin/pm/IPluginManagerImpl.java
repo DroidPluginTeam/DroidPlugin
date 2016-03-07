@@ -153,7 +153,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, "scan a apk file error %s", e);
+            Log.e(TAG, "scan a apk file error", e);
         }
 
         Log.i(TAG, "Search apk cost %s ms", (System.currentTimeMillis() - b));
