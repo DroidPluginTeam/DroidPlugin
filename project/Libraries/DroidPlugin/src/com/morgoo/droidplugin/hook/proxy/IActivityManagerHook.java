@@ -95,7 +95,7 @@ public class IActivityManagerHook extends ProxyHook {
             setOldObj(obj1);
             List<Class<?>> interfaces = Utils.getAllInterfaces(mOldObj.getClass());
             Class[] ifs = interfaces != null && interfaces.size() > 0 ? interfaces.toArray(new Class[interfaces.size()]) : new Class[0];
-            final Object object = MyProxy.newProxyInstance(mOldObj.getClass().getClassLoader(),ifs, IActivityManagerHook.this);
+            final Object object = MyProxy.newProxyInstance(mOldObj.getClass().getClassLoader(), ifs, IActivityManagerHook.this);
             Object iam1 = ActivityManagerNativeCompat.getDefault();
 
             //这里先写一次，防止后面找不到Singleton类导致的挂钩子失败的问题。
