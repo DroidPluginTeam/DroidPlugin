@@ -126,9 +126,9 @@ public class HookFactory {
         if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP_MR1) {
             installHook(new IGraphicsStatsBinderHook(context), classLoader);
         }
-        if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-            installHook(new WebViewFactoryProviderHook(context), classLoader);
-        }
+//        if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+//            installHook(new WebViewFactoryProviderHook(context), classLoader);
+//        }
         if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
             installHook(new IMediaRouterServiceBinderHook(context), classLoader);
         }
