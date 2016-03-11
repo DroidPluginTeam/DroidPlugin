@@ -251,7 +251,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         waitForReadyInner();
         try {
             String pkg = getAndCheckCallingPkg(packageName);
-            if (pkg != null) {
+            if (pkg != null && !TextUtils.equals(packageName, mContext.getPackageName())) {
                 enforcePluginFileExists();
                 PluginPackageParser parser = mPluginCache.get(pkg);
                 if (parser != null) {
@@ -807,6 +807,9 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     public ApplicationInfo getApplicationInfo(String packageName, int flags) throws RemoteException {
         waitForReadyInner();
         try {
+            if (TextUtils.equals(packageName, mContext.getPackageName())) {
+                return null;
+            }
             PluginPackageParser parser = mPluginCache.get(packageName);
             if (parser != null) {
                 return parser.getApplicationInfo(flags);
