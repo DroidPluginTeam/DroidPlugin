@@ -123,7 +123,7 @@ public class HookFactory {
         installHook(new IAudioServiceBinderHook(context), classLoader);
         installHook(new IContentServiceBinderHook(context), classLoader);
         installHook(new IWindowManagerBinderHook(context), classLoader);
-        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP_MR1) {
+        if (VERSION.SDK_INT > VERSION_CODES.LOLLIPOP_MR1) {
             installHook(new IGraphicsStatsBinderHook(context), classLoader);
         }
 //        if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
