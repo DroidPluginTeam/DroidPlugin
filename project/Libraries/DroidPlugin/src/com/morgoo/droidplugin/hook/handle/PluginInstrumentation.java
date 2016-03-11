@@ -26,6 +26,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Instrumentation;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -36,6 +37,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.text.TextUtils;
 
 import com.morgoo.droidplugin.am.RunningActivities;
 import com.morgoo.droidplugin.core.Env;
@@ -44,7 +46,10 @@ import com.morgoo.droidplugin.hook.HookFactory;
 import com.morgoo.droidplugin.hook.binder.IWindowManagerBinderHook;
 import com.morgoo.droidplugin.hook.proxy.IPackageManagerHook;
 import com.morgoo.droidplugin.pm.PluginManager;
+import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.helper.Log;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2014/12/5.
@@ -84,6 +89,20 @@ public class PluginInstrumentation extends Instrumentation {
             } catch (RemoteException e) {
                 Log.e(TAG, "callActivityOnCreate:onActivityCreated", e);
             }
+
+            try {
+                fixBaseContextImplOpsPackage(activity.getBaseContext());
+            } catch (Exception e) {
+                Log.e(TAG, "callActivityOnCreate:fixBaseContextImplOpsPackage", e);
+            }
+
+            try {
+                fixBaseContextImplContentResolverOpsPackage(activity.getBaseContext());
+            } catch (Exception e) {
+                Log.e(TAG, "callActivityOnCreate:fixBaseContextImplContentResolverOpsPackage", e);
+            }
+
+
         }
 
 
@@ -91,6 +110,48 @@ public class PluginInstrumentation extends Instrumentation {
             mTarget.callActivityOnCreate(activity, icicle);
         } else {
             super.callActivityOnCreate(activity, icicle);
+        }
+    }
+
+    private void fixBaseContextImplOpsPackage(Context context) throws IllegalAccessException {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && context != null && !TextUtils.equals(context.getPackageName(), mHostContext.getPackageName())) {
+            Context baseContext = context;
+            Class clazz = baseContext.getClass();
+            Field mOpPackageName = FieldUtils.getDeclaredField(clazz, "mOpPackageName", true);
+            if (mOpPackageName != null) {
+                Object valueObj = mOpPackageName.get(baseContext);
+                if (valueObj instanceof String) {
+                    String opPackageName = ((String) valueObj);
+                    if (!TextUtils.equals(opPackageName, mHostContext.getPackageName())) {
+                        mOpPackageName.set(baseContext, mHostContext.getPackageName());
+                        Log.i(TAG, "fixBaseContextImplOpsPackage OK!Context=%s,", baseContext);
+                    }
+                }
+            }
+        }
+    }
+
+    private void fixBaseContextImplContentResolverOpsPackage(Context context) throws IllegalAccessException {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && context != null && !TextUtils.equals(context.getPackageName(), mHostContext.getPackageName())) {
+            Context baseContext = context;
+            Class clazz = baseContext.getClass();
+            Field mContentResolver = FieldUtils.getDeclaredField(clazz, "mContentResolver", true);
+            if (mContentResolver != null) {
+                Object valueObj = mContentResolver.get(baseContext);
+                if (valueObj instanceof ContentResolver) {
+                    ContentResolver contentResolver = ((ContentResolver) valueObj);
+                    Field mPackageName = FieldUtils.getDeclaredField(ContentResolver.class, "mPackageName", true);
+                    Object mPackageNameValueObj = mPackageName.get(contentResolver);
+                    if (mPackageNameValueObj != null && mPackageNameValueObj instanceof String) {
+                        String packageName = ((String) mPackageNameValueObj);
+                        if (!TextUtils.equals(packageName, mHostContext.getPackageName())) {
+                            mPackageName.set(contentResolver, mHostContext.getPackageName());
+                            Log.i(TAG, "fixBaseContextImplContentResolverOpsPackage OK!Context=%s,contentResolver=%s", baseContext, contentResolver);
+                        }
+                    }
+
+                }
+            }
         }
     }
 
@@ -185,13 +246,24 @@ public class PluginInstrumentation extends Instrumentation {
 
     @Override
     public void callApplicationOnCreate(Application app) {
-
         if (enable) {
             IPackageManagerHook.fixContextPackageManager(app);
             try {
                 PluginProcessManager.fakeSystemService(mHostContext, app);
             } catch (Exception e) {
                 Log.e(TAG, "fakeSystemService", e);
+            }
+
+            try {
+                fixBaseContextImplOpsPackage(app.getBaseContext());
+            } catch (Exception e) {
+                Log.e(TAG, "callApplicationOnCreate:fixBaseContextImplOpsPackage", e);
+            }
+
+            try {
+                fixBaseContextImplContentResolverOpsPackage(app.getBaseContext());
+            } catch (Exception e) {
+                Log.e(TAG, "callActivityOnCreate:fixBaseContextImplContentResolverOpsPackage", e);
             }
         }
 
