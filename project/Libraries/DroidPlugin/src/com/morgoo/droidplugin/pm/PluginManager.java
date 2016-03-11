@@ -69,7 +69,6 @@ public class PluginManager implements ServiceConnection {
     public static final String ACTION_SHORTCUT_PROXY = "com.morgoo.droidplugin.ACTION_SHORTCUT_PROXY";
 
 
-
     public static final String EXTRA_PID = "com.morgoo.droidplugin.EXTRA_PID";
     public static final String EXTRA_PACKAGENAME = "com.morgoo.droidplugin.EXTRA_EXTRA_PACKAGENAME";
 
@@ -179,10 +178,11 @@ public class PluginManager implements ServiceConnection {
 
     /**
      * 提供超时设置的waitForConnected版本
+     *
      * @param timeout，当超时时间大于0时超时设置生效
      */
     public void waitForConnected(long timeout) {
-        if(timeout > 0){
+        if (timeout > 0) {
             if (isConnected()) {
                 return;
             } else {
@@ -195,11 +195,10 @@ public class PluginManager implements ServiceConnection {
                 }
                 Log.i(TAG, "waitForConnected finish");
             }
-        }else{
+        } else {
             waitForConnected();
         }
     }
-
 
 
     private IPluginManager mPluginManager;
@@ -235,6 +234,10 @@ public class PluginManager implements ServiceConnection {
     public void init(Context hostContext) {
         mHostContext = hostContext;
         connectToService();
+    }
+
+    public Context getHostContext() {
+        return mHostContext;
     }
 
     public boolean isConnected() {
