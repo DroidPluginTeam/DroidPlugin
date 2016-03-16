@@ -23,14 +23,7 @@
 package com.morgoo.droidplugin;
 
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-
-import com.morgoo.droidplugin.core.PluginProcessManager;
-import com.morgoo.droidplugin.pm.PluginManager;
-import com.morgoo.helper.Log;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) 2014/12/5.
