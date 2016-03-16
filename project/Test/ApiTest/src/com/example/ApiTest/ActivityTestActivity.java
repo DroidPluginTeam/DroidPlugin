@@ -3,10 +3,8 @@ package com.example.ApiTest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 
 public class ActivityTestActivity extends Activity implements View.OnClickListener {
@@ -25,7 +23,7 @@ public class ActivityTestActivity extends Activity implements View.OnClickListen
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.button1) {
-            startActivity(new Intent(this, StandardActivity.class));
+            startActivityForResult(new Intent(this, StandardActivity.class), 1986);
         } else if (id == R.id.button2) {
             startActivity(new Intent(this, SingleTopActivity.class));
         } else if (id == R.id.button3) {
@@ -33,5 +31,11 @@ public class ActivityTestActivity extends Activity implements View.OnClickListen
         } else if (id == R.id.button4) {
             startActivity(new Intent(this, SingleInstanceActivity.class));
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("ActivityTestActivity", String.format("onActivityResult，requestCode=%s,resultCode=%s", requestCode, resultCode));
     }
 }

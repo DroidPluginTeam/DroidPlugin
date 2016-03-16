@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ApiTest"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
-    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="23" />
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="23" />
 
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -17,11 +19,11 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:persistent="true">
+        android:persistent="true"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MyActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,7 +66,7 @@
             android:authorities="com.example.ApiTest.MyContentProvider2"
             android:process=":Process2" />
 
-        <receiver android:name=".StaticBroadcastReceiver" >
+        <receiver android:name=".StaticBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.example.ApiTest.StaticBroadcastReceiver" />
             </intent-filter>
@@ -73,7 +75,6 @@
         <activity
             android:name=".StandardActivity"
             android:label="@string/title_activity_standard" />
-
         <activity
             android:name=".SingleTopActivity"
             android:label="@string/title_activity_single_top"
@@ -98,13 +99,10 @@
             android:name=".SingleTopActivity$SingleTopActivity5"
             android:label="@string/title_activity_single_top5"
             android:launchMode="singleTop" />
-
-
         <activity
             android:name=".SingleTaskActivity"
             android:label="@string/title_activity_single_task"
             android:launchMode="singleTask" />
-
         <activity
             android:name=".SingleTaskActivity$SingleTaskActivity1"
             android:label="@string/title_activity_single_task1"
@@ -125,7 +123,6 @@
             android:name=".SingleTaskActivity$SingleTaskActivity5"
             android:label="@string/title_activity_single_task5"
             android:launchMode="singleTask" />
-
         <activity
             android:name=".SingleInstanceActivity"
             android:label="@string/title_activity_single_instance"
@@ -150,12 +147,12 @@
             android:name=".SingleInstanceActivity$SingleInstanceActivity5"
             android:label="@string/title_activity_single_instance5"
             android:launchMode="singleInstance" />
-
-       
         <activity
             android:name=".ActivityTestActivity"
-            android:label="@string/title_activity_activity_test" >
-        </activity>
+            android:label="@string/title_activity_activity_test"></activity>
+        <activity
+            android:name=".WebViewTestActivity"
+            android:label="@string/title_activity_web_view_test"></activity>
     </application>
 
 </manifest>

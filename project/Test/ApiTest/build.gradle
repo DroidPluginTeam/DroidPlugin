@@ -10,13 +10,13 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-//        ndk {
-//            moduleName 'Test'
-//            stl 'stlport_static'
-//            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
-//            ldLibs 'log'
-//            cFlags '-DMY_LOG_LEVEL=LOG_VERBOSE'
-//        }
+        ndk {
+            moduleName 'Test'
+            stl 'stlport_static'
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+            ldLibs 'log'
+            cFlags '-DMY_LOG_LEVEL=LOG_VERBOSE'
+        }
     }
     sourceSets {
         main {

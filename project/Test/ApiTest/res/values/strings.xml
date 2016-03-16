@@ -24,4 +24,6 @@
     <string name="title_activity_single_instance4">SingleInstanceActivity4</string>
     <string name="title_activity_single_instance5">SingleInstanceActivity5</string>
     <string name="title_activity_activity_test">ActivityTestActivity</string>
+    <string name="title_activity_native_test">NativeTestActivity</string>
+    <string name="title_activity_web_view_test">WebViewTestActivity</string>
 </resources>
