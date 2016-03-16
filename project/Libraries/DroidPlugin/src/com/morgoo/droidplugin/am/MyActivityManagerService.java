@@ -450,7 +450,11 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         if (activityCount <= 0 && serviceCount <= 0 && providerCount <= 0) {
             //杀死空进程。
             Log.i(TAG, "doGc kill process(pid=%s,uid=%s processName=%s)", myInfo.pid, myInfo.uid, myInfo.processName);
-            android.os.Process.killProcess(myInfo.pid);
+            try {
+                android.os.Process.killProcess(myInfo.pid);
+            } catch (Throwable e) {
+                Log.e(TAG, "error on killProcess", e);
+            }
         } else if (activityCount <= 0 && serviceCount > 0 /*&& !mRunningProcessList.isPersistentApplication(myInfo.pid)*/) {
             List<String> names = mRunningProcessList.getStubServiceByPid(myInfo.pid);
             if (names != null && names.size() > 0) {
