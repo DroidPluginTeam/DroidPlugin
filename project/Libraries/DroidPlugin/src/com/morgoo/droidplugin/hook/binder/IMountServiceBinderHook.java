@@ -31,11 +31,11 @@ import com.morgoo.helper.compat.IMountServiceCompat;
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/6.
  */
-public class IMountServiceBinder extends BinderHook {
+public class IMountServiceBinderHook extends BinderHook {
 
     private final static String SERVICE_NAME = "mount";
 
-    public IMountServiceBinder(Context hostContext) {
+    public IMountServiceBinderHook(Context hostContext) {
         super(hostContext);
     }
 
