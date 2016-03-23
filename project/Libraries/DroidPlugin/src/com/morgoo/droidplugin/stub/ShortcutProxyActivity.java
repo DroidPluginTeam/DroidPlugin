@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.RemoteException;
 
 import com.morgoo.droidplugin.core.Env;
 import com.morgoo.droidplugin.pm.PluginManager;
@@ -56,7 +55,7 @@ public class ShortcutProxyActivity extends Activity {
                     }
                     if (PluginManager.getInstance().isConnected()) {
                         if (isPlugin(forwordIntent)) {
-                            startActivity(forwordIntent);
+                            execStartForwordIntent(forwordIntent);
                         }
                         finish();
                     } else {
@@ -72,6 +71,10 @@ public class ShortcutProxyActivity extends Activity {
             e.printStackTrace();
             finish();
         }
+    }
+
+    protected void execStartForwordIntent(Intent forwordIntent) {
+        startActivity(forwordIntent);
     }
 
     private boolean isPlugin(Intent intent) {
@@ -96,7 +99,7 @@ public class ShortcutProxyActivity extends Activity {
                 try {
                     PluginManager.getInstance().waitForConnected();
                     if (isPlugin(forwordIntent)) {
-                        startActivity(forwordIntent);
+                        execStartForwordIntent(forwordIntent);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
