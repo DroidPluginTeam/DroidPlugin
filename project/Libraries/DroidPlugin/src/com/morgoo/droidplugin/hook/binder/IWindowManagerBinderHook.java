@@ -83,7 +83,7 @@ public class IWindowManagerBinderHook extends BinderHook {
             Class WindowManagerHolder = Class.forName(clazz.getName() + "$WindowManagerHolder");
             Object obj = FieldUtils.readStaticField(WindowManagerHolder, "sWindowManager");
             Object proxiedObj = MyServiceManager.getProxiedObj(SERVICE_NAME);
-            if (obj != proxiedObj) {
+            if (obj == proxiedObj) {
                 return;
             }
             FieldUtils.writeStaticField(WindowManagerHolder, "sWindowManager", proxiedObj);
