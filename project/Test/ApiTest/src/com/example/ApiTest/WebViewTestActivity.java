@@ -1,11 +1,11 @@
 package com.example.ApiTest;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class WebViewTestActivity extends Activity {
+public class WebViewTestActivity extends AppCompatActivity {
 
     private WebView mWebView;
 

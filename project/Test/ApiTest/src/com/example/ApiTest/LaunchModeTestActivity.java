@@ -1,10 +1,10 @@
 package com.example.ApiTest;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by zhangyong6 on 2015/10/22.
  */
-public abstract class LaunchModeTestActivity extends Activity implements View.OnClickListener {
+public abstract class LaunchModeTestActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

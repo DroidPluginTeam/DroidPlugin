@@ -1,12 +1,12 @@
 package com.example.ApiTest;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.morgoo.nativec.NativeCHelper;
 
-public class NativeTestActivity extends Activity {
+public class NativeTestActivity extends AppCompatActivity {
 
     private static final String TAG = NativeTestActivity.class.getSimpleName();
 

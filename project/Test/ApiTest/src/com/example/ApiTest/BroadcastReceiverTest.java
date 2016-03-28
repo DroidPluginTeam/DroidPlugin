@@ -1,11 +1,11 @@
 package com.example.ApiTest;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 /**
  * Created by zhangyong6 on 2015/3/2.
  */
-public class BroadcastReceiverTest extends Activity implements OnClickListener {
+public class BroadcastReceiverTest extends AppCompatActivity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

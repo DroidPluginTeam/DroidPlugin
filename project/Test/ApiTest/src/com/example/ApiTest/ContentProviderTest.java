@@ -1,11 +1,11 @@
 package com.example.ApiTest;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 /**
  * Created by zhangyong6 on 2015/3/2.
  */
-public class ContentProviderTest extends Activity implements OnClickListener {
+public class ContentProviderTest extends AppCompatActivity implements OnClickListener {
     protected static String TAG = "ContentProviderTest1";
 
     @Override

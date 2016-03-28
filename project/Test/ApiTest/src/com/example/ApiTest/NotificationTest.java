@@ -1,11 +1,11 @@
 package com.example.ApiTest;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 /**
  * Created by zhangyong6 on 2015/3/3.
  */
-public class NotificationTest extends Activity implements OnClickListener {
+public class NotificationTest extends AppCompatActivity implements OnClickListener {
     private static final String TAG = NotificationTest.class.getSimpleName();
     private static final int ID = 0x1986;
     private static final int ID2 = 0x1988;
