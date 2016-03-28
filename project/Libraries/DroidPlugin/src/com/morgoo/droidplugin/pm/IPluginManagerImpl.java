@@ -1070,19 +1070,24 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         if (soPaths != null && soPaths.size() > 0) {
             if (VMRuntimeCompat.is64Bit()) {
                 //在宿主程序运行在64位进程中的时候，插件的so也只拷贝64位，否则会出现不支持的情况。
+                String[] supported64BitAbis = BuildCompat.SUPPORTED_64_BIT_ABIS;
+                Arrays.sort(supported64BitAbis);
                 for (String soPath : soPaths) {
                     String abi = soPath.replaceFirst("lib/", "");
                     abi = abi.replace("/" + soName, "");
-                    if (!TextUtils.isEmpty(abi) && Arrays.binarySearch(BuildCompat.SUPPORTED_64_BIT_ABIS, abi) >= 0) {
+
+                    if (!TextUtils.isEmpty(abi) && Arrays.binarySearch(supported64BitAbis, abi) >= 0) {
                         return soPath;
                     }
                 }
             } else {
                 //在宿主程序运行在32位进程中的时候，插件的so也只拷贝64位，否则会出现不支持的情况。
+                String[] supported32BitAbis = BuildCompat.SUPPORTED_32_BIT_ABIS;
+                Arrays.sort(supported32BitAbis);
                 for (String soPath : soPaths) {
                     String abi = soPath.replaceFirst("lib/", "");
                     abi = abi.replace("/" + soName, "");
-                    if (!TextUtils.isEmpty(abi) && Arrays.binarySearch(BuildCompat.SUPPORTED_32_BIT_ABIS, abi) >= 0) {
+                    if (!TextUtils.isEmpty(abi) && Arrays.binarySearch(supported32BitAbis, abi) >= 0) {
                         return soPath;
                     }
                 }
