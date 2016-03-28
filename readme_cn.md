@@ -5,7 +5,7 @@ DroidPlugin 是***360手机助手***在Android系统上实现了一种新的***�
 -------
 
 为了让跟多的人参与到此项目，我们把项目迁移到一个新的组织DroidPlugin。
-项目新地址:[DroidPlugin](https://github.com/DroidPlugin/DroidPlugin "DroidPlugin")
+项目新地址:[DroidPlugin](https://github.com/DroidPluginTeam/DroidPlugin "DroidPlugin")
 
 ##定义：
 
