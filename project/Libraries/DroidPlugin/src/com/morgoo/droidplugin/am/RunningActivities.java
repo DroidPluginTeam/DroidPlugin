@@ -29,7 +29,7 @@ public class RunningActivities {
     private static Map<Integer, RunningActivityRecord> mRunningSingleTaskActivityList = new HashMap<>();
     private static Map<Integer, RunningActivityRecord> mRunningSingleInstanceActivityList = new HashMap<>();
 
-    public static void onActivtyOnNewIntent(Activity activity, ActivityInfo targetInfo, ActivityInfo stubInfo, Intent intent) {
+    public static void onActivityOnNewIntent(Activity activity, ActivityInfo targetInfo, ActivityInfo stubInfo, Intent intent) {
         //TODO
     }
 
@@ -49,7 +49,7 @@ public class RunningActivities {
 
     }
 
-    public static void onActivtyCreate(Activity activity, ActivityInfo targetActivityInfo, ActivityInfo stubActivityInfo) {
+    public static void onActivityCreate(Activity activity, ActivityInfo targetActivityInfo, ActivityInfo stubActivityInfo) {
         synchronized (mRunningActivityList) {
             RunningActivityRecord value = new RunningActivityRecord(activity, targetActivityInfo, stubActivityInfo, findMaxIndex() + 1);
             mRunningActivityList.put(activity, value);
@@ -65,7 +65,7 @@ public class RunningActivities {
         }
     }
 
-    public static void onActivtyDestory(Activity activity) {
+    public static void onActivityDestroy(Activity activity) {
         synchronized (mRunningActivityList) {
             RunningActivityRecord value = mRunningActivityList.remove(activity);
             if (value != null) {

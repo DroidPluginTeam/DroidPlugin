@@ -64,7 +64,7 @@ public class PluginManager implements ServiceConnection {
     public static final String ACTION_PACKAGE_REMOVED = "com.morgoo.doirplugin.PACKAGE_REMOVED";
     public static final String ACTION_DROIDPLUGIN_INIT = "com.morgoo.droidplugin.ACTION_DROIDPLUGIN_INIT";
     public static final String ACTION_MAINACTIVITY_ONCREATE = "com.morgoo.droidplugin.ACTION_MAINACTIVITY_ONCREATE";
-    public static final String ACTION_MAINACTIVITY_ONDESTORY = "com.morgoo.droidplugin.ACTION_MAINACTIVITY_ONDESTORY";
+    public static final String ACTION_MAINACTIVITY_ONDestroy = "com.morgoo.droidplugin.ACTION_MAINACTIVITY_ONDestroy";
     public static final String ACTION_SETTING = "com.morgoo.droidplugin.ACTION_SETTING";
     public static final String ACTION_SHORTCUT_PROXY = "com.morgoo.droidplugin.ACTION_SHORTCUT_PROXY";
 
@@ -911,17 +911,17 @@ public class PluginManager implements ServiceConnection {
         }
     }
 
-    public void onActivityDestory(ActivityInfo stubInfo, ActivityInfo targetInfo) throws RemoteException {
+    public void onActivityDestroy(ActivityInfo stubInfo, ActivityInfo targetInfo) throws RemoteException {
         try {
             if (mPluginManager != null) {
-                mPluginManager.onActivityDestory(stubInfo, targetInfo);
+                mPluginManager.onActivityDestroy(stubInfo, targetInfo);
             } else {
                 Log.w(TAG, "Plugin Package Manager Service not be connect");
             }
         } catch (RemoteException e) {
             throw e;
         } catch (Exception e) {
-            Log.e(TAG, "onActivityDestory", e);
+            Log.e(TAG, "onActivityDestroy", e);
         }
     }
 
@@ -940,15 +940,15 @@ public class PluginManager implements ServiceConnection {
     }
 
 
-    public void onServiceDestory(ServiceInfo stubInfo, ServiceInfo targetInfo) {
+    public void onServiceDestroy(ServiceInfo stubInfo, ServiceInfo targetInfo) {
         try {
             if (mPluginManager != null) {
-                mPluginManager.onServiceDestory(stubInfo, targetInfo);
+                mPluginManager.onServiceDestroy(stubInfo, targetInfo);
             } else {
                 Log.w(TAG, "Plugin Package Manager Service not be connect");
             }
         } catch (Exception e) {
-            Log.e(TAG, "onServiceDestory", e);
+            Log.e(TAG, "onServiceDestroy", e);
         }
     }
 
@@ -1011,17 +1011,17 @@ public class PluginManager implements ServiceConnection {
         }
     }
 
-    public void onActivtyOnNewIntent(ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent) throws RemoteException {
+    public void onActivityOnNewIntent(ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent) throws RemoteException {
         try {
             if (mPluginManager != null) {
-                mPluginManager.onActivtyOnNewIntent(stubInfo, targetInfo, intent);
+                mPluginManager.onActivityOnNewIntent(stubInfo, targetInfo, intent);
             } else {
                 Log.w(TAG, "Plugin Package Manager Service not be connect");
             }
         } catch (RemoteException e) {
             throw e;
         } catch (Exception e) {
-            Log.e(TAG, "onActivtyOnNewIntent", e);
+            Log.e(TAG, "onActivityOnNewIntent", e);
         }
     }
 
