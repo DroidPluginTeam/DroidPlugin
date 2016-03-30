@@ -113,7 +113,7 @@ It is very simple integrate Droid Plugin to your proejct：
 	
 ## FAQ
 	
- [FAQ](https://github.com/Qihoo360/DroidPlugin/wiki/FAQ "FAQ")
+ [FAQ](https://github.com/DroidPluginTeam/DroidPlugin/wiki/FAQ "FAQ")
 	
 ## Remark：
 
