@@ -1255,7 +1255,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
                     if (!TextUtils.isEmpty(processName)) {
                         String pkgName = processName.split(":")[0];
                         if (isPackagePlugin(pkgName)) {
-                            PluginManager.getInstance().killApplicationProcess(processName);
+                            PluginManager.getInstance().killApplicationProcess(pkgName);
                             return true;
                         }
                     }
