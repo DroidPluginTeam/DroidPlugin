@@ -64,7 +64,7 @@ public class PluginManager implements ServiceConnection {
     public static final String ACTION_PACKAGE_REMOVED = "com.morgoo.doirplugin.PACKAGE_REMOVED";
     public static final String ACTION_DROIDPLUGIN_INIT = "com.morgoo.droidplugin.ACTION_DROIDPLUGIN_INIT";
     public static final String ACTION_MAINACTIVITY_ONCREATE = "com.morgoo.droidplugin.ACTION_MAINACTIVITY_ONCREATE";
-    public static final String ACTION_MAINACTIVITY_ONDestroy = "com.morgoo.droidplugin.ACTION_MAINACTIVITY_ONDestroy";
+    public static final String ACTION_MAINACTIVITY_ONDESTROY = "com.morgoo.droidplugin.ACTION_MAINACTIVITY_ONDESTROY";
     public static final String ACTION_SETTING = "com.morgoo.droidplugin.ACTION_SETTING";
     public static final String ACTION_SHORTCUT_PROXY = "com.morgoo.droidplugin.ACTION_SHORTCUT_PROXY";
 
