@@ -1250,10 +1250,13 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             final int index = 0;
             if (args != null && args.length > index) {
                 if (args[index] != null && args[index] instanceof String) {
-                    String targetPkg = (String) args[index];
-                    if (isPackagePlugin(targetPkg)) {
-                        PluginManager.getInstance().killApplicationProcess(targetPkg);
-                        return true;
+                    String processName = (String) args[index];
+                    if (!TextUtils.isEmpty(processName)) {
+                        String targetPkg = processName.split(":")[0];
+                        if (isPackagePlugin(targetPkg)) {
+                            PluginManager.getInstance().killApplicationProcess(targetPkg);
+                            return true;
+                        }
                     }
                 }
             }
