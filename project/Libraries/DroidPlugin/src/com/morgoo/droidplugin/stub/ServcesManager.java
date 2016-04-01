@@ -191,7 +191,7 @@ public class ServcesManager {
             mServiceTaskIds.remove(token);
             service = null;
             QueuedWorkCompat.waitToFinish();
-            PluginManager.getInstance().onServiceDestory(null, targetInfo);
+            PluginManager.getInstance().onServiceDestroy(null, targetInfo);
         }
         QueuedWorkCompat.waitToFinish();
     }

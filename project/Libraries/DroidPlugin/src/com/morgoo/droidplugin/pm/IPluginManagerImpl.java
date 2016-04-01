@@ -83,6 +83,12 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
 
     private static final String TAG = IPluginManagerImpl.class.getSimpleName();
 
+    /**
+     * 验证Host是否拥有Plugin申明的全部权限，<br>
+     * 如果Host没有声明Plugin中的某个权限，开启此标志后将拒绝安装目标插件。
+     */
+    private static final boolean VERIFY_PLUGIN_PERMISSIONS = true;
+
     private Map<String, PluginPackageParser> mPluginCache = Collections.synchronizedMap(new HashMap<String, PluginPackageParser>(20));
 
     private Context mContext;
@@ -845,7 +851,8 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
                 PluginPackageParser parser = new PluginPackageParser(mContext, new File(apkfile));
                 parser.collectCertificates(0);
                 PackageInfo pkgInfo = parser.getPackageInfo(PackageManager.GET_PERMISSIONS | PackageManager.GET_SIGNATURES);
-                if (pkgInfo != null && pkgInfo.requestedPermissions != null && pkgInfo.requestedPermissions.length > 0) {
+
+                if (VERIFY_PLUGIN_PERMISSIONS && pkgInfo != null && pkgInfo.requestedPermissions != null && pkgInfo.requestedPermissions.length > 0) {
                     for (String requestedPermission : pkgInfo.requestedPermissions) {
                         boolean b = false;
                         try {
@@ -881,7 +888,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
                     PluginPackageParser parser = new PluginPackageParser(mContext, new File(apkfile));
                     parser.collectCertificates(0);
                     PackageInfo pkgInfo = parser.getPackageInfo(PackageManager.GET_PERMISSIONS | PackageManager.GET_SIGNATURES);
-                    if (pkgInfo != null && pkgInfo.requestedPermissions != null && pkgInfo.requestedPermissions.length > 0) {
+                    if (VERIFY_PLUGIN_PERMISSIONS && pkgInfo != null && pkgInfo.requestedPermissions != null && pkgInfo.requestedPermissions.length > 0) {
                         for (String requestedPermission : pkgInfo.requestedPermissions) {
                             boolean b = false;
                             try {
@@ -923,7 +930,7 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         String packageName = parser.getPackageName();
         String optimizedDirectory = PluginDirHelper.getPluginDalvikCacheDir(hostContext, packageName);
         String libraryPath = PluginDirHelper.getPluginNativeLibraryDir(hostContext, packageName);
-        ClassLoader classloader = new PluginClassLoader(apkfile, optimizedDirectory, libraryPath, ClassLoader.getSystemClassLoader());
+        new PluginClassLoader(apkfile, optimizedDirectory, libraryPath, ClassLoader.getSystemClassLoader());
 //        DexFile dexFile = DexFile.loadDex(apkfile, PluginDirHelper.getPluginDalvikCacheFile(mContext, parser.getPackageName()), 0);
 //        Log.e(TAG, "dexFile=%s,1=%s,2=%s", dexFile, DexFile.isDexOptNeeded(apkfile), DexFile.isDexOptNeeded(PluginDirHelper.getPluginDalvikCacheFile(mContext, parser.getPackageName())));
     }
@@ -1160,13 +1167,13 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     @Override
     public int checkSignatures(String pkg1, String pkg2) throws RemoteException {
         PackageManager pm = mContext.getPackageManager();
-        Signature[] signatures1 = new Signature[0];
+        Signature[] signatures1;
         try {
             signatures1 = getSignature(pkg1, pm);
         } catch (NameNotFoundException e) {
             return PackageManager.SIGNATURE_UNKNOWN_PACKAGE;
         }
-        Signature[] signatures2 = new Signature[0];
+        Signature[] signatures2;
         try {
             signatures2 = getSignature(pkg2, pm);
         } catch (NameNotFoundException e) {
@@ -1336,8 +1343,8 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     }
 
     @Override
-    public void onActivityDestory(ActivityInfo stubInfo, ActivityInfo targetInfo) throws RemoteException {
-        mActivityManagerService.onActivityDestory(Binder.getCallingPid(), Binder.getCallingUid(), stubInfo, targetInfo);
+    public void onActivityDestroy(ActivityInfo stubInfo, ActivityInfo targetInfo) throws RemoteException {
+        mActivityManagerService.onActivityDestroy(Binder.getCallingPid(), Binder.getCallingUid(), stubInfo, targetInfo);
     }
 
     @Override
@@ -1346,8 +1353,8 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     }
 
     @Override
-    public void onServiceDestory(ServiceInfo stubInfo, ServiceInfo targetInfo) throws RemoteException {
-        mActivityManagerService.onServiceDestory(Binder.getCallingPid(), Binder.getCallingUid(), stubInfo, targetInfo);
+    public void onServiceDestroy(ServiceInfo stubInfo, ServiceInfo targetInfo) throws RemoteException {
+        mActivityManagerService.onServiceDestroy(Binder.getCallingPid(), Binder.getCallingUid(), stubInfo, targetInfo);
     }
 
     @Override
@@ -1361,12 +1368,12 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     }
 
     public void onDestroy() {
-        mActivityManagerService.onDestory();
+        mActivityManagerService.onDestroy();
     }
 
     @Override
-    public void onActivtyOnNewIntent(ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent) throws RemoteException {
-        mActivityManagerService.onActivtyOnNewIntent(Binder.getCallingPid(), Binder.getCallingUid(), stubInfo, targetInfo, intent);
+    public void onActivityOnNewIntent(ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent) throws RemoteException {
+        mActivityManagerService.onActivityOnNewIntent(Binder.getCallingPid(), Binder.getCallingUid(), stubInfo, targetInfo, intent);
     }
 
     @Override

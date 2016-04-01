@@ -135,17 +135,17 @@ interface IPluginManager {
 
       void onActivityCreated(in ActivityInfo stubInfo,in ActivityInfo targetInfo);
 
-      void onActivityDestory(in ActivityInfo stubInfo,in ActivityInfo targetInfo);
+      void onActivityDestroy(in ActivityInfo stubInfo,in ActivityInfo targetInfo);
 
       void onServiceCreated(in ServiceInfo stubInfo,in ServiceInfo targetInfo);
 
-      void onServiceDestory(in ServiceInfo stubInfo,in ServiceInfo targetInfo);
+      void onServiceDestroy(in ServiceInfo stubInfo,in ServiceInfo targetInfo);
 
       void onProviderCreated(in ProviderInfo stubInfo,in ProviderInfo targetInfo);
 
       void reportMyProcessName(in String stubProcessName,in String targetProcessName, String targetPkg);
 
-      void onActivtyOnNewIntent(in ActivityInfo stubInfo,in ActivityInfo targetInfo, in Intent intent);
+      void onActivityOnNewIntent(in ActivityInfo stubInfo,in ActivityInfo targetInfo, in Intent intent);
 
       int getMyPid();
 }

@@ -82,7 +82,7 @@ public abstract class BaseActivityManagerService {
     public void onReportMyProcessName(int callingPid, int callingUid, String stubProcessName, String targetProcessName, String targetPkg) {
     }
 
-    public abstract void onActivtyOnNewIntent(int callingPid, int callingUid, ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent);
+    public abstract void onActivityOnNewIntent(int callingPid, int callingUid, ActivityInfo stubInfo, ActivityInfo targetInfo, Intent intent);
 
     private static class ProcessCookie {
         private ProcessCookie(int pid, int uid) {
@@ -137,19 +137,19 @@ public abstract class BaseActivityManagerService {
     public void onActivityCreated(int callingPid, int callingUid, ActivityInfo stubInfo, ActivityInfo targetInfo) {
     }
 
-    public void onActivityDestory(int callingPid, int callingUid, ActivityInfo stubInfo, ActivityInfo targetInfo) {
+    public void onActivityDestroy(int callingPid, int callingUid, ActivityInfo stubInfo, ActivityInfo targetInfo) {
     }
 
     public void onServiceCreated(int callingPid, int callingUid, ServiceInfo stubInfo, ServiceInfo targetInfo) {
     }
 
-    public void onServiceDestory(int callingPid, int callingUid, ServiceInfo stubInfo, ServiceInfo targetInfo) {
+    public void onServiceDestroy(int callingPid, int callingUid, ServiceInfo stubInfo, ServiceInfo targetInfo) {
     }
 
     public void onProviderCreated(int callingPid, int callingUid, ProviderInfo stubInfo, ProviderInfo targetInfo) {
     }
 
-    public void onDestory() {
+    public void onDestroy() {
         mRemoteCallbackList.kill();
         mRemoteCallbackList = null;
     }

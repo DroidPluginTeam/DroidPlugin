@@ -163,7 +163,7 @@ public class PluginInstrumentation extends Instrumentation {
                 ActivityInfo targetInfo = targetIntent.getParcelableExtra(Env.EXTRA_TARGET_INFO);
                 ActivityInfo stubInfo = targetIntent.getParcelableExtra(Env.EXTRA_STUB_INFO);
                 if (targetInfo != null && stubInfo != null) {
-                    RunningActivities.onActivtyCreate(activity, targetInfo, stubInfo);
+                    RunningActivities.onActivityCreate(activity, targetInfo, stubInfo);
                     activity.setRequestedOrientation(targetInfo.screenOrientation);
                     PluginManager.getInstance().onActivityCreated(stubInfo, targetInfo);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -184,8 +184,8 @@ public class PluginInstrumentation extends Instrumentation {
                 ActivityInfo targetInfo = targetIntent.getParcelableExtra(Env.EXTRA_TARGET_INFO);
                 ActivityInfo stubInfo = targetIntent.getParcelableExtra(Env.EXTRA_STUB_INFO);
                 if (targetInfo != null && stubInfo != null) {
-                    RunningActivities.onActivtyOnNewIntent(activity, targetInfo, stubInfo, intent);
-                    PluginManager.getInstance().onActivtyOnNewIntent(stubInfo, targetInfo, intent);
+                    RunningActivities.onActivityOnNewIntent(activity, targetInfo, stubInfo, intent);
+                    PluginManager.getInstance().onActivityOnNewIntent(stubInfo, targetInfo, intent);
                 }
             }
         } catch (Exception e) {
@@ -215,13 +215,13 @@ public class PluginInstrumentation extends Instrumentation {
         }
     }
 
-    private void onActivityDestory(Activity activity) throws RemoteException {
+    private void onActivityDestroy(Activity activity) throws RemoteException {
         Intent targetIntent = activity.getIntent();
         if (targetIntent != null) {
             ActivityInfo targetInfo = targetIntent.getParcelableExtra(Env.EXTRA_TARGET_INFO);
             ActivityInfo stubInfo = targetIntent.getParcelableExtra(Env.EXTRA_STUB_INFO);
             if (targetInfo != null && stubInfo != null) {
-                PluginManager.getInstance().onActivityDestory(stubInfo, targetInfo);
+                PluginManager.getInstance().onActivityDestroy(stubInfo, targetInfo);
             }
         }
     }
@@ -233,13 +233,13 @@ public class PluginInstrumentation extends Instrumentation {
         } else {
             super.callActivityOnDestroy(activity);
         }
-        RunningActivities.onActivtyDestory(activity);
+        RunningActivities.onActivityDestroy(activity);
 
         if (enable) {
             try {
-                onActivityDestory(activity);
+                onActivityDestroy(activity);
             } catch (RemoteException e) {
-                Log.e(TAG, "callActivityOnDestroy:onActivityDestory", e);
+                Log.e(TAG, "callActivityOnDestroy:onActivityDestroy", e);
             }
         }
     }
