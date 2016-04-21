@@ -25,6 +25,7 @@ package com.morgoo.droidplugin.hook.handle;
 import android.app.Application;
 import android.app.Notification;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -33,6 +34,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -356,6 +358,19 @@ public class INotificationManagerHookHandle extends BaseHookHandle {
                 }
             }
         }
+
+        try {
+            Bundle mExtras = (Bundle) FieldUtils.readField(notification, "extras", true);
+            for (String s : mExtras.keySet()) {
+                if (mExtras.get(s) != null && mExtras.get(s) instanceof ApplicationInfo) {
+                    ApplicationInfo applicationInfo = (ApplicationInfo) mExtras.get(s);
+                    return !TextUtils.equals(mHostContext.getPackageName(), applicationInfo.packageName);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 
