@@ -33,4 +33,4 @@ public class PackageManagerCompat {
     public static final int INSTALL_FAILED_INVALID_APK = -2;
     public static final int INSTALL_REPLACE_EXISTING = 0x00000002;
     public static final int INSTALL_FAILED_ALREADY_EXISTS = -1;
-}
+    public static final int INSTALL_FAILED_NOT_SUPPORT_ABI = -3;}
