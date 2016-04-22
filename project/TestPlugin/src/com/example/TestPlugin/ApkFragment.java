@@ -26,10 +26,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.morgoo.droidplugin.pm.PluginManager;
+import com.morgoo.helper.compat.PackageManagerCompat;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.morgoo.helper.compat.PackageManagerCompat.*;
 
 public class ApkFragment extends ListFragment implements ServiceConnection {
     private ArrayAdapter<ApkItem> adapter;
@@ -290,8 +293,19 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getActivity(), re == PluginManager.INSTALL_FAILED_NO_REQUESTEDPERMISSION ? "安装失败，文件请求的权限太多" : "安装完成", Toast.LENGTH_SHORT).show();
-                    adapter.notifyDataSetChanged();
+                    switch (re) {
+                        case PluginManager.INSTALL_FAILED_NO_REQUESTEDPERMISSION:
+                            Toast.makeText(getActivity(), "安装失败，文件请求的权限太多", Toast.LENGTH_SHORT).show();
+                            break;
+                        case INSTALL_FAILED_NOT_SUPPORT_ABI:
+                            Toast.makeText(getActivity(), "宿主不支持插件的abi环境，可能宿主运行时为64位，但插件只支持32位", Toast.LENGTH_SHORT).show();
+                            break;
+                        case INSTALL_SUCCEEDED:
+                            Toast.makeText(getActivity(), "安装完成", Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged();
+                            break;
+                    }
+
                 }
             });
         } catch (RemoteException e) {
