@@ -76,7 +76,7 @@ public class IMountServiceHookHandle extends BaseHookHandle {
                 if (args != null && args.length > index1 && args[index1] instanceof String) {
                     String path = (String) args[index1];
 //                    String path1 = new File(Environment.getExternalStorageDirectory(), "Android/data/").getPath();
-                    if (path != null) {
+                    if (path != null && path.indexOf(mHostContext.getPackageName()) < 0) {
                         String[] dirs = path.split("/");
                         if (dirs != null && dirs.length > 0) {
                             String pluginPackageName = null;
@@ -106,7 +106,7 @@ public class IMountServiceHookHandle extends BaseHookHandle {
                 if (args != null && args.length > index1 && args[index1] instanceof String) {
                     String path = (String) args[index1];
 //                    String path1 = new File(Environment.getExternalStorageDirectory(), "Android/data/").getPath();
-                    if (path != null) {
+                    if (path != null && path.indexOf(mHostContext.getPackageName()) < 0) {
                         String[] dirs = path.split("/");
                         if (dirs != null && dirs.length > 0) {
                             String pluginPackageName = null;
