@@ -30,9 +30,9 @@ import android.text.TextUtils;
 import com.morgoo.droidplugin.hook.BaseHookHandle;
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
 import com.morgoo.droidplugin.pm.PluginManager;
+import com.morgoo.helper.Utils;
 
 import java.lang.reflect.Method;
-import java.util.regex.Pattern;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/6.
@@ -51,13 +51,6 @@ public class IMountServiceHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("mkdirs", new mkdirs(mHostContext));
     }
 
-
-    private static final String VALID_JAVA_IDENTIFIER = "(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*\\.)*\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*";
-    private static final Pattern ANDROID_DATA_PATTERN = Pattern.compile(VALID_JAVA_IDENTIFIER);
-
-    private static boolean validateJavaIdentifier(String identifier) {
-        return ANDROID_DATA_PATTERN.matcher(identifier).matches();
-    }
 
     private class mkdirs extends HookedMethodHandler {
         public mkdirs(Context context) {
@@ -92,7 +85,7 @@ public class IMountServiceHookHandle extends BaseHookHandle {
                                 if (TextUtils.isEmpty(str)) {
                                     continue;
                                 }
-                                if (!validateJavaIdentifier(str)) {
+                                if (!Utils.validateJavaIdentifier(str)) {
                                     continue;
                                 }
                                 if (PluginManager.getInstance().isPluginPackage(str)) {
@@ -122,7 +115,7 @@ public class IMountServiceHookHandle extends BaseHookHandle {
                                 if (TextUtils.isEmpty(str)) {
                                     continue;
                                 }
-                                if (!validateJavaIdentifier(str)) {
+                                if (!Utils.validateJavaIdentifier(str)) {
                                     continue;
                                 }
                                 if (PluginManager.getInstance().isPluginPackage(str)) {

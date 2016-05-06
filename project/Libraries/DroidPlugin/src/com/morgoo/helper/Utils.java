@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/2/26.
@@ -42,6 +43,15 @@ import java.util.List;
 public class Utils {
 
     private static final String TAG = Utils.class.getSimpleName();
+
+
+    private static final String VALID_JAVA_IDENTIFIER = "(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*\\.)*\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*";
+    private static final Pattern ANDROID_DATA_PATTERN = Pattern.compile(VALID_JAVA_IDENTIFIER);
+
+    public static boolean validateJavaIdentifier(String identifier) {
+        return ANDROID_DATA_PATTERN.matcher(identifier).matches();
+    }
+
 
     public static void copyFile(String src, String dst) throws IOException {
         BufferedInputStream in = null;
