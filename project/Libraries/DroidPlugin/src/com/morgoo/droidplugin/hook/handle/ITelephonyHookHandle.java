@@ -24,6 +24,8 @@ package com.morgoo.droidplugin.hook.handle;
 import android.content.Context;
 
 import com.morgoo.droidplugin.hook.BaseHookHandle;
+import com.morgoo.droidplugin.hook.HookedMethodHandler;
+import com.morgoo.helper.compat.ITelephonyCompat;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2016/5/6.
@@ -1010,6 +1012,17 @@ public class ITelephonyHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("getLocaleFromDefaultSim", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("getModemActivityInfo", new MyBaseHandler(mHostContext));
 
+        addAllMethodFromHookedClass();
+    }
+
+    @Override
+    protected Class<?> getHookedClass() throws ClassNotFoundException {
+        return ITelephonyCompat.Class();
+    }
+
+    @Override
+    protected HookedMethodHandler newBaseHandler() throws ClassNotFoundException {
+        return new MyBaseHandler(mHostContext);
     }
 
     private static class MyBaseHandler extends ReplaceCallingPackageHookedMethodHandler {

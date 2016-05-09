@@ -24,11 +24,16 @@ package com.morgoo.droidplugin.hook.handle;
 import android.content.Context;
 
 import com.morgoo.droidplugin.hook.BaseHookHandle;
+import com.morgoo.droidplugin.hook.HookedMethodHandler;
+import com.morgoo.helper.compat.ISmsCompat;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2016/5/9.
  */
 public class ISmsHookHandle  extends BaseHookHandle{
+    private static final String TAG = ISmsHookHandle.class.getSimpleName();
+
+
     public ISmsHookHandle(Context hostContext) {
         super(hostContext);
     }
@@ -105,8 +110,19 @@ public class ISmsHookHandle  extends BaseHookHandle{
         sHookedMethodHandlers.put("sendStoredText",new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("sendStoredMultipartText",new MyBaseHandler(mHostContext));
 
+        addAllMethodFromHookedClass();
+
     }
 
+    @Override
+    protected Class<?> getHookedClass() throws ClassNotFoundException {
+        return ISmsCompat.Class();
+    }
+
+    @Override
+    protected HookedMethodHandler newBaseHandler() throws ClassNotFoundException {
+        return new MyBaseHandler(mHostContext);
+    }
 
     private static class MyBaseHandler extends ReplaceCallingPackageHookedMethodHandler {
         public MyBaseHandler(Context context) {

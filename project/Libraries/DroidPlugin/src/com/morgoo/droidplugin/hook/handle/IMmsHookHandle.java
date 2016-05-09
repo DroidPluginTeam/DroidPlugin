@@ -24,6 +24,8 @@ package com.morgoo.droidplugin.hook.handle;
 import android.content.Context;
 
 import com.morgoo.droidplugin.hook.BaseHookHandle;
+import com.morgoo.droidplugin.hook.HookedMethodHandler;
+import com.morgoo.helper.compat.IMmsCompat;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2016/5/9.
@@ -76,6 +78,19 @@ public class IMmsHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("sendStoredMessage", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("setAutoPersisting", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("getAutoPersisting", new MyBaseHandler(mHostContext));
+
+        addAllMethodFromHookedClass();
+
+    }
+
+    @Override
+    protected Class<?> getHookedClass() throws ClassNotFoundException {
+        return IMmsCompat.Class();
+    }
+
+    @Override
+    protected HookedMethodHandler newBaseHandler() throws ClassNotFoundException {
+        return new MyBaseHandler(mHostContext);
     }
 
     private static class MyBaseHandler extends ReplaceCallingPackageHookedMethodHandler {

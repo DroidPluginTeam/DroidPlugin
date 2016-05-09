@@ -25,6 +25,7 @@ import android.content.Context;
 
 import com.morgoo.droidplugin.hook.BaseHookHandle;
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
+import com.morgoo.helper.compat.ISubCompat;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2016/5/6.
@@ -205,6 +206,17 @@ public class ISubBinderHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("getSubscriptionProperty", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("getSimStateForSlotIdx", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("isActiveSubId", new MyBaseHandler(mHostContext));
+        addAllMethodFromHookedClass();
+    }
+
+    @Override
+    protected Class<?> getHookedClass() throws ClassNotFoundException {
+        return ISubCompat.Class();
+    }
+
+    @Override
+    protected HookedMethodHandler newBaseHandler() throws ClassNotFoundException {
+        return new MyBaseHandler(mHostContext);
     }
 
     private static class MyBaseHandler extends ReplaceCallingPackageHookedMethodHandler {

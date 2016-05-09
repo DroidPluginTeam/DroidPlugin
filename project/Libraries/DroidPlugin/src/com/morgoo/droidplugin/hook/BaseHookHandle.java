@@ -24,7 +24,10 @@ package com.morgoo.droidplugin.hook;
 
 import android.content.Context;
 
+import com.morgoo.helper.Log;
+
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -56,4 +59,30 @@ public abstract class BaseHookHandle {
             return null;
         }
     }
+
+    protected Class<?> getHookedClass() throws ClassNotFoundException {
+        return null;
+    }
+
+    protected HookedMethodHandler newBaseHandler() throws ClassNotFoundException {
+        return null;
+    }
+
+    protected void addAllMethodFromHookedClass(){
+        try {
+            Class clazz = getHookedClass();
+            if(clazz!=null){
+                Method[] methods = clazz.getDeclaredMethods();
+                if(methods!=null && methods.length>0){
+                    for (Method method : methods) {
+                        if(Modifier.isPublic(method.getModifiers()) && !sHookedMethodHandlers.containsKey(method.getName())){
+                            sHookedMethodHandlers.put(method.getName(),newBaseHandler());
+                        }
+                    }
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            Log.w(getClass().getSimpleName(),"init addAllMethodFromHookedClass error",e);
+        }
+    };
 }

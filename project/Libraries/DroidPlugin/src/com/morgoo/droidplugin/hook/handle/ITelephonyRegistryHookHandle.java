@@ -22,14 +22,10 @@
 package com.morgoo.droidplugin.hook.handle;
 
 import android.content.Context;
-import android.os.Build;
-import android.text.TextUtils;
 
 import com.morgoo.droidplugin.hook.BaseHookHandle;
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
-import com.morgoo.droidplugin.pm.PluginManager;
-
-import java.lang.reflect.Method;
+import com.morgoo.helper.compat.ITelephonyRegistryCompat;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2016/5/6.
@@ -109,8 +105,18 @@ public class ITelephonyRegistryHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("notifyOemHookRawEventForSubscriber", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("notifySubscriptionInfoChanged", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("notifyCarrierNetworkChange", new MyBaseHandler(mHostContext));
+        addAllMethodFromHookedClass();
     }
 
+    @Override
+    protected Class<?> getHookedClass() throws ClassNotFoundException {
+        return ITelephonyRegistryCompat.Class();
+    }
+
+    @Override
+    protected HookedMethodHandler newBaseHandler() throws ClassNotFoundException {
+        return new MyBaseHandler(mHostContext);
+    }
     private static class MyBaseHandler extends ReplaceCallingPackageHookedMethodHandler {
         public MyBaseHandler(Context context) {
             super(context);

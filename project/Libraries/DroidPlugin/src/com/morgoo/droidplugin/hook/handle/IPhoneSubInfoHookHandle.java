@@ -24,6 +24,8 @@ package com.morgoo.droidplugin.hook.handle;
 import android.content.Context;
 
 import com.morgoo.droidplugin.hook.BaseHookHandle;
+import com.morgoo.droidplugin.hook.HookedMethodHandler;
+import com.morgoo.helper.compat.IPhoneSubInfoCompat;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2016/5/6.
@@ -217,6 +219,18 @@ public class IPhoneSubInfoHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("getIsimPcscf", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("getIsimChallengeResponse", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("getIccSimChallengeResponse", new MyBaseHandler(mHostContext));
+
+        addAllMethodFromHookedClass();
+    }
+
+    @Override
+    protected Class<?> getHookedClass() throws ClassNotFoundException {
+        return IPhoneSubInfoCompat.Class();
+    }
+
+    @Override
+    protected HookedMethodHandler newBaseHandler() throws ClassNotFoundException {
+        return new MyBaseHandler(mHostContext);
     }
 
     private static class MyBaseHandler extends ReplaceCallingPackageHookedMethodHandler {
