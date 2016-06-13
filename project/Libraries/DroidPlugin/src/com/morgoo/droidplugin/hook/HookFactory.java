@@ -31,6 +31,7 @@ import com.morgoo.droidplugin.hook.binder.IAppOpsServiceBinderHook;
 import com.morgoo.droidplugin.hook.binder.IAudioServiceBinderHook;
 import com.morgoo.droidplugin.hook.binder.IClipboardBinderHook;
 import com.morgoo.droidplugin.hook.binder.IContentServiceBinderHook;
+import com.morgoo.droidplugin.hook.binder.IDisplayManagerBinderHook;
 import com.morgoo.droidplugin.hook.binder.IGraphicsStatsBinderHook;
 import com.morgoo.droidplugin.hook.binder.IInputMethodManagerBinderHook;
 import com.morgoo.droidplugin.hook.binder.ILocationManagerBinderHook;
@@ -188,7 +189,7 @@ public class HookFactory {
 
         installHook(new SQLiteDatabaseHook(context), classLoader);
 
-
+        installHook(new IDisplayManagerBinderHook(context), classLoader);
     }
 
     public final void onCallApplicationOnCreate(Context context, Application app) {
