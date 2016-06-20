@@ -164,7 +164,10 @@ public class PluginInstrumentation extends Instrumentation {
                 ActivityInfo stubInfo = targetIntent.getParcelableExtra(Env.EXTRA_STUB_INFO);
                 if (targetInfo != null && stubInfo != null) {
                     RunningActivities.onActivtyCreate(activity, targetInfo, stubInfo);
-                    activity.setRequestedOrientation(targetInfo.screenOrientation);
+                    if (activity.getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                            && targetInfo.screenOrientation != ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
+                        activity.setRequestedOrientation(targetInfo.screenOrientation);
+                    }
                     PluginManager.getInstance().onActivityCreated(stubInfo, targetInfo);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         fixTaskDescription(activity, targetInfo);
