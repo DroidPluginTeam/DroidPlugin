@@ -111,7 +111,7 @@ public class PluginProcessManager {
             sProcessList.add(context.getPackageName());
 
             PackageManager pm = context.getPackageManager();
-            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_RECEIVERS | PackageManager.GET_ACTIVITIES | PackageManager.GET_PROVIDERS);
+            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_RECEIVERS | PackageManager.GET_ACTIVITIES | PackageManager.GET_PROVIDERS | PackageManager.GET_SERVICES);
             if (packageInfo.receivers != null) {
                 for (ActivityInfo info : packageInfo.receivers) {
                     if (!sProcessList.contains(info.processName)) {
