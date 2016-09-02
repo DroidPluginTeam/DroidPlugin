@@ -683,9 +683,6 @@ DroidPlugin和Small的共同点是**两者都是非侵入式的插件框架**；
 
 OK，本文的内容就到这里了；关于『插件机制对于Activity的处理方式』也就此完结。要说明的是，在本文的『保守方案』其实只处理了代码的加载过程，它并不能加载有资源的apk！所以目前我这个实现基本没什么暖用；当然我这里只是就『代码加载』进行举例；至于资源，那牵扯到另外一个问题——**插件系统的资源管理机制**这个在后续文章的合适机会我会单独讲解。
 
-接下来的文章，会讲述Android四大组件的另外三个`Service`，`BroadCastReceiver`, `ContentProvider`的处理方式。喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][2]和我的 [博客](http://weishu.me)! 这文章我前前后后准备了快两个星期，如果你看到了这里，还请支持一下 :)
-
-
 
 [1]: 概述.md
 [2]: https://github.com/tiann/understand-plugin-framework

@@ -271,8 +271,6 @@ OK，我们又成功劫持了`PackageManager`！！DroidPlugin 处理PMS的代�
 
 了解完Hook技术之后，接下来的系列文章会讲述DroidPlugin对Android四大组件在插件系统上的处理，插件框架对于这一部分的实现是DroidPlugin的精髓，Hook只不过是工具而已。学习这部分内容需要对于Activity，Service，Broadcast以及ContentProvider的工作机制有一定的了解，因此我也会在必要的时候穿插讲解一些Android Framework的知识；我相信这一定会对读者大有裨益。
 
-喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][2]和我的 [博客](http://weishu.me)!
-
 [1]: Hook机制之Binder-Hook.md
 [2]: https://github.com/tiann/understand-plugin-framework
 [3]: http://blog.csdn.net/luoshengyang/article/details/6689748

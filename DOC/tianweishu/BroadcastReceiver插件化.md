@@ -314,8 +314,6 @@ for (ActivityInfo activityInfo : ReceiverHelper.sCache.keySet()) {
 
 虽然对于BroadcastReceiver的处理方式相对简单，但是文章的内容却并不短——我们花了大量的篇幅讲述BroadcastReceiver的原理，这也是我的初衷：借助DroidPlugin更深入地了解Android Framework。
 
-接下来为文章会讲述四大组件中的另外两个——Service和ContentProvider的插件化方案；喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][2] 和我的 [博客](http://weishu.me) ! 如果你觉得能从文中学到皮毛，还请支持一下 :)
-
 [1]: Activity生命周期管理.md
 [2]: ClassLoader管理.md
 [3]: http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.0.1_r1/android/content/IIntentReceiver.java?av=f

@@ -198,6 +198,4 @@ public static void attachContext() throws Exception{
 
 完整代码参照：[understand-plugin-framework][1]；里面留有一个作业：我们目前仅Hook了`Context`类的`startActivity`方法，但是`Activity`类却使用了自己的`mInstrumentation`；你可以尝试Hook掉Activity类的`startActivity`方法。
 
-喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][1]和我的 [博客](http://weishu.me)!
-
 [1]: https://github.com/tiann/understand-plugin-framework

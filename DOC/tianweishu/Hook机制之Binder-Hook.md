@@ -282,8 +282,6 @@ cache.put(CLIPBOARD_SERVICE, hookedBinder);
 
 也许你会问，插件框架会这么hook吗？如果不是那么插件框架hook这些干什么？插件框架当然不会做替换文本这么无聊的事情，DroidPlugin插件框架管理插件使得插件就像是主程序一样，因此插件需要使用主程序的剪切版，插件之间也会共用剪切版；其他的一些系统服务也类似，这样就可以达到插件和宿主程序之间的天衣服缝，水乳交融！另外，`ActivityManager`以及`PackageManager`这两个系统服务虽然也可以通过这种方式hook，但是由于它们的重要性和特殊性，DroidPlugin使用了另外一种方式，我们会单独讲解。
 
-喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][3] 和我的 [博客][5]!
-
 [1]: http://weishu.me/2016/01/12/binder-index-for-newer/
 [2]: 概述.md
 [3]: https://github.com/tiann/understand-plugin-framework

@@ -494,8 +494,6 @@ mInstrumentation.callActivityOnDestroy(r.activity);
 
 **我们要完成插件系统中类的加载**，这可以通过自定义ClassLoader实现。解决了『启动没有在AndroidManifest.xml中显式声明的，并且存在于外部文件中的Activity』的问题，插件系统对于Activity的管理才算得上是一个完全体。篇幅所限，欲知后事如何，请听下回分解！
 
-喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][2]和我的 [博客](http://weishu.me)!
-
 [1]: 概述.md
 [2]: https://github.com/tiann/understand-plugin-framework
 [3]: Hook机制之代理Hook.md
