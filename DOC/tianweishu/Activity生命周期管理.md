@@ -1,11 +1,4 @@
-title: "Android 插件化原理解析——Activity生命周期管理"
-date: 2016-03-21 19:43:32
-tags:
-- android
-- plugin framework
-- droidplugin
----
-
+# Activity生命周期管理
 
 之前的 [Android插件化原理解析][1] 系列文章揭开了Hook机制的神秘面纱，现在我们手握倚天屠龙，那么如何通过这种技术完成插件化方案呢？具体来说，插件中的Activity，Service等组件如何在Android系统上运行起来？
 
@@ -240,9 +233,9 @@ startActivity(new Intent(MainActivity.this, TargetActivity.class));
 由于`AMS`进程会对Activity做显式声明验证，因此在
 启动Activity的控制权转移到`AMS`进程之前，我们需要想办法**临时**把TargetActivity替换成替身StubActivity；在这之间有很长的一段调用链，我们可以轻松Hook掉；选择什么地方Hook是一个很自由的事情，但是Hook的步骤越后越可靠——Hook得越早，后面的调用就越复杂，越容易出错。
 
-我们可以选择在进入`AMS`进程的入口进行Hook，具体来说也就是Hook `AMS`在本进程的代理对象ActivityManagerNative。如果你不知道如何Hook掉这个AMS的代理对象，请查阅我之前的文章 [Hook机制之AMS&PMS][5] 
+我们可以选择在进入`AMS`进程的入口进行Hook，具体来说也就是Hook `AMS`在本进程的代理对象ActivityManagerNative。如果你不知道如何Hook掉这个AMS的代理对象，请查阅我之前的文章 [Hook机制之AMS&PMS][5]
 
-我们Hook掉ActivityManagerNative对于startActivity方法的调用，替换掉交给AMS的intent对象，将里面的TargetActivity的暂时替换成已经声明好的替身StubActivity；这种Hook方式 [前文][5] 讲述的很详细，不赘述；替换的关键代码如下： 
+我们Hook掉ActivityManagerNative对于startActivity方法的调用，替换掉交给AMS的intent对象，将里面的TargetActivity的暂时替换成已经声明好的替身StubActivity；这种Hook方式 [前文][5] 讲述的很详细，不赘述；替换的关键代码如下：
 
 ```java
 if ("startActivity".equals(method.getName())) {
@@ -503,9 +496,9 @@ mInstrumentation.callActivityOnDestroy(r.activity);
 
 喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][2]和我的 [博客](http://weishu.me)!
 
-[1]: http://weishu.me/2016/01/28/understand-plugin-framework-overview/
+[1]: 概述.md
 [2]: https://github.com/tiann/understand-plugin-framework
-[3]: http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/
-[4]: http://weishu.me/2016/02/16/understand-plugin-framework-binder-hook/
-[5]: http://weishu.me/2016/03/07/understand-plugin-framework-ams-pms-hook/
+[3]: Hook机制之代理Hook.md
+[4]: Hook机制之Binder-Hook.md
+[5]: Hook机制之AMS&PMS.md
 [6]: http://blog.csdn.net/luoshengyang/article/details/6685853

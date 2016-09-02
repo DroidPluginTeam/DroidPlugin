@@ -1,11 +1,4 @@
-title: "Android插件化原理解析——Hook机制之Binder Hook"
-date: 2016-02-16 19:22:45
-tags:
-- android
-- plugin framework
-- droidplugin
-- binder
----
+# Hook机制之Binder-Hook
 
 Android系统通过Binder机制给应用程序提供了一系列的系统服务，诸如`ActivityManagerService`，`ClipboardManager`， `AudioManager`等；这些广泛存在系统服务给应用程序提供了诸如任务管理，音频，视频等异常强大的功能。
 
@@ -84,7 +77,7 @@ IXXInterface in = IXXInterface.Stub.asInterface(b); // 转换为Service接口
 ```java
 public static android.content.IClipboard asInterface(android.os.IBinder obj) {
     if ((obj == null)) {
-        return null; 
+        return null;
     }
     android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR); // Hook点
     if (((iin != null) && (iin instanceof android.content.IClipboard))) {
@@ -292,7 +285,7 @@ cache.put(CLIPBOARD_SERVICE, hookedBinder);
 喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][3] 和我的 [博客][5]!
 
 [1]: http://weishu.me/2016/01/12/binder-index-for-newer/
-[2]: http://weishu.me/2016/01/28/understand-plugin-framework-overview/
+[2]: 概述.md
 [3]: https://github.com/tiann/understand-plugin-framework
-[4]: http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/
+[4]: Hook机制之代理Hook.md
 [5]: http://weishu.me/

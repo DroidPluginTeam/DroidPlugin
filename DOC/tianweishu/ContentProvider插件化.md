@@ -1,11 +1,4 @@
-title: "Android插件化原理解析——ContentProvider的插件化"
-date: 2016-07-12 19:18:07
-tags:
-- android
-- plugin framework
-- droidplugin
-- ContentProvider
----
+# ContentProvider插件化
 
 目前为止我们已经完成了Android四大组件中Activity，Service以及BroadcastReceiver的插件化，这几个组件各不相同，我们根据它们的特点定制了不同的插件化方案；那么对于ContentProvider，它又有什么特点？应该如何实现它的插件化？
 
@@ -299,7 +292,7 @@ synchronized (cpr) {
 }
 ```
 
-你没看错，一个死循环就是糊在上面：AMS进程会通过一个死循环等到进程B完成ContentProvider的安装，等待完成之后会把ContentProvider的信息返回给进程A。那么，我们现在的疑惑是，**进程B在启动之后，在哪个时间点会完成ContentProvider的安装呢？** 
+你没看错，一个死循环就是糊在上面：AMS进程会通过一个死循环等到进程B完成ContentProvider的安装，等待完成之后会把ContentProvider的信息返回给进程A。那么，我们现在的疑惑是，**进程B在启动之后，在哪个时间点会完成ContentProvider的安装呢？**
 
 我们接着看ActivityThread的main函数，顺便寻找我们上面那个问题的答案；这个分析实际上就是Android App的启动过程，更详细的过程可以参阅老罗的文章 [Android应用程序启动过程源代码分析][4]，这里只给出简要调用流程：
 
@@ -579,7 +572,7 @@ private Uri getRealUri(Uri raw) {
 喜欢就点个赞吧，兜里有一块钱的童鞋可以点击下面的打赏然后扫一下二维码哦～持续更新，请关注github项目 [understand-plugin-framework][1] 和我的 [博客][3]! 另外很抱歉一个多月没有更新博客了，每天看到各位的来访记录深感惭愧，实在是业务繁忙，身不由已！不出意外接下来会以正常速度更新内容，谢谢支持 ^_^
 
 [1]: https://github.com/tiann/understand-plugin-framework
-[2]: http://weishu.me/2016/01/28/understand-plugin-framework-overview/
+[2]: 概述.md
 [3]: http://weishu.me
 [4]: http://blog.csdn.net/luoshengyang/article/details/6689748
 [5]: http://blog.csdn.net/luoshengyang/article/details/6967204

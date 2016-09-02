@@ -1,11 +1,4 @@
-title: "Android插件化原理解析——广播的管理"
-date: 2016-04-12 19:08:16
-tags:
-- android
-- plugin framework
-- droidplugin
-- broadcastreceiver
----
+# BroadcastReceiver插件化
 
 在[Activity生命周期管理][1] 以及 [插件加载机制][2] 中我们详细讲述了插件化过程中对于Activity组件的处理方式，为了实现Activity的插件化我们付出了相当多的努力；那么Android系统的其他组件，比如BroadcastReceiver，Service还有ContentProvider，它们又该如何处理呢？
 
@@ -184,7 +177,7 @@ public void run() {
     final IActivityManager mgr = ActivityManagerNative.getDefault();
     final Intent intent = mCurIntent;
     mCurIntent = null;
-    
+
     if (receiver == null || mForgotten) {
         if (mRegistered && ordered) {
             sendFinished(mgr);
@@ -209,7 +202,7 @@ public void run() {
                 + " in " + mReceiver, e);
         }
     }
-    
+
     if (receiver.getPendingResult() != null) {
         finish();
     }
@@ -323,9 +316,9 @@ for (ActivityInfo activityInfo : ReceiverHelper.sCache.keySet()) {
 
 接下来为文章会讲述四大组件中的另外两个——Service和ContentProvider的插件化方案；喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][2] 和我的 [博客](http://weishu.me) ! 如果你觉得能从文中学到皮毛，还请支持一下 :)
 
-[1]: http://weishu.me/2016/03/21/understand-plugin-framework-activity-management/
-[2]: http://weishu.me/2016/04/05/understand-plugin-framework-classloader/
+[1]: Activity生命周期管理.md
+[2]: ClassLoader管理.md
 [3]: http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/5.0.1_r1/android/content/IIntentReceiver.java?av=f
-[4]: http://weishu.me/2016/03/21/understand-plugin-framework-activity-management/
+[4]: Activity生命周期管理.md
 [5]: https://github.com/tiann/understand-plugin-framework
-[6]: http://weishu.me/2016/01/28/understand-plugin-framework-overview/
+[6]: 概述.md

@@ -1,10 +1,4 @@
-title: "Android插件化原理解析——Hook机制之动态代理"
-date: 2016-01-28 20:27:13
-tags:
-- android
-- plugin framework
-- droidplugin
----
+# Hook机制之动态代理
 
 使用代理机制进行API Hook进而达到方法增强是框架的常用手段，比如J2EE框架Spring通过动态代理优雅地实现了AOP编程，极大地提升了Web开发效率；同样，插件框架也广泛使用了代理机制来增强系统API从而达到插件化的目的。本文将带你了解基于动态代理的Hook机制。
 
@@ -156,10 +150,10 @@ public class EvilInstrumentation extends Instrumentation {
         try {
             Method execStartActivity = Instrumentation.class.getDeclaredMethod(
                     "execStartActivity",
-                    Context.class, IBinder.class, IBinder.class, Activity.class, 
+                    Context.class, IBinder.class, IBinder.class, Activity.class,
                     Intent.class, int.class, Bundle.class);
             execStartActivity.setAccessible(true);
-            return (ActivityResult) execStartActivity.invoke(mBase, who, 
+            return (ActivityResult) execStartActivity.invoke(mBase, who,
                     contextThread, token, target, intent, requestCode, options);
         } catch (Exception e) {
             // 某该死的rom修改了  需要手动适配

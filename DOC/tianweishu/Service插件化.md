@@ -1,11 +1,4 @@
-title: "Android 插件化原理解析——Service的插件化"
-date: 2016-05-11 21:02:50
-tags:
-- android
-- plugin framework
-- droidplugin
-- service
----
+# Service插件化
 
 在 [Activity生命周期管理][1] 以及 [广播的管理][2] 中我们详细探讨了Android系统中的Activity、BroadcastReceiver组件的工作原理以及它们的插件化方案，相信读者已经对Android Framework和插件化技术有了一定的了解；本文将探讨Android四大组件之一——Service组件的插件化方式。
 
@@ -135,7 +128,7 @@ int bindServiceLocked(IApplicationThread caller, IBinder token, Intent service,
 ```java
 private final String bringUpServiceLocked(ServiceRecord r, int intentFlags, boolean execInFg,
         boolean whileRestarting) throws TransactionTooLargeException {
-  
+
     // 略。。
 
     final boolean isolated = (r.serviceInfo.flags&ServiceInfo.FLAG_ISOLATED_PROCESS) != 0;
@@ -186,7 +179,7 @@ private final String bringUpServiceLocked(ServiceRecord r, int intentFlags, bool
 ```java
 private final void realStartServiceLocked(ServiceRecord r,
         ProcessRecord app, boolean execInFg) throws RemoteException {
-    
+
     // 略。。
 
     boolean created = false;
@@ -275,7 +268,7 @@ OK，现在ActivityThread里面的`handleCreateService`方法成功创建出了S
 ```java
 private final void realStartServiceLocked(ServiceRecord r,
         ProcessRecord app, boolean execInFg) throws RemoteException {
-    
+
     // 略。。
 
     boolean created = false;
@@ -529,7 +522,7 @@ if ("startService".equals(method.getName())) {
     newIntent.setComponent(componentName);
     // 把我们原始要启动的TargetService先存起来
     newIntent.putExtra(AMSHookHelper.EXTRA_TARGET_INTENT, integerIntentPair.second);
-    
+
     // 替换掉Intent, 达到欺骗AMS的目的
     args[integerIntentPair.first] = newIntent;
     Log.v(TAG, "hook method startService success");
@@ -739,16 +732,15 @@ public void onStart(Intent proxyIntent, int startId) {
 Service，Activity等不过就是一些普通的Java类，它们之所称为四大组件，是因为他们有生命周期；这也是简单地采用Java的动态加载技术无法实现插件化的原因——动态加载进来的Service等类如果没有它的生命周期，无异于一个没有灵魂的傀儡。对于Activity组件，由于他的生命周期受用户交互影响，只有系统本身才能对这种交互有全局掌控力，因此它的插件化方式是Hook AMS，但是生命周期依然交由系统管理；而Service以及BroadcastReceiver的生命周期没有额外的因素影响，因此我们选择了手动控制其生命周期的方式。不论是借尸还魂还是女娲造人，对这些组件的插件化终归结底是要赋予组件“生命”。
 
 插件化系列的文章有整整一个月没有更新了，非常抱歉！这段时间发生了很多事情，我实在抽不出时间照顾博客；而写这种文章又需要足够的时间准备，要跟踪源码分析过程，要找联系DroidPlugin作者确认设计思路，还要亲自写demo验证。
-喜欢就点个赞吧，兜里有一块钱的童鞋可以点击下面的打赏然后扫一下二维码哦～持续更新，请关注github项目 [understand-plugin-framework][3] 和我的 [博客][9]! 
+喜欢就点个赞吧，兜里有一块钱的童鞋可以点击下面的打赏然后扫一下二维码哦～持续更新，请关注github项目 [understand-plugin-framework][3] 和我的 [博客][9]!
 
 
-[1]: http://weishu.me/2016/03/21/understand-plugin-framework-activity-management/
-[2]: http://weishu.me/2016/04/12/understand-plugin-framework-receiver/
+[1]: Activity生命周期管理.md
+[2]: BroadcastReceiver插件化.md
 [3]: https://github.com/tiann/understand-plugin-framework
-[4]: http://weishu.me/2016/01/28/understand-plugin-framework-overview/
+[4]: 概述.md
 [5]: http://developer.android.com/intl/zh-cn/guide/components/services.html
-[6]: http://weishu.me/2016/03/07/understand-plugin-framework-ams-pms-hook/
-[7]: http://weishu.me/2016/04/05/understand-plugin-framework-classloader/
+[6]: Hook机制之AMS&PMS.md
+[7]: ClassLoader管理.md
 [8]: https://github.com/singwhatiwanna/dynamic-load-apk
 [9]: http://weishu.me
-

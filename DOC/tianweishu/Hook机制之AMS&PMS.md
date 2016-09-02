@@ -1,10 +1,4 @@
-title: 'Android 插件化原理解析——Hook机制之AMS&PMS'
-date: 2016-03-07 16:35:46
-tags:
-- android
-- plugin framework
-- droidplugin
----
+# Hook机制之AMS&PMS
 
 在前面的文章中我们介绍了DroidPlugin的Hook机制，也就是**代理方式**和**Binder Hook**；插件框架通过AOP实现了插件使用和开发的透明性。在讲述DroidPlugin如何实现四大组件的插件化之前，有必要说明一下它对ActivityManagerServiche以及PackageManagerService的Hook方式（以下简称AMS，PMS）。
 
@@ -174,7 +168,7 @@ D/HookHelper﹕ method:startActivity called with args:[android.app.ActivityThrea
 D/HookHelper﹕ hey, baby; you are hook!!
 D/HookHelper﹕ method:activityPaused called with args:[android.os.BinderProxy@9bc71b2]
 ```
-可以看到，简单的几行代码，`AMS`已经被我们完全劫持了!! 至于劫持了能干什么，自己发挥想象吧~ 
+可以看到，简单的几行代码，`AMS`已经被我们完全劫持了!! 至于劫持了能干什么，自己发挥想象吧~
 
 DroidPlugin关于`AMS`的Hook，可以查看`IActivityManagerHook`这个类，它处理了我上述所说的兼容性问题，其他原理相同。另外，也许有童鞋有疑问了，你用`startActivity`为例怎么能确保Hook掉这个静态变量之后就能保证所有使用`AMS`的入口都被Hook了呢？
 
@@ -279,10 +273,10 @@ OK，我们又成功劫持了`PackageManager`！！DroidPlugin 处理PMS的代�
 
 喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][2]和我的 [博客](http://weishu.me)!
 
-[1]: http://weishu.me/2016/02/16/understand-plugin-framework-binder-hook/
+[1]: Hook机制之Binder-Hook.md
 [2]: https://github.com/tiann/understand-plugin-framework
 [3]: http://blog.csdn.net/luoshengyang/article/details/6689748
 [4]: http://weishu.me/2016/01/12/binder-index-for-newer/
 [5]: http://grepcode.com/file_/repository.grepcode.com/java/ext/com.google.android/android/4.0.1_r1/android/app/ActivityManagerNative.java/?v=diff&id2=2.3.3_r1
-[6]: http://weishu.me/2016/01/28/understand-plugin-framework-proxy-hook/
+[6]: Hook机制之代理Hook.md
 [7]: https://segmentfault.com/a/1190000004077469

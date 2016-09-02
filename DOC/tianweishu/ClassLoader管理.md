@@ -1,12 +1,4 @@
-title: 'Android 插件化原理解析——插件加载机制'
-date: 2016-04-05 20:13:01
-tags:
-- android
-- plugin framework
-- droidplugin
-- binder
-- classloader
----
+# 插件加载机制
 
 上文 [Activity生命周期管理][3] 中我们地完成了『启动没有在AndroidManifest.xml中显式声明的Activity』的任务；通过Hook `AMS`和拦截ActivityThread中`H`类对于组件调度我们成功地绕过了AndroidMAnifest.xml的限制。
 
@@ -188,7 +180,7 @@ public final LoadedApk getPackageInfoNoCheck(ApplicationInfo ai,
 我们首先看看ApplicationInfo代表什么，这个类的文档说的很清楚：
 
 > Information you can retrieve about a particular application.  This corresponds to information collected from the AndroidManifest.xml's &lt;application&gt; tag.
- 
+
 也就是说，这个类就是AndroidManifest.xml里面的<application> 这个标签下面的信息；这个AndroidManifest.xml无疑是一个标准的xml文件，因此我们完全可以自己使用parse来解析这个信息。
 
 那么，系统是如何获取这个信息的呢？其实Framework就有一个这样的parser，也即PackageParser；理论上，我们也可以借用系统的parser来解析AndroidMAnifest.xml从而得到ApplicationInfo的信息。但遗憾的是，**这个类的兼容性很差**；Google几乎在每一个Android版本都对这个类动刀子，如果坚持使用系统的解析方式，必须写一系列兼容行代码！！DroidPlugin就选择了这种方式，相关类如下：
@@ -208,7 +200,7 @@ OK回到正题，我们决定使用PackageParser类来提取ApplicationInfo信�
 
 ```java
 public static ApplicationInfo generateApplicationInfo(Package p, int flags,
-   PackageUserState state) 
+   PackageUserState state)
 ```
 
 可以写出调用generateApplicationInfo的反射代码：
@@ -691,15 +683,14 @@ DroidPlugin和Small的共同点是**两者都是非侵入式的插件框架**；
 
 OK，本文的内容就到这里了；关于『插件机制对于Activity的处理方式』也就此完结。要说明的是，在本文的『保守方案』其实只处理了代码的加载过程，它并不能加载有资源的apk！所以目前我这个实现基本没什么暖用；当然我这里只是就『代码加载』进行举例；至于资源，那牵扯到另外一个问题——**插件系统的资源管理机制**这个在后续文章的合适机会我会单独讲解。
 
-接下来的文章，会讲述Android四大组件的另外三个`Service`，`BroadCastReceiver`, `ContentProvider`的处理方式。喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][2]和我的 [博客](http://weishu.me)! 这文章我前前后后准备了快两个星期，如果你看到了这里，还请支持一下 :) 
+接下来的文章，会讲述Android四大组件的另外三个`Service`，`BroadCastReceiver`, `ContentProvider`的处理方式。喜欢就点个赞吧～持续更新，请关注github项目 [understand-plugin-framework][2]和我的 [博客](http://weishu.me)! 这文章我前前后后准备了快两个星期，如果你看到了这里，还请支持一下 :)
 
 
 
-[1]: http://weishu.me/2016/01/28/understand-plugin-framework-overview/
+[1]: 概述.md
 [2]: https://github.com/tiann/understand-plugin-framework
-[3]: http://weishu.me/2016/03/21/understand-plugin-framework-activity-management/
-[4]: http://weishu.me/2016/03/07/understand-plugin-framework-ams-pms-hook/
+[3]: Activity生命周期管理.md
+[4]: Hook机制之AMS&PMS.md
 [5]: http://androidxref.com/6.0.1_r10/xref/libcore/dalvik/src/main/java/dalvik/system/PathClassLoader.java
 [6]: http://androidxref.com/6.0.1_r10/xref/libcore/dalvik/src/main/java/dalvik/system/BaseDexClassLoader.java
-[7]: http://weishu.me/2016/02/16/understand-plugin-framework-binder-hook/
-
+[7]: Hook机制之Binder-Hook.md
