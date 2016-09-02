@@ -118,7 +118,7 @@ DroidPlugin 是***360手机助手***在Android系统上实现了一种新的***�
 - 插件占坑，四大组件动态注册前奏（三） 系统BroadCast的注册发送流程
 - 插件开发之360 DroidPlugin源码分析（四）Activity预注册占坑
 - 插件开发之360 DroidPlugin源码分析（五）Service预注册占坑
-  作者：何俊林
+- 作者：何俊林
 
  
 ## FAQ
