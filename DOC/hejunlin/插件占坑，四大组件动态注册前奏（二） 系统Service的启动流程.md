@@ -1,5 +1,5 @@
 
-前言：为什么要了解系统Activity，Service,BroadCastReceiver,ContentProvider的启动流程，这是一个对于即将理解插件中的四大组件动态注册，占坑的前提，如果不了解的话，那么很难了解插件hook哪此东西，又是如何骗过AMS来启动Activity,Service,BroadCastReceiver，ContentProvider？
+前言：为什么要了解系统Activity，Service,BroadCastReceiver,ContentProvider的启动流程，这是一个对于即将理解插件中的四大组件动态注册，占坑的前提，如果不了解的话，那么很难了解插件hook哪些东西，又是如何骗过AMS来启动Activity,Service,BroadCastReceiver，ContentProvider？
 
 本节主要记录系统Service的启动流程： 
 先看时序图：
