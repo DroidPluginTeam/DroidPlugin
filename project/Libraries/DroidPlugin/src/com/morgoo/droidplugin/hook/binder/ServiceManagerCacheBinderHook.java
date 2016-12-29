@@ -70,6 +70,11 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
             } else {
                 sCache.remove(mServiceName);
                 IBinder mServiceIBinder = ServiceManagerCompat.getService(mServiceName);
+                if (mServiceIBinder == null) {
+                    if (Obj != null && Obj instanceof IBinder && !Proxy.isProxyClass(Obj.getClass())) {
+                        mServiceIBinder = ((IBinder) Obj);
+                    }
+                }
                 if (mServiceIBinder != null) {
                     MyServiceManager.addOriginService(mServiceName, mServiceIBinder);
                     Class clazz = mServiceIBinder.getClass();
