@@ -704,7 +704,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
         /* public List<ResolveInfo> queryIntentActivities(Intent intent, String resolvedType, int flags) throws RemoteException;*/
             //API 4.1.1_r1, 4.2_r1, 4.3_r1, 4.4_r1, 5.0.2_r1
         /* public List<ResolveInfo> queryIntentActivities(Intent intent, String resolvedType, int flags, int userId) throws RemoteException;*/
-            if (args != null && invokeResult instanceof List) {
+            if (args != null && (invokeResult instanceof List || ParceledListSliceCompat.isParceledListSlice(invokeResult))) {
                 final int index0 = 0, index1 = 1, index2 = 2;
                 Intent intent = null;
                 if (args.length > index0) {
@@ -730,8 +730,16 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
                 if (intent != null) {
                     List<ResolveInfo> infos = PluginManager.getInstance().queryIntentActivities(intent, resolvedType, flags);
                     if (infos != null && infos.size() > 0) {
-                        List old = (List) invokeResult;
-                        old.addAll(infos);
+                        if (invokeResult instanceof List) {
+                            List old = (List) invokeResult;
+                            old.addAll(infos);
+                        } else if (ParceledListSliceCompat.isParceledListSlice(invokeResult)) {
+                            if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) { //Only for api 24
+                                Method getListMethod = MethodUtils.getAccessibleMethod(invokeResult.getClass(), "getList");
+                                List data = (List) getListMethod.invoke(invokeResult);
+                                data.addAll(infos);
+                            }
+                        }
                     }
                 }
             }
