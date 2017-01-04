@@ -43,6 +43,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.text.TextUtils;
 
+import com.morgoo.droidplugin.BuildConfig;
 import com.morgoo.droidplugin.PluginManagerService;
 import com.morgoo.droidplugin.reflect.MethodUtils;
 import com.morgoo.helper.Log;
@@ -72,7 +73,7 @@ public class PluginManager implements ServiceConnection {
     public static final String EXTRA_PID = "com.morgoo.droidplugin.EXTRA_PID";
     public static final String EXTRA_PACKAGENAME = "com.morgoo.droidplugin.EXTRA_EXTRA_PACKAGENAME";
 
-    public static final String STUB_AUTHORITY_NAME = "com.morgoo.droidplugin_stub";
+    public static final String STUB_AUTHORITY_NAME = BuildConfig.AUTHORITY_NAME;
     public static final String EXTRA_APP_PERSISTENT = "com.morgoo.droidplugin.EXTRA_APP_PERSISTENT";
 
 
