@@ -47,7 +47,6 @@ import com.morgoo.droidplugin.hook.HookFactory;
 import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.droidplugin.reflect.MethodUtils;
-import com.morgoo.droidplugin.stub.ActivityStub;
 import com.morgoo.droidplugin.stub.ServiceStub;
 import com.morgoo.helper.compat.ActivityThreadCompat;
 import com.morgoo.helper.compat.CompatibilityInfoCompat;
@@ -103,6 +102,10 @@ public class PluginProcessManager {
 
 
     private static void initProcessList(Context context) {
+
+        // if you modify this, please update create_stub.groovy
+        final String  SERVICE_STEM = "ServiceStub_P";
+        final String  ACTIVITY_STEM = "ActivityStub_P";
         try {
             if (sProcessList.size() > 0) {
                 return;
@@ -131,7 +134,7 @@ public class PluginProcessManager {
 
             if (packageInfo.services != null) {
                 for (ServiceInfo info : packageInfo.services) {
-                    if (!sProcessList.contains(info.processName) && info.processName != null && info.name != null && info.name.indexOf(ServiceStub.class.getSimpleName()) < 0) {
+                    if (!sProcessList.contains(info.processName) && info.processName != null && info.name != null && info.name.indexOf(SERVICE_STEM) < 0) {
                         sProcessList.add(info.processName);
                     }
                 }
@@ -139,7 +142,7 @@ public class PluginProcessManager {
 
             if (packageInfo.activities != null) {
                 for (ActivityInfo info : packageInfo.activities) {
-                    if (!sProcessList.contains(info.processName) && info.processName != null && info.name != null && info.name.indexOf(ActivityStub.class.getSimpleName()) < 0) {
+                    if (!sProcessList.contains(info.processName) && info.processName != null && info.name != null && info.name.indexOf(ACTIVITY_STEM) < 0) {
                         sProcessList.add(info.processName);
                     }
                 }
