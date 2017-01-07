@@ -71,26 +71,7 @@ It is very simple integrate Droid Plugin to your proejct：
             super.attachBaseContext(base);
 		}
 
-4.  **All**  `provider`'s `authorities` value in DroidPlugin's `Libraries\DroidPlugin\AndroidManifest.xml`
- default to be `com.morgoo.droidplugin_stub_P00`, e.g. :
-
-		<provider
-				android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
-				android:authorities="com.morgoo.droidplugin_stub_P00"
-				android:exported="false"
-				android:label="@string/stub_name_povider" />
-
-	You'd better change it to avoid conflict with other instances, e.g.:
-		
-		<provider
-				android:name="com.morgoo.droidplugin.stub.ContentProviderStub$StubP00"
-				android:authorities="com.example.droidplugin_stub_P00"
-				android:exported="false"
-				android:label="@string/stub_name_povider" />
-    and change ```PluginManager.STUB_AUTHORITY_NAME``` to your value:
-
-		PluginManager.STUB_AUTHORITY_NAME="com.example.droidplugin_stub"
-
+4. Modify the `authorityName` value in `Libraries\DroidPlugin\build.gradle` (suggested use your package name)
 
 ####Install、Uninstall or Upgrade the plugged app：
 
