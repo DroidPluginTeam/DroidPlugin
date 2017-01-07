@@ -30,18 +30,14 @@ android {
     }
 
     defaultConfig{
+
         // 建议改为自己的 packageName + .droidplugin_stub ，防止跟其它本插件使用者冲突
         def authorityName = "com.morgoo.droidplugin_stub"
+
         buildConfigField "String", "AUTHORITY_NAME", "\"${authorityName}\""
-        resValue "string", "authority0", "${authorityName}_P00"
-        resValue "string", "authority1", "${authorityName}_P01"
-        resValue "string", "authority2", "${authorityName}_P02"
-        resValue "string", "authority3", "${authorityName}_P03"
-        resValue "string", "authority4", "${authorityName}_P04"
-        resValue "string", "authority5", "${authorityName}_P05"
-        resValue "string", "authority6", "${authorityName}_P06"
-        resValue "string", "authority7", "${authorityName}_P07"
-        resValue "string", "authority8", "${authorityName}_P08"
+        manifestPlaceholders = [
+            authorityName:"${authorityName}",
+        ]
     }
 
 }
