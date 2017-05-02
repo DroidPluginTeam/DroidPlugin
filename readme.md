@@ -8,7 +8,7 @@ The new address: [DroidPlugin](https://github.com/DroidPluginTeam/DroidPlugin "D
 
 [Fllow me at github](https://github.com/cmzy)
 
-DroidPlugin is a new **Plugin Framework** developed and maintained by the Android app-store team at Qihoo 360 (NYSE:QIHU).
+DroidPlugin is a new **Plugin Framework** developed and maintained by Andy Zhang( [Fllow me at github](https://github.com/cmzy) ).
 It enables the host app run any third-party apk without installation, modification and repackage, which benefit a lot for collaborative development on Android.
 
 -------
