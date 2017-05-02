@@ -1,7 +1,7 @@
 Droid Plugin
 ======
 
-DroidPlugin 是Andy Zhang在Android系统上实现了一种新的***插件机制***:它可以在无需安装、修改的情况下运行APK文件,此机制对改进大型APP的架构，实现多团队协作开发具有一定的好处。
+DroidPlugin 是Andy Zhang在Android系统上实现了一种新的 插件机制 :它可以在无需安装、修改的情况下运行APK文件,此机制对改进大型APP的架构，实现多团队协作开发具有一定的好处。
 -------
 
 [在Github上关注我](https://github.com/cmzy)
