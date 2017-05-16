@@ -1,11 +1,16 @@
 package com.example.TestPlugin;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
+import android.content.pm.ResolveInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.RemoteException;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -13,6 +18,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 
+import android.view.Menu;
+import android.view.MenuItem;
+import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.helper.Log;
 
 import java.io.File;
@@ -27,6 +35,7 @@ public class MyActivity extends AppCompatActivity {
 
     private static final String TAG = "MyActivity";
 
+    private AlertDialog mInstallingDia;
 
     private ViewPager mViewPager;
     private FragmentStatePagerAdapter mFragmentStatePagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
@@ -118,5 +127,56 @@ public class MyActivity extends AppCompatActivity {
         }.start();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_install:
+                Intent act = new Intent(this, AllLauncherActivity.class);
+                startActivityForResult(act, 0);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK){
+
+            ResolveInfo r = data.getParcelableExtra(AllLauncherActivity.ActFragment.EXTRA_RESOVLEINFO);
+            mInstallingDia = new AlertDialog.Builder(this)
+                    .setTitle("install plugin " + r.activityInfo.applicationInfo.packageName)
+                    .setCancelable(false)
+                    .create();
+
+            mInstallingDia.show();
+
+            new AsyncTask<ResolveInfo, Void, Void>(){
+
+                @Override
+                protected Void doInBackground(ResolveInfo... params) {
+
+                    try {
+                        PluginManager.getInstance().installPackage(params[0].activityInfo.applicationInfo.publicSourceDir, 0);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    mInstallingDia.dismiss();
+                }
+            }.execute(r);
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
