@@ -242,7 +242,7 @@ public class PluginInstrumentation extends Instrumentation {
             try {
                 onActivityDestory(activity);
             } catch (RemoteException e) {
-                Log.e(TAG, "callActivityOnDestroy:onActivityDestory", e);
+                Log.e(TAG, "callActivityOnDestroy:onActivityDestroy", e);
             }
         }
     }

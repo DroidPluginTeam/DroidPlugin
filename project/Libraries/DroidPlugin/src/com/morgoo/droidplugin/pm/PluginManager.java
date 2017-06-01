@@ -922,7 +922,7 @@ public class PluginManager implements ServiceConnection {
         } catch (RemoteException e) {
             throw e;
         } catch (Exception e) {
-            Log.e(TAG, "onActivityDestory", e);
+            Log.e(TAG, "onActivityDestroy", e);
         }
     }
 
@@ -949,7 +949,7 @@ public class PluginManager implements ServiceConnection {
                 Log.w(TAG, "Plugin Package Manager Service not be connect");
             }
         } catch (Exception e) {
-            Log.e(TAG, "onServiceDestory", e);
+            Log.e(TAG, "onServiceDestroy", e);
         }
     }
 
@@ -1022,7 +1022,7 @@ public class PluginManager implements ServiceConnection {
         } catch (RemoteException e) {
             throw e;
         } catch (Exception e) {
-            Log.e(TAG, "onActivtyOnNewIntent", e);
+            Log.e(TAG, "onActivityOnNewIntent", e);
         }
     }
 
