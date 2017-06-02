@@ -50,10 +50,10 @@ import java.util.TreeSet;
  * 正在运行的进程列表
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/10.
  */
-class RunningProcesList {
+class RunningProcessList {
 
     private static final Collator sCollator = Collator.getInstance();
-    private static final String TAG = RunningProcesList.class.getSimpleName();
+    private static final String TAG = RunningProcessList.class.getSimpleName();
     private static Comparator sComponentInfoComparator = new Comparator<ComponentInfo>() {
         @Override
         public int compare(ComponentInfo lhs, ComponentInfo rhs) {
