@@ -107,7 +107,9 @@ public class PluginPackageParser {
                 if (TextUtils.isEmpty(value.processName)) {
                     value.processName = value.packageName;
                 }
-                mActivityInfoCache.put(componentName, value);
+                if (value.enabled) {
+                    mActivityInfoCache.put(componentName, value);
+                }
             }
 
             List<IntentFilter> filters = mParser.readIntentFilterFromComponent(data);
@@ -129,7 +131,9 @@ public class PluginPackageParser {
                 if (TextUtils.isEmpty(value.processName)) {
                     value.processName = value.packageName;
                 }
-                mServiceInfoCache.put(componentName, value);
+                if (value.enabled) {
+                    mServiceInfoCache.put(componentName, value);
+                }
             }
 
             List<IntentFilter> filters = mParser.readIntentFilterFromComponent(data);
@@ -152,7 +156,9 @@ public class PluginPackageParser {
                 if (TextUtils.isEmpty(value.processName)) {
                     value.processName = value.packageName;
                 }
-                mProviderInfoCache.put(componentName, value);
+                if (value.enabled) {
+                    mProviderInfoCache.put(componentName, value);
+                }
             }
 
             List<IntentFilter> filters = mParser.readIntentFilterFromComponent(data);
@@ -176,7 +182,9 @@ public class PluginPackageParser {
                 if (TextUtils.isEmpty(value.processName)) {
                     value.processName = value.packageName;
                 }
-                mReceiversInfoCache.put(componentName, value);
+                if (value.enabled) {
+                    mReceiversInfoCache.put(componentName, value);
+                }
             }
             List<IntentFilter> filters = mParser.readIntentFilterFromComponent(data);
             synchronized (mReceiverIntentFilterCache) {
