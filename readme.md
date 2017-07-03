@@ -15,7 +15,7 @@ It enables the host app run any third-party apk without installation, modificati
 
 
 
-##Problems to be solved:
+## Problems to be solved:
     
  1. Unable to send `Notification` with custom Resources，eg：
  
@@ -29,7 +29,7 @@ It enables the host app run any third-party apk without installation, modificati
 
  3. Lack of `Hook` to the `Native` layer, thus apk (e.g. a majority of game apps) with `native` code cannot be loaded as plugin.
     
-##Features：
+## Features：
   1. Compatible to Android 2.3 and later versions
   2. Given its .apk file, the plugged app could be run either independently or as plugin of the host, **NO** source code needed.
   3. Unnecessary to register the plugged app's `Service`、`Activity`、`BroadcastReceiver`、`ContentProvider` in the host.
@@ -42,9 +42,9 @@ It enables the host app run any third-party apk without installation, modificati
   10. Static broadcast of plugged app will be treated as dynamic, thus the static broadcasting will never be trigger if
   the plugged app are not activated.
     
-##Usage：
+## Usage：
 
-####Integrate with the host apps
+#### Integrate with the host apps
 
 It is very simple integrate Droid Plugin to your proejct：
 
@@ -73,7 +73,7 @@ It is very simple integrate Droid Plugin to your proejct：
 
 4. Modify the `authorityName` value in `Libraries\DroidPlugin\build.gradle` (suggested use your package name)
 
-####Install、Uninstall or Upgrade the plugged app：
+#### Install、Uninstall or Upgrade the plugged app：
 
 1. **Install/Upgrade**, use this method：
  
