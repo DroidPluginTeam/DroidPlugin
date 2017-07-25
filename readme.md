@@ -62,7 +62,7 @@ It is very simple integrate Droid Plugin to your proejct：
 		@Override
 		public void onCreate() {
 			super.onCreate();
-			PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
+			PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must be after super.onCreate()
 		}
         
 		@Override
