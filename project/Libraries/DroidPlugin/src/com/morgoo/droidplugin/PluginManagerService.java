@@ -24,11 +24,13 @@ package com.morgoo.droidplugin;
 
 import android.app.Notification;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
 import com.morgoo.droidplugin.hook.handle.IActivityManagerHookHandle;
 import com.morgoo.droidplugin.pm.IPluginManagerImpl;
+import com.morgoo.droidplugin.pm.PluginManager;
 
 /**
  * 插件管理服务。
@@ -38,15 +40,25 @@ import com.morgoo.droidplugin.pm.IPluginManagerImpl;
 public class PluginManagerService extends Service {
 
     private static final String TAG = PluginManagerService.class.getSimpleName();
-    private IPluginManagerImpl mPluginPackageManager;
+    private static IPluginManagerImpl mPluginPackageManager;
+
+    public static IPluginManagerImpl getPluginPackageManager(Context context) {
+        if (mPluginPackageManager == null) {
+            synchronized (PluginManager.class) {
+                if (mPluginPackageManager == null) {
+                    mPluginPackageManager = new IPluginManagerImpl(context);
+                    mPluginPackageManager.onCreate();
+                }
+            }
+        }
+        return mPluginPackageManager;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         keepAlive();
-        mPluginPackageManager = new IPluginManagerImpl(this);
-        mPluginPackageManager.onCreate();
-
+        getPluginPackageManager(this);
     }
 
     private void keepAlive() {
