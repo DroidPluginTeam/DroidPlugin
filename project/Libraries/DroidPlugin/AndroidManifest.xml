@@ -187,6 +187,10 @@
             android:name=".PluginManagerService"
             android:label="@string/service_name_plugin_manager_service" />
 
+        <provider
+            android:name=".PluginServiceProvider"
+            android:authorities="${applicationId}.plugin.servicemanager"/>
+
         <activity
             android:name="com.morgoo.droidplugin.stub.ShortcutProxyActivity"
             android:exported="true"
