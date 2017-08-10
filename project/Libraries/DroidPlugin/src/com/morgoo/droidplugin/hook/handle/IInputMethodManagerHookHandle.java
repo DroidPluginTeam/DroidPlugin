@@ -44,6 +44,7 @@ public class IInputMethodManagerHookHandle extends BaseHookHandle {
     protected void init() {
         sHookedMethodHandlers.put("startInput", new startInput(mHostContext));
         sHookedMethodHandlers.put("windowGainedFocus", new windowGainedFocus(mHostContext));
+        sHookedMethodHandlers.put("startInputOrWindowGainedFocus", new startInputOrWindowGainedFocus(mHostContext));
     }
 
     private class IInputMethodManagerHookedMethodHandler extends HookedMethodHandler {
@@ -75,6 +76,12 @@ public class IInputMethodManagerHookHandle extends BaseHookHandle {
 
     private class windowGainedFocus extends IInputMethodManagerHookedMethodHandler {
         public windowGainedFocus(Context hostContext) {
+            super(hostContext);
+        }
+    }
+
+    private class startInputOrWindowGainedFocus extends IInputMethodManagerHookedMethodHandler {
+        public startInputOrWindowGainedFocus(Context hostContext) {
             super(hostContext);
         }
     }
