@@ -26,7 +26,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.morgoo.droidplugin.pm.PluginManager;
+import com.morgoo.helper.Log;
 
 import java.util.List;
 
@@ -47,8 +49,13 @@ public class InstalledFragment extends ListFragment implements ServiceConnection
 
             PackageManager pm = getActivity().getPackageManager();
             Intent intent = pm.getLaunchIntentForPackage(item.packageInfo.packageName);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            if (intent != null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Log.i("DroidPlugin", "start " + item.packageInfo.packageName + "@" + intent);
+                startActivity(intent);
+            } else {
+                Log.e("DroidPlugin", "pm " + pm.toString() + " no find intent " + item.packageInfo.packageName);
+            }
         } else if (v.getId() == R.id.button3) {
             doUninstall(item);
         }
