@@ -69,20 +69,16 @@ public class PluginManager implements ServiceConnection {
     public static final String ACTION_SETTING = "com.morgoo.droidplugin.ACTION_SETTING";
     public static final String ACTION_SHORTCUT_PROXY = "com.morgoo.droidplugin.ACTION_SHORTCUT_PROXY";
 
-
     public static final String EXTRA_PID = "com.morgoo.droidplugin.EXTRA_PID";
     public static final String EXTRA_PACKAGENAME = "com.morgoo.droidplugin.EXTRA_EXTRA_PACKAGENAME";
 
     public static final String STUB_AUTHORITY_NAME = BuildConfig.AUTHORITY_NAME;
     public static final String EXTRA_APP_PERSISTENT = "com.morgoo.droidplugin.EXTRA_APP_PERSISTENT";
 
-
     public static final int INSTALL_FAILED_NO_REQUESTEDPERMISSION = -100001;
     public static final int STUB_NO_ACTIVITY_MAX_NUM = 4;
 
-
     private static final String TAG = PluginManager.class.getSimpleName();
-
 
     private Context mHostContext;
     private static PluginManager sInstance = null;
@@ -176,7 +172,6 @@ public class PluginManager implements ServiceConnection {
         }
     }
 
-
     /**
      * 提供超时设置的waitForConnected版本
      *
@@ -200,7 +195,6 @@ public class PluginManager implements ServiceConnection {
             waitForConnected();
         }
     }
-
 
     private IPluginManager mPluginManager;
 
@@ -230,7 +224,6 @@ public class PluginManager implements ServiceConnection {
             }
         }
     }
-
 
     public void init(Context hostContext) {
         mHostContext = hostContext;
@@ -269,7 +262,6 @@ public class PluginManager implements ServiceConnection {
         }
         return null;
     }
-
 
     public boolean isPluginPackage(String packageName) throws RemoteException {
         try {
@@ -882,7 +874,6 @@ public class PluginManager implements ServiceConnection {
         return null;
     }
 
-
     public String getProcessNameByPid(int pid) throws RemoteException {
         try {
             if (mPluginManager != null) {
@@ -940,7 +931,6 @@ public class PluginManager implements ServiceConnection {
         }
     }
 
-
     public void onServiceDestory(ServiceInfo stubInfo, ServiceInfo targetInfo) {
         try {
             if (mPluginManager != null) {
@@ -994,7 +984,6 @@ public class PluginManager implements ServiceConnection {
             Log.e(TAG, "deletePackage", e);
         }
     }
-
 
     public int checkSignatures(String pkg0, String pkg1) throws RemoteException {
         try {

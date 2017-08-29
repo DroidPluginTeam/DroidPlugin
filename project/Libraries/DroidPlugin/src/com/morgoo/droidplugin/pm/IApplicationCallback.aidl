@@ -20,8 +20,6 @@
 **
 **/
 
-
-
 package com.morgoo.droidplugin.pm;
 
 /**

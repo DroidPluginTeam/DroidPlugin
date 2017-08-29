@@ -51,12 +51,10 @@ public class IMountServiceHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("mkdirs", new mkdirs(mHostContext));
     }
 
-
     private class mkdirs extends HookedMethodHandler {
         public mkdirs(Context context) {
             super(context);
         }
-
 
         //  /sdcard/Android/data/com.example.plugin/fdfdfdfd.fdfd
         // /sdcard/Android/data/hostpackagename/Plugin/com.example.plugin/fdfdfdfd.fdfd

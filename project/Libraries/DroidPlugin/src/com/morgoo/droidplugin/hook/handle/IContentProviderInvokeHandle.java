@@ -51,7 +51,6 @@ public class IContentProviderInvokeHandle extends BaseHookHandle {
         mLocalProvider = localProvider;
     }
 
-
     @Override
     protected void init() {
         sHookedMethodHandlers.put("query", new query(mHostContext));
@@ -72,7 +71,6 @@ public class IContentProviderInvokeHandle extends BaseHookHandle {
     }
 
     private class MyHandler extends ReplaceCallingPackageHookedMethodHandler {
-
         public MyHandler(Context hostContext) {
             super(hostContext);
         }

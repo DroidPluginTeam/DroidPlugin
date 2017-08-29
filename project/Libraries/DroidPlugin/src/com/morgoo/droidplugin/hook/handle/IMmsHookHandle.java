@@ -38,7 +38,6 @@ public class IMmsHookHandle extends BaseHookHandle {
 
     @Override
     protected void init() {
-
 //        interface IMms {
 //            void sendMessage(int subId, String callingPkg, in Uri contentUri,
 //                             String locationUrl, in Bundle configOverrides, in PendingIntent sentIntent);
@@ -63,7 +62,6 @@ public class IMmsHookHandle extends BaseHookHandle {
 //            boolean getAutoPersisting();
 //        }
 
-
         sHookedMethodHandlers.put("sendMessage", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("downloadMessage", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("getCarrierConfigValues", new MyBaseHandler(mHostContext));
@@ -80,7 +78,6 @@ public class IMmsHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("getAutoPersisting", new MyBaseHandler(mHostContext));
 
         addAllMethodFromHookedClass();
-
     }
 
     @Override

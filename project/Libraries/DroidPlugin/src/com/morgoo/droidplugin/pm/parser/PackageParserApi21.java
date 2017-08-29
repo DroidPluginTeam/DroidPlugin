@@ -73,12 +73,10 @@ class PackageParserApi21 extends PackageParser {
 
     protected int mUserId;
 
-
     public PackageParserApi21(Context context) throws Exception {
         super(context);
         initClasses();
     }
-
 
     private void initClasses() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         sPackageParserClass = Class.forName("android.content.pm.PackageParser");
@@ -100,7 +98,6 @@ class PackageParserApi21 extends PackageParser {
         }
     }
 
-
     @Override
     public void parsePackage(File file, int flags) throws Exception {
          /* public Package parsePackage(File packageFile, int flags) throws PackageParserException*/
@@ -116,7 +113,6 @@ class PackageParserApi21 extends PackageParser {
         method.invoke(mPackageParser, mPackage, flags);
     }
 
-
     @Override
     public ActivityInfo generateActivityInfo(Object activity, int flags) throws Exception {
         /*   public static final ActivityInfo generateActivityInfo(Activity a, int flags,
@@ -125,7 +121,6 @@ class PackageParserApi21 extends PackageParser {
         return (ActivityInfo) method.invoke(null, activity, flags, mDefaultPackageUserState, mUserId);
     }
 
-
     @Override
     public ServiceInfo generateServiceInfo(Object service, int flags) throws Exception {
         /* public static final ServiceInfo generateServiceInfo(Service s, int flags,
@@ -133,7 +128,6 @@ class PackageParserApi21 extends PackageParser {
         Method method = MethodUtils.getAccessibleMethod(sPackageParserClass, "generateServiceInfo", sServiceClass, int.class, sPackageUserStateClass, int.class);
         return (ServiceInfo) method.invoke(null, service, flags, mDefaultPackageUserState, mUserId);
     }
-
 
     @Override
     public ProviderInfo generateProviderInfo(Object provider, int flags) throws Exception {
@@ -223,8 +217,6 @@ class PackageParserApi21 extends PackageParser {
         }
 
         throw new NoSuchMethodException("Can not found method generatePackageInfo");
-
-
     }
 
     @Override

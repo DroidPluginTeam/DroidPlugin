@@ -26,6 +26,7 @@ package com.morgoo.helper.compat;
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/4/13.
  */
 public class ActivityManagerCompat {
+
     public static final int INTENT_SENDER_SERVICE = 4;
 
     public static final int INTENT_SENDER_ACTIVITY = 2;

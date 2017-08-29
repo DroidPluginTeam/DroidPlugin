@@ -33,12 +33,11 @@ import com.morgoo.helper.compat.ITelephonyCompat;
  */
 public class ITelephonyBinderHook extends BinderHook {
 
+    private final static String SERVICE_NAME = Context.TELEPHONY_SERVICE;
+
     public ITelephonyBinderHook(Context hostContext) {
         super(hostContext);
     }
-
-
-    private final static String SERVICE_NAME = Context.TELEPHONY_SERVICE;
 
     @Override
     Object getOldObj() throws Exception {

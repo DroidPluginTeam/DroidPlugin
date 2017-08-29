@@ -135,9 +135,8 @@ public class Log {
                 return;
             }
 
-            //禁用LibCoreHook，防止方法循环调用。
+            //禁用LibCoreHook，防止方法循环调用
             HookFactory.getInstance().setHookEnable(LibCoreHook.class, false);
-
 
             File logFile = getLogFile();
             if (logFile.length() > MAX_LOG_FILE) {

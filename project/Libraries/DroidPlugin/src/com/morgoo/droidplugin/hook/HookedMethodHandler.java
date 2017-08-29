@@ -39,7 +39,6 @@ public class HookedMethodHandler {
         this.mHostContext = hostContext;
     }
 
-
     public synchronized Object doHookInner(Object receiver, Method method, Object[] args) throws Throwable {
         long b = System.currentTimeMillis();
         try {

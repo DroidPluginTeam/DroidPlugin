@@ -60,14 +60,12 @@ class PackageParserApi16 extends PackageParserApi20 {
         return (ActivityInfo) method.invoke(null, activity, flags, mStopped, mEnabledState, mUserId);
     }
 
-
     @Override
     public ServiceInfo generateServiceInfo(Object service, int flags) throws Exception {
         /*public static final ServiceInfo generateServiceInfo(Service s, int flags, boolean stopped, int enabledState, int userId)*/
         Method method = MethodUtils.getAccessibleMethod(sPackageParserClass, "generateServiceInfo", sServiceClass, int.class, boolean.class, int.class, int.class);
         return (ServiceInfo) method.invoke(null, service, flags, mStopped, mEnabledState, mUserId);
     }
-
 
     @Override
     public ProviderInfo generateProviderInfo(Object provider, int flags) throws Exception {

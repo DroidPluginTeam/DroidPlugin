@@ -53,8 +53,6 @@ public class IContentServiceHandle extends BaseHookHandle {
     }
 
     private static class IContentServiceHookedMethodHandler extends HookedMethodHandler {
-
-
         public IContentServiceHookedMethodHandler(Context hostContext) {
             super(hostContext);
         }

@@ -81,6 +81,4 @@ public class PluginManagerService extends Service {
         IActivityManagerHookHandle.getIntentSender.handlePendingIntent(this, intent);
         return super.onStartCommand(intent, flags, startId);
     }
-
-
 }

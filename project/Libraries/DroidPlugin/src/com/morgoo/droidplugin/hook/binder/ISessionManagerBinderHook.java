@@ -32,6 +32,7 @@ import com.morgoo.helper.compat.ISessionManagerCompat;
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/9.
  */
 public class ISessionManagerBinderHook extends BinderHook {
+
     private final static String SERVICE_NAME = Context.MEDIA_SESSION_SERVICE;
 
     public ISessionManagerBinderHook(Context hostContext) {

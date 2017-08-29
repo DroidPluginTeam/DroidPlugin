@@ -39,7 +39,6 @@ import java.util.Set;
 //for Android M
 class PackageParserApi22Preview1 extends PackageParserApi21 {
 
-
     private static final String TAG = PackageParserApi22Preview1.class.getSimpleName();
 
     PackageParserApi22Preview1(Context context) throws Exception {

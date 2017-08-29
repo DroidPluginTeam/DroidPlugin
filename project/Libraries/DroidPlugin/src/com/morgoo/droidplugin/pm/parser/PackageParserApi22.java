@@ -43,6 +43,7 @@ import java.util.Set;
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
 class PackageParserApi22 extends PackageParserApi21 {
+
     private static final String TAG = PackageParserApi22Preview1.class.getSimpleName();
 
     PackageParserApi22(Context context) throws Exception {

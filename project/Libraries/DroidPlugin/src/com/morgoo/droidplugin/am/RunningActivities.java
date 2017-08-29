@@ -23,7 +23,7 @@ import java.util.Map;
 public class RunningActivities {
 
     private static final String TAG = RunningActivities.class.getSimpleName();
-    private static Map<Activity, RunningActivityRecord> mRunningActivityList = new HashMap<>();
+    private static Map<Activity, RunningActivityRecord> sRunningActivityList = new HashMap<>();
     private static Map<Integer, RunningActivityRecord> mRunningSingleStandardActivityList = new HashMap<>();
     private static Map<Integer, RunningActivityRecord> mRunningSingleTopActivityList = new HashMap<>();
     private static Map<Integer, RunningActivityRecord> mRunningSingleTaskActivityList = new HashMap<>();
@@ -32,7 +32,6 @@ public class RunningActivities {
     public static void onActivtyOnNewIntent(Activity activity, ActivityInfo targetInfo, ActivityInfo stubInfo, Intent intent) {
         //TODO
     }
-
 
     private static class RunningActivityRecord {
         private final Activity activity;
@@ -46,13 +45,12 @@ public class RunningActivities {
             this.stubActivityInfo = stubActivityInfo;
             this.index = index;
         }
-
     }
 
     public static void onActivtyCreate(Activity activity, ActivityInfo targetActivityInfo, ActivityInfo stubActivityInfo) {
-        synchronized (mRunningActivityList) {
+        synchronized (sRunningActivityList) {
             RunningActivityRecord value = new RunningActivityRecord(activity, targetActivityInfo, stubActivityInfo, findMaxIndex() + 1);
-            mRunningActivityList.put(activity, value);
+            sRunningActivityList.put(activity, value);
             if (targetActivityInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
                 mRunningSingleStandardActivityList.put(value.index, value);
             } else if (targetActivityInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TOP) {
@@ -66,8 +64,8 @@ public class RunningActivities {
     }
 
     public static void onActivtyDestory(Activity activity) {
-        synchronized (mRunningActivityList) {
-            RunningActivityRecord value = mRunningActivityList.remove(activity);
+        synchronized (sRunningActivityList) {
+            RunningActivityRecord value = sRunningActivityList.remove(activity);
             if (value != null) {
                 ActivityInfo targetActivityInfo = value.targetActivityInfo;
                 if (targetActivityInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
@@ -85,8 +83,8 @@ public class RunningActivities {
 
     //在启动一个Activity时调用
     public static void beforeStartActivity() {
-        synchronized (mRunningActivityList) {
-            for (RunningActivityRecord record : mRunningActivityList.values()) {
+        synchronized (sRunningActivityList) {
+            for (RunningActivityRecord record : sRunningActivityList.values()) {
                 if (record.stubActivityInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
                     continue;
                 } else if (record.stubActivityInfo.launchMode == ActivityInfo.LAUNCH_SINGLE_TOP) {
@@ -147,8 +145,8 @@ public class RunningActivities {
 
     private static int findMaxIndex() {
         int max = 0;
-        synchronized (mRunningActivityList) {
-            for (RunningActivityRecord record : mRunningActivityList.values()) {
+        synchronized (sRunningActivityList) {
+            for (RunningActivityRecord record : sRunningActivityList.values()) {
                 if (max < record.index) {
                     max = record.index;
                 }

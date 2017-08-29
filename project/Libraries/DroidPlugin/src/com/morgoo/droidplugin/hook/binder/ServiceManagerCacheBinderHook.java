@@ -47,7 +47,6 @@ import java.util.Map;
  */
 public class ServiceManagerCacheBinderHook extends Hook implements InvocationHandler {
 
-
     private String mServiceName;
 
     public ServiceManagerCacheBinderHook(Context hostContext, String servicename) {
@@ -55,7 +54,6 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
         mServiceName = servicename;
         setEnable(true);
     }
-
 
     @Override
     protected void onInstall(ClassLoader classLoader) throws Throwable {
@@ -87,7 +85,6 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
             }
         }
     }
-
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -148,7 +145,6 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
     }
 
     private class ServiceManagerHookHandle extends BaseHookHandle {
-
         private ServiceManagerHookHandle(Context context) {
             super(context);
         }
@@ -157,7 +153,6 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
         protected void init() {
             sHookedMethodHandlers.put("queryLocalInterface", new queryLocalInterface(mHostContext));
         }
-
 
         class queryLocalInterface extends HookedMethodHandler {
             public queryLocalInterface(Context context) {
@@ -179,6 +174,4 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
     protected BaseHookHandle createHookHandle() {
         return new ServiceManagerHookHandle(mHostContext);
     }
-
-
 }

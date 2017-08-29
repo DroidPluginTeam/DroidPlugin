@@ -42,7 +42,6 @@ public abstract class ActivityStub extends Activity {
     private static class StandardStub extends ActivityStub {
     }
 
-
     //p1
     public static class P00{
 

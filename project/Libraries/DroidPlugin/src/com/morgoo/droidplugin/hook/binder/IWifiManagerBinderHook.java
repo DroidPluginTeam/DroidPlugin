@@ -37,7 +37,6 @@ import com.morgoo.helper.compat.ServiceManagerCompat;
  */
 public class IWifiManagerBinderHook extends BinderHook {
 
-
     private final static String SERVICE_NAME = "wifi";
     private static final String TAG = IWifiManagerBinderHook.class.getSimpleName();
 
@@ -67,7 +66,7 @@ public class IWifiManagerBinderHook extends BinderHook {
         fixZTESecurity();
     }
 
-    /**适配ZTE S2005机型ZTESecurity*/
+    //适配ZTE S2005机型ZTESecurity
     private void fixZTESecurity() {
         try {
             Object proxyServiceIBinder =  MyServiceManager.getProxiedObj(getServiceName());

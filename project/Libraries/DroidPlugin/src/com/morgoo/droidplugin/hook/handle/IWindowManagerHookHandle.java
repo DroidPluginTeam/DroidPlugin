@@ -49,7 +49,6 @@ public class IWindowManagerHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("openSession", new openSession(mHostContext));
         sHookedMethodHandlers.put("overridePendingAppTransition", new overridePendingAppTransition(mHostContext));
         sHookedMethodHandlers.put("setAppStartingWindow", new setAppStartingWindow(mHostContext));
-
     }
 
     private class openSession extends HookedMethodHandler {

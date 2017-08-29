@@ -57,5 +57,4 @@ public class IGraphicsStatsBinderHook extends BinderHook {
     protected BaseHookHandle createHookHandle() {
         return new IGraphicsStatsHookHandle(mHostContext);
     }
-
 }

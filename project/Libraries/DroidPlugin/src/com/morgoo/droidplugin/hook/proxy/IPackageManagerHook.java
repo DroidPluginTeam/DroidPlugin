@@ -76,7 +76,6 @@ public class IPackageManagerHook extends ProxyHook {
         }
     }
 
-
     public static void fixContextPackageManager(Context context) {
         try {
             Object currentActivityThread = ActivityThreadCompat.currentActivityThread();

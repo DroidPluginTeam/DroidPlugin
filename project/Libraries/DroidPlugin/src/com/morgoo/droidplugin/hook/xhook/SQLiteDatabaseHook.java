@@ -43,7 +43,6 @@ public class SQLiteDatabaseHook extends Hook {
     private final String mHostDataDir;
     private final String mHostPkg;
 
-
     public SQLiteDatabaseHook(Context hostContext) {
         super(hostContext);
         mDataDir = new File(Environment.getDataDirectory(), "data/").getPath();

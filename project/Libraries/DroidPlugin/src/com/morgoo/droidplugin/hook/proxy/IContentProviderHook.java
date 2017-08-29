@@ -33,11 +33,9 @@ import com.morgoo.droidplugin.hook.handle.IContentProviderInvokeHandle;
  */
 public class IContentProviderHook extends ProxyHook {
 
-
     private final ProviderInfo mStubProvider;
     private final ProviderInfo mTargetProvider;
     private final boolean mLocalProvider;
-
 
     public IContentProviderHook(Context context, Object oldObj, ProviderInfo stubProvider, ProviderInfo targetProvider, boolean localProvider) {
         super(context);

@@ -41,7 +41,6 @@ import java.util.HashSet;
  */
 class PackageParserApi15 extends PackageParserApi20 {
 
-
     public PackageParserApi15(Context context) throws Exception {
         super(context);
     }
@@ -53,14 +52,12 @@ class PackageParserApi15 extends PackageParserApi20 {
         return (ActivityInfo) method.invoke(null, activity, flags);
     }
 
-
     @Override
     public ServiceInfo generateServiceInfo(Object service, int flags) throws Exception {
         /*  public static final ServiceInfo generateServiceInfo(Service s, int flags)*/
         Method method = MethodUtils.getAccessibleMethod(sPackageParserClass, "generateServiceInfo", sServiceClass, int.class);
         return (ServiceInfo) method.invoke(null, service, flags);
     }
-
 
     @Override
     public ProviderInfo generateProviderInfo(Object provider, int flags) throws Exception {

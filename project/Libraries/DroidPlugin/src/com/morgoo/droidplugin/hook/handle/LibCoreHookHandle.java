@@ -62,7 +62,6 @@ public class LibCoreHookHandle extends BaseHookHandle {
     }
 
     private abstract static class BaseLibCore extends HookedMethodHandler {
-
         private final String mDataDir;
         private final String mHostDataDir;
         private final String mHostPkg;
@@ -73,7 +72,6 @@ public class LibCoreHookHandle extends BaseHookHandle {
             mHostDataDir = PluginDirHelper.getContextDataDir(context);
             mHostPkg = context.getPackageName();
         }
-
 
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {

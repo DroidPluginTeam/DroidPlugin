@@ -52,5 +52,4 @@ public class INotificationManagerBinderHook extends BinderHook {
     public String getServiceName() {
         return SERVICE_NAME;
     }
-
 }

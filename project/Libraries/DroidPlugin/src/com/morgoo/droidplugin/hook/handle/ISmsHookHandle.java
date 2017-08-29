@@ -111,7 +111,6 @@ public class ISmsHookHandle  extends BaseHookHandle{
         sHookedMethodHandlers.put("sendStoredMultipartText",new MyBaseHandler(mHostContext));
 
         addAllMethodFromHookedClass();
-
     }
 
     @Override

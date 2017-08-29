@@ -73,7 +73,6 @@ public class PluginInstrumentation extends Instrumentation {
         mHostContext = hostContext;
     }
 
-
     @Override
     public void callActivityOnCreate(Activity activity, Bundle icicle) {
         if (enable) {
@@ -101,8 +100,6 @@ public class PluginInstrumentation extends Instrumentation {
             } catch (Exception e) {
                 Log.e(TAG, "callActivityOnCreate:fixBaseContextImplContentResolverOpsPackage", e);
             }
-
-
         }
 
 
@@ -154,7 +151,6 @@ public class PluginInstrumentation extends Instrumentation {
             }
         }
     }
-
 
     private void onActivityCreated(Activity activity) throws RemoteException {
         try {
@@ -317,6 +313,4 @@ public class PluginInstrumentation extends Instrumentation {
             super.callActivityOnNewIntent(activity, intent);
         }
     }
-
-
 }

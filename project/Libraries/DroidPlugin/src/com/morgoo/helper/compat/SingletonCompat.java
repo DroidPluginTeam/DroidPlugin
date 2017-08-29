@@ -53,7 +53,6 @@ public class SingletonCompat {
         }
     }
 
-
     public static Object get(Object targetSingleton) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         return MethodUtils.invokeMethod(targetSingleton, "get");
     }

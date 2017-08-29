@@ -33,7 +33,6 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class IContentServiceCompat {
 
-
     private static Class sClass;
 
     public static Class Class() throws ClassNotFoundException {

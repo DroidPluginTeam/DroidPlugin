@@ -54,7 +54,6 @@ public abstract class Hook {
 
     protected abstract BaseHookHandle createHookHandle();
 
-
     protected abstract void onInstall(ClassLoader classLoader) throws Throwable;
 
     protected void onUnInstall(ClassLoader classLoader) throws Throwable {

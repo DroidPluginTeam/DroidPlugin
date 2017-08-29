@@ -98,10 +98,10 @@ public class IActivityManagerHook extends ProxyHook {
             final Object object = MyProxy.newProxyInstance(mOldObj.getClass().getClassLoader(), ifs, IActivityManagerHook.this);
             Object iam1 = ActivityManagerNativeCompat.getDefault();
 
-            //这里先写一次，防止后面找不到Singleton类导致的挂钩子失败的问题。
+            //这里先写一次，防止后面找不到Singleton类导致的挂钩子失败的问题
             FieldUtils.writeField(obj, "mInstance", object);
 
-            //这里使用方式1，如果成功的话，会导致上面的写操作被覆盖。
+            //这里使用方式1，如果成功的话，会导致上面的写操作被覆盖
             FieldUtils.writeStaticField(cls, "gDefault", new android.util.Singleton<Object>() {
                 @Override
                 protected Object create() {
@@ -114,7 +114,7 @@ public class IActivityManagerHook extends ProxyHook {
             Object iam2 = ActivityManagerNativeCompat.getDefault();
             // 方式2
             if (iam1 == iam2) {
-                //这段代码是废的，没啥用，写这里只是不想改而已。
+                //这段代码是废的，没啥用，写这里只是不想改而已
                 FieldUtils.writeField(obj, "mInstance", object);
             }
         } else {

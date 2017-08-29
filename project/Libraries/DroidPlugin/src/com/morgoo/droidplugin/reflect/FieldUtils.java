@@ -228,6 +228,4 @@ public class FieldUtils {
         // already forced access above, don't repeat it here:
         writeField(field, target, value, false);
     }
-
-
 }

@@ -37,7 +37,6 @@ public class ITelephonyHookHandle extends BaseHookHandle {
 
     @Override
     protected void init() {
-//
 //        interface ITelephony {
 //            /**
 //             * Dial a number. This doesn't place the call. It displays

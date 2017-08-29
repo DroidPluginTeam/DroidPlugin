@@ -59,7 +59,7 @@ public class PluginClassLoader extends DexClassLoader {
                  * 但是这可能会导致类不兼容，出现java.lang.IncompatibleClassChangeError。因为插件编译时使用的插件的Support V4，而奇酷手机则使
                  * 用的是它修改过的Support V4。
                  *
-                 * SO,在Class Loader加载某个Class的时候，我们优先从自己的ClassLoader中加载Class，如果找不到，再从Parent Class Loader中去加载。
+                 * SO，在Class Loader加载某个Class的时候，我们优先从自己的ClassLoader中加载Class，如果找不到，再从Parent Class Loader中去加载。
                  * 这样修改后，Class的加载顺序就跟系统的不一样了。
                  *
                  */
@@ -68,7 +68,7 @@ public class PluginClassLoader extends DexClassLoader {
                     return clazz;
                 }
             } catch (ClassNotFoundException e) {
-                Log.e("PluginClassLoader", "UCK QIKU:error", e);
+                Log.e("PluginClassLoader", "*UCK QIKU:error", e);
             }
         }
         return super.loadClass(className, resolve);
