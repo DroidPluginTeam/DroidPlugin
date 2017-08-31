@@ -735,7 +735,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
                             old.addAll(infos);
                         } else if (ParceledListSliceCompat.isParceledListSlice(invokeResult)) {
                             if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) { //Only for api 24
-                                Method getListMethod = MethodUtils.getAccessibleMethod(invokeResult.getClass(), "getList");
+                                Method getListMethod = ParceledListSliceCompat.Class().getMethod("getList");
                                 List data = (List) getListMethod.invoke(invokeResult);
                                 data.addAll(infos);
                             }
@@ -1022,7 +1022,7 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
                         }
                     }
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             super.afterInvoke(receiver, method, args, invokeResult);

@@ -22,7 +22,9 @@
 
 package com.morgoo.droidplugin.hook.proxy;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.os.Build;
 import android.util.AndroidRuntimeException;
 
 import com.morgoo.droidplugin.hook.BaseHookHandle;
@@ -71,6 +73,22 @@ public class IActivityManagerHook extends ProxyHook {
 
     @Override
     public void onInstall(ClassLoader classLoader) throws Throwable {
+        if (Build.VERSION.SDK_INT >= 26) {
+            // o
+            Object singleton = FieldUtils.readStaticField(ActivityManager.class, "IActivityManagerSingleton");
+            Object obj1 = FieldUtils.readField(singleton, "mInstance");
+            if (obj1 == null) {
+                SingletonCompat.get(singleton);
+                obj1 = FieldUtils.readField(singleton, "mInstance");
+            }
+            setOldObj(obj1);
+            Class<?> objClass = mOldObj.getClass();
+            List<Class<?>> interfaces = Utils.getAllInterfaces(objClass);
+            Class[] ifs = interfaces != null && interfaces.size() > 0 ? interfaces.toArray(new Class[interfaces.size()]) : new Class[0];
+            Object proxiedActivityManager = MyProxy.newProxyInstance(objClass.getClassLoader(), ifs, this);
+            FieldUtils.writeField(singleton, "mInstance", proxiedActivityManager);
+            return;
+        }
         Class cls = ActivityManagerNativeCompat.Class();
         Object obj = FieldUtils.readStaticField(cls, "gDefault");
         if (obj == null) {

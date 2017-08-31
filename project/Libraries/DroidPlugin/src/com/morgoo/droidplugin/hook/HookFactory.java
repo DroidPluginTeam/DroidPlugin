@@ -24,6 +24,7 @@ package com.morgoo.droidplugin.hook;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 
@@ -122,9 +123,10 @@ public class HookFactory {
 
 
     public final void installHook(Context context, ClassLoader classLoader) throws Throwable {
-        if(ProcessUtils.isMainProcess(context)){
+        if (ProcessUtils.isMainProcess(context)) {
             installHook(new IActivityManagerHook(context), classLoader);
-        }else {
+            installHook(new IPackageManagerHook(context), classLoader);
+        } else {
             installHook(new IClipboardBinderHook(context), classLoader);
             //for ISearchManager
             installHook(new ISearchManagerBinderHook(context), classLoader);
@@ -184,9 +186,8 @@ public class HookFactory {
             if (VERSION.SDK_INT >= VERSION_CODES.M) {
                 installHook(new IAppOpsServiceBinderHook(context), classLoader);
             }
-
-            installHook(new IPackageManagerHook(context), classLoader);
             installHook(new IActivityManagerHook(context), classLoader);
+            installHook(new IPackageManagerHook(context), classLoader);
             installHook(new PluginCallbackHook(context), classLoader);
             installHook(new InstrumentationHook(context), classLoader);
             installHook(new LibCoreHook(context), classLoader);
