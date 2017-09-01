@@ -795,9 +795,16 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
                 if (intent != null) {
                     List<ResolveInfo> infos = PluginManager.getInstance().queryIntentReceivers(intent, resolvedType, flags);
                     if (infos != null && infos.size() > 0) {
-                        List old = (List) invokeResult;
-                        old.addAll(infos);
-                        setFakedResult(invokeResult);
+                        if (invokeResult instanceof List) {
+                            List old = (List) invokeResult;
+                            old.addAll(infos);
+                        } else if (ParceledListSliceCompat.isParceledListSlice(invokeResult)) {
+                            if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) { //Only for api 24
+                                Method getListMethod = ParceledListSliceCompat.Class().getMethod("getList");
+                                List data = (List) getListMethod.invoke(invokeResult);
+                                data.addAll(infos);
+                            }
+                        }
                     }
                 }
             }
@@ -888,8 +895,16 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
                 if (intent != null) {
                     List<ResolveInfo> infos = PluginManager.getInstance().queryIntentServices(intent, resolvedType, flags);
                     if (infos != null && infos.size() > 0) {
-                        List old = (List) invokeResult;
-                        old.addAll(infos);
+                        if (invokeResult instanceof List) {
+                            List old = (List) invokeResult;
+                            old.addAll(infos);
+                        } else if (ParceledListSliceCompat.isParceledListSlice(invokeResult)) {
+                            if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) { //Only for api 24
+                                Method getListMethod = ParceledListSliceCompat.Class().getMethod("getList");
+                                List data = (List) getListMethod.invoke(invokeResult);
+                                data.addAll(infos);
+                            }
+                        }
                     }
                 }
             }
@@ -933,8 +948,16 @@ public class IPackageManagerHookHandle extends BaseHookHandle {
                     if (intent != null) {
                         List<ResolveInfo> infos = PluginManager.getInstance().queryIntentContentProviders(intent, resolvedType, flags);
                         if (infos != null && infos.size() > 0) {
-                            List old = (List) invokeResult;
-                            old.addAll(infos);
+                            if (invokeResult instanceof List) {
+                                List old = (List) invokeResult;
+                                old.addAll(infos);
+                            } else if (ParceledListSliceCompat.isParceledListSlice(invokeResult)) {
+                                if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) { //Only for api 24
+                                    Method getListMethod = ParceledListSliceCompat.Class().getMethod("getList");
+                                    List data = (List) getListMethod.invoke(invokeResult);
+                                    data.addAll(infos);
+                                }
+                            }
                         }
                     }
                 }
