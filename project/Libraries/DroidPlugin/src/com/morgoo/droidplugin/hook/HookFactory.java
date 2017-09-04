@@ -81,7 +81,6 @@ public class HookFactory {
         return sInstance;
     }
 
-
     private List<Hook> mHookList = new ArrayList<Hook>(3);
 
     public void setHookEnable(boolean enable) {
@@ -120,7 +119,6 @@ public class HookFactory {
             Log.e(TAG, "installHook %s error", throwable, hook);
         }
     }
-
 
     public final void installHook(Context context, ClassLoader classLoader) throws Throwable {
         if (ProcessUtils.isMainProcess(context)) {

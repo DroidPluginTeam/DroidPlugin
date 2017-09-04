@@ -57,7 +57,6 @@ public class IAudioServiceHookHandle extends BaseHookHandle {
     }
 
     private static class MyBaseHandler extends HookedMethodHandler {
-
         public MyBaseHandler(Context context) {
             super(context);
         }

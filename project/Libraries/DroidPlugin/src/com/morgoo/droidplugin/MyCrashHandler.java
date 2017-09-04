@@ -50,11 +50,9 @@ public class MyCrashHandler implements UncaughtExceptionHandler {
 
     private static final MyCrashHandler sMyCrashHandler = new MyCrashHandler();
 
-
     private UncaughtExceptionHandler mOldHandler;
 
     private Context mContext;
-
 
     public static MyCrashHandler getInstance() {
         return sMyCrashHandler;

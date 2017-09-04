@@ -36,7 +36,6 @@ import java.io.File;
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 class PackageParserApi20 extends PackageParserApi21 {
 
-
     public PackageParserApi20(Context context) throws Exception {
         super(context);
     }

@@ -53,5 +53,4 @@ public class IMediaRouterServiceBinderHook extends BinderHook {
     protected BaseHookHandle createHookHandle() {
         return new IMediaRouterServiceHookHandle(mHostContext);
     }
-
 }

@@ -54,5 +54,4 @@ public class IMountServiceBinderHook extends BinderHook {
     protected BaseHookHandle createHookHandle() {
         return new IMountServiceHookHandle(mHostContext);
     }
-
 }

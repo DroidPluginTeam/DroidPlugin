@@ -16,20 +16,16 @@ import java.lang.reflect.Method;
  */
 public class IDisplayManagerHookHandle extends BaseHookHandle {
 
-
     public IDisplayManagerHookHandle(Context hostContext) {
         super(hostContext);
     }
 
     @Override
     protected void init() {
-
         sHookedMethodHandlers.put("createVirtualDisplay", new createVirtualDisplay(mHostContext));
     }
 
     private static class createVirtualDisplay extends HookedMethodHandler {
-
-
         public createVirtualDisplay(Context hostContext) {
             super(hostContext);
         }

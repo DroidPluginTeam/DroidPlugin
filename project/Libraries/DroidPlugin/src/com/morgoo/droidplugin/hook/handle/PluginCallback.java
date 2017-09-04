@@ -41,7 +41,6 @@ import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.droidplugin.stub.ShortcutProxyActivity;
 import com.morgoo.helper.Log;
 
-
 public class PluginCallback implements Handler.Callback {
 
     private static final String TAG = "PluginCallback";
@@ -485,5 +484,4 @@ public class PluginCallback implements Handler.Callback {
             intent.setExtrasClassLoader(classLoader);
         }
     }
-
 }

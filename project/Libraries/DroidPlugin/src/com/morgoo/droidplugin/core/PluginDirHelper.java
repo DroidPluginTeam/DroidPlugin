@@ -41,7 +41,6 @@ import java.util.List;
  */
 public class PluginDirHelper {
 
-
     private static File sBaseDir = null;
 
     private static void init(Context context) {

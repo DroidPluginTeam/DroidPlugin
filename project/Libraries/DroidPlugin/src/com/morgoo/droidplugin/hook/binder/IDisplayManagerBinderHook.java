@@ -47,5 +47,4 @@ public class IDisplayManagerBinderHook extends BinderHook {
     protected BaseHookHandle createHookHandle() {
         return new IDisplayManagerHookHandle(mHostContext);
     }
-
 }

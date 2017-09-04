@@ -145,7 +145,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
                     }
                     throw throwException("没有找到合适的StubInfo");
                 } else {
-                    //需要处理签名一样的情况。
+                    //需要处理签名一样的情况
                 }
             } else {
                 for (ProviderInfo stubInfo : stubInfos) {
@@ -191,8 +191,8 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         List<String> stubProcessNames = mStaticProcessList.getProcessNames();
         for (String stubProcessName : stubProcessNames) {
             List<ServiceInfo> stubInfos = mStaticProcessList.getServiceInfoForProcessName(stubProcessName);
-            if (mRunningProcessList.isProcessRunning(stubProcessName)) {//该预定义的进程正在运行。
-                if (mRunningProcessList.isPkgEmpty(stubProcessName)) {//空进程，没有运行任何插件包。
+            if (mRunningProcessList.isProcessRunning(stubProcessName)) { //该预定义的进程正在运行。
+                if (mRunningProcessList.isPkgEmpty(stubProcessName)) { //空进程，没有运行任何插件包。
                     for (ServiceInfo stubInfo : stubInfos) {
                         if (!mRunningProcessList.isStubInfoUsed(stubInfo)) {
                             mRunningProcessList.setTargetProcessName(stubInfo, targetInfo);
@@ -229,7 +229,6 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         remoteException.initCause(new RuntimeException(msg));
         return remoteException;
     }
-
 
     @Override
     public void onActivityCreated(int callingPid, int callingUid, ActivityInfo stubInfo, ActivityInfo targetInfo) {
@@ -331,8 +330,8 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         List<String> stubProcessNames = mStaticProcessList.getProcessNames();
         for (String stubProcessName : stubProcessNames) {
             List<ActivityInfo> stubInfos = mStaticProcessList.getActivityInfoForProcessName(stubProcessName, useDialogStyle);
-            if (mRunningProcessList.isProcessRunning(stubProcessName)) {//该预定义的进程正在运行。
-                if (mRunningProcessList.isPkgEmpty(stubProcessName)) {//空进程，没有运行任何插件包。
+            if (mRunningProcessList.isProcessRunning(stubProcessName)) { //该预定义的进程正在运行
+                if (mRunningProcessList.isPkgEmpty(stubProcessName)) { //空进程，没有运行任何插件包
                     for (ActivityInfo stubInfo : stubInfos) {
                         if (stubInfo.launchMode == targetInfo.launchMode) {
                             if (stubInfo.launchMode == ActivityInfo.LAUNCH_MULTIPLE) {
@@ -437,7 +436,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
             } else if (myInfo.importance == RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
                 //看得见
             } else if (myInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                //前台进程。
+                //前台进程
             }
         }
 
@@ -448,7 +447,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
         int serviceCount = mRunningProcessList.getServiceCountByPid(myInfo.pid);
         int providerCount = mRunningProcessList.getProviderCountByPid(myInfo.pid);
         if (activityCount <= 0 && serviceCount <= 0 && providerCount <= 0) {
-            //杀死空进程。
+            //杀死空进程
             Log.i(TAG, "doGc kill process(pid=%s,uid=%s processName=%s)", myInfo.pid, myInfo.uid, myInfo.processName);
             try {
                 android.os.Process.killProcess(myInfo.pid);

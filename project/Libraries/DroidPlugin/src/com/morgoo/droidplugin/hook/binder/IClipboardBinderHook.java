@@ -54,5 +54,4 @@ public class IClipboardBinderHook extends BinderHook {
     protected BaseHookHandle createHookHandle() {
         return new IClipboardHookHandle(mHostContext);
     }
-
 }

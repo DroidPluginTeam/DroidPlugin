@@ -67,7 +67,6 @@ public class IWindowSessionInvokeHandle extends BaseHookHandle {
 
         }
 
-
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
             if (args != null && args.length > 0) {

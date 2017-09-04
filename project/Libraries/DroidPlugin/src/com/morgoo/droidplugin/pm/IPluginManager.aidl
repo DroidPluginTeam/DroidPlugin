@@ -32,7 +32,6 @@ import android.content.pm.ResolveInfo;
 import com.morgoo.droidplugin.pm.IPackageDataObserver;
 import com.morgoo.droidplugin.pm.IApplicationCallback;
 
-
 import java.util.List;
 
 /**

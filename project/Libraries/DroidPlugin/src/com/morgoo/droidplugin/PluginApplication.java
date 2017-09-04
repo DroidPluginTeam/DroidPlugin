@@ -38,7 +38,6 @@ public class PluginApplication extends Application {
         PluginHelper.getInstance().applicationOnCreate(getBaseContext());
     }
 
-
     @Override
     protected void attachBaseContext(Context base) {
         PluginHelper.getInstance().applicationAttachBaseContext(base);

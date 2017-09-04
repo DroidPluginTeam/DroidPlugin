@@ -316,6 +316,4 @@ public abstract class AbstractContentProviderStub extends ContentProvider {
 //        }
         return super.applyBatch(operations);
     }
-
-
 }

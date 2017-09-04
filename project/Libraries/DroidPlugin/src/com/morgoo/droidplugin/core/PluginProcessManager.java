@@ -69,7 +69,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class PluginProcessManager {
 
-
     private static final String TAG = "PluginProcessManager";
 
     private static String sCurrentProcessName;
@@ -78,8 +77,9 @@ public class PluginProcessManager {
     private static Map<String, Object> sPluginLoadedApkCache = new WeakHashMap<String, Object>(1);
 
     public static String getCurrentProcessName(Context context) {
-        if (context == null)
+        if (context == null) {
             return sCurrentProcessName;
+        }
 
         synchronized (sGetCurrentProcessNameLock) {
             if (sCurrentProcessName == null) {
@@ -100,7 +100,6 @@ public class PluginProcessManager {
     }
 
     private static List<String> sProcessList = new ArrayList<>();
-
 
     private static void initProcessList(Context context) {
         try {
@@ -177,8 +176,7 @@ public class PluginProcessManager {
             return;
         }
 
-        /*添加插件的LoadedApk对象到ActivityThread.mPackages*/
-
+        //添加插件的LoadedApk对象到ActivityThread.mPackages
         boolean found = false;
         synchronized (sPluginLoadedApkCache) {
             Object object = ActivityThreadCompat.currentActivityThread();
@@ -194,8 +192,7 @@ public class PluginProcessManager {
                     }
                     sPluginLoadedApkCache.put(pluginInfo.packageName, loadedApk);
 
-                /*添加ClassLoader LoadedApk.mClassLoader*/
-
+                    //添加ClassLoader LoadedApk.mClassLoader
                     String optimizedDirectory = PluginDirHelper.getPluginDalvikCacheDir(hostContext, pluginInfo.packageName);
                     String libraryPath = PluginDirHelper.getPluginNativeLibraryDir(hostContext, pluginInfo.packageName);
                     String apk = pluginInfo.applicationInfo.publicSourceDir;
@@ -230,7 +227,7 @@ public class PluginProcessManager {
     }
 
     private static AtomicBoolean mExec = new AtomicBoolean(false);
-    private static Handler sHandle = new Handler(Looper.getMainLooper());
+    private static Handler sHandler = new Handler(Looper.getMainLooper());
 
     private static void preMakeApplication(Context hostContext, ComponentInfo pluginInfo) {
         try {
@@ -244,7 +241,7 @@ public class PluginProcessManager {
                 if (Looper.getMainLooper() != Looper.myLooper()) {
                     final Object lock = new Object();
                     mExec.set(false);
-                    sHandle.post(new Runnable() {
+                    sHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -334,7 +331,6 @@ public class PluginProcessManager {
         return sApplicationsCache.get(packageName);
     }
 
-
     private static Context getBaseContext(Context c) {
         if (c instanceof ContextWrapper) {
             return ((ContextWrapper) c).getBaseContext();
@@ -369,9 +365,7 @@ public class PluginProcessManager {
         //NSDManager init初始化anr的问题
         sSkipService.add("servicediscovery");
 //        sSkipService.add("usagestats");
-
     }
-
 
     private static void fakeSystemServiceInner(Context hostContext, Context targetContext) {
         try {
@@ -408,7 +402,7 @@ public class PluginProcessManager {
             }
 
             if (SYSTEM_SERVICE_MAP != null && (SYSTEM_SERVICE_MAP instanceof Map)) {
-                //如没有，则创建一个新的。
+                //如没有，则创建一个新的
                 Map<?, ?> sSYSTEM_SERVICE_MAP = (Map<?, ?>) SYSTEM_SERVICE_MAP;
                 Context originContext = getBaseContext(hostContext);
 
@@ -440,7 +434,7 @@ public class PluginProcessManager {
                 mServiceCache = FieldUtils.readField(originContext, "mServiceCache");
                 FieldUtils.writeField(baseContext, "mServiceCache", mServiceCache);
 
-                //for context ContentResolver
+                //For context ContentResolver
                 ContentResolver cr = baseContext.getContentResolver();
                 if (cr != null) {
                     Object crctx = FieldUtils.readField(cr, "mContext");
@@ -457,7 +451,7 @@ public class PluginProcessManager {
         }
     }
 
-    //这里为了解决某些插件调用系统服务时，系统服务必须要求要以host包名的身份去调用的问题。
+    //这里为了解决某些插件调用系统服务时，系统服务必须要求要以host包名的身份去调用的问题
     public static void fakeSystemService(Context hostContext, Context targetContext) {
         if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && !TextUtils.equals(hostContext.getPackageName(), targetContext.getPackageName())) {
             long b = System.currentTimeMillis();
@@ -465,5 +459,4 @@ public class PluginProcessManager {
             Log.i(TAG, "Fake SystemService for originContext=%s context=%s,cost %s ms", targetContext.getPackageName(), targetContext.getPackageName(), (System.currentTimeMillis() - b));
         }
     }
-
 }

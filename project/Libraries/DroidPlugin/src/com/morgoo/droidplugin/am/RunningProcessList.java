@@ -92,8 +92,8 @@ class RunningProcessList {
         return null;
     }
 
+    //是否是持久化的app
     public boolean isPersistentApplication(int pid) {
-        //是否是持久化的app。
         for (ProcessItem processItem : items.values()) {
             if (processItem.pid == pid) {
 
@@ -169,7 +169,6 @@ class RunningProcessList {
      * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/10.
      */
     private class ProcessItem {
-
         private String stubProcessName;
         private String targetProcessName;
         private int pid;
@@ -181,7 +180,6 @@ class RunningProcessList {
         //正在运行的插件ActivityInfo
         //key=ActivityInfo.name, value=插件的ActivityInfo,
         private Map<String, ActivityInfo> targetActivityInfos = new HashMap<String, ActivityInfo>(4);
-
 
         //正在运行的插件ProviderInfo
         //key=ProviderInfo.authority, value=插件的ProviderInfo
@@ -204,7 +202,6 @@ class RunningProcessList {
         //正在运行的插件ServiceInfo与代理ServiceInfo的映射
         //key=代理ServiceInfo.name, value=插件的ServiceInfo.name,
         private Map<String, Set<ServiceInfo>> serviceInfosMap = new HashMap<String, Set<ServiceInfo>>(4);
-
 
         private void updatePkgs() {
             ArrayList<String> newList = new ArrayList<String>();

@@ -32,7 +32,6 @@ import com.morgoo.droidplugin.hook.BaseHookHandle;
  */
 public class ILocationManagerHookHandle extends BaseHookHandle {
 
-
     public ILocationManagerHookHandle(Context hostContext) {
         super(hostContext);
     }

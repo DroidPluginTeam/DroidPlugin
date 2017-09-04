@@ -53,12 +53,10 @@ class StaticProcessList {
 
     private static final String CATEGORY_ACTIVITY_PROXY_STUB = "com.morgoo.droidplugin.category.PROXY_STUB";
 
-
     //key=processName value=ProcessItem
     private Map<String, ProcessItem> items = new HashMap<String, ProcessItem>(10);
 
     private List<String> mOtherProcessNames = new ArrayList<>();
-
 
     /**
      * 我们预注册的进程item
@@ -66,7 +64,6 @@ class StaticProcessList {
      * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/3/10.
      */
     private class ProcessItem {
-
         private String name;
 
         //key=ActivityInfo.name,value=ActivityInfo
@@ -82,13 +79,11 @@ class StaticProcessList {
             }
         }
 
-
         private void addServiceInfo(ServiceInfo info) {
             if (!serviceInfos.containsKey(info.name)) {
                 serviceInfos.put(info.name, info);
             }
         }
-
 
         private void addProviderInfo(ProviderInfo info) {
             if (!providerInfos.containsKey(info.authority)) {
@@ -97,12 +92,10 @@ class StaticProcessList {
         }
     }
 
-
     void onCreate(Context mHostContext) throws NameNotFoundException {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(CATEGORY_ACTIVITY_PROXY_STUB);
         intent.setPackage(mHostContext.getPackageName());
-
 
         PackageManager pm = mHostContext.getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(intent, PackageManager.GET_META_DATA);
@@ -199,7 +192,6 @@ class StaticProcessList {
         return null;
     }
 
-
     private void addServiceInfo(ServiceInfo info) {
         if (TextUtils.isEmpty(info.processName)) {
             info.processName = info.packageName;
@@ -254,7 +246,6 @@ class StaticProcessList {
         return activityInfos;
     }
 
-
     private static final Comparator<ComponentInfo> sComponentInfoComparator = new Comparator<ComponentInfo>() {
         @Override
         public int compare(ComponentInfo lhs, ComponentInfo rhs) {
@@ -281,7 +272,6 @@ class StaticProcessList {
         Collections.sort(activityInfos, sComponentInfoComparator);
         return activityInfos;
     }
-
 
     List<ServiceInfo> getServiceInfoForProcessName(String processName) {
         ProcessItem item = items.get(processName);

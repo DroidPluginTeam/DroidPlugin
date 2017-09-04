@@ -117,6 +117,7 @@ public class ITelephonyRegistryHookHandle extends BaseHookHandle {
     protected HookedMethodHandler newBaseHandler() throws ClassNotFoundException {
         return new MyBaseHandler(mHostContext);
     }
+
     private static class MyBaseHandler extends ReplaceCallingPackageHookedMethodHandler {
         public MyBaseHandler(Context context) {
             super(context);

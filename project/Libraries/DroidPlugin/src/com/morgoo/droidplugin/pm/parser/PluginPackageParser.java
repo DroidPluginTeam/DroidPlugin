@@ -71,12 +71,10 @@ public class PluginPackageParser {
     private Map<ComponentName, Object> mPermissionGroupObjCache = new TreeMap<ComponentName, Object>(new ComponentNameComparator());
     private ArrayList<String> mRequestedPermissionsCache = new ArrayList<String>();
 
-
     private Map<ComponentName, List<IntentFilter>> mActivityIntentFilterCache = new TreeMap<ComponentName, List<IntentFilter>>(new ComponentNameComparator());
     private Map<ComponentName, List<IntentFilter>> mServiceIntentFilterCache = new TreeMap<ComponentName, List<IntentFilter>>(new ComponentNameComparator());
     private Map<ComponentName, List<IntentFilter>> mProviderIntentFilterCache = new TreeMap<ComponentName, List<IntentFilter>>(new ComponentNameComparator());
     private Map<ComponentName, List<IntentFilter>> mReceiverIntentFilterCache = new TreeMap<ComponentName, List<IntentFilter>>(new ComponentNameComparator());
-
 
     private Map<ComponentName, ActivityInfo> mActivityInfoCache = new TreeMap<ComponentName, ActivityInfo>(new ComponentNameComparator());
     private Map<ComponentName, ServiceInfo> mServiceInfoCache = new TreeMap<ComponentName, ServiceInfo>(new ComponentNameComparator());
@@ -85,7 +83,6 @@ public class PluginPackageParser {
     private Map<ComponentName, InstrumentationInfo> mInstrumentationInfoCache = new TreeMap<ComponentName, InstrumentationInfo>(new ComponentNameComparator());
     private Map<ComponentName, PermissionGroupInfo> mPermissionGroupInfoCache = new TreeMap<ComponentName, PermissionGroupInfo>(new ComponentNameComparator());
     private Map<ComponentName, PermissionInfo> mPermissionsInfoCache = new TreeMap<ComponentName, PermissionInfo>(new ComponentNameComparator());
-
 
     public PluginPackageParser(Context hostContext, File pluginFile) throws Exception {
         mHostContext = hostContext;
@@ -405,7 +402,6 @@ public class PluginPackageParser {
         return mPackageName;
     }
 
-
     private ApplicationInfo fixApplicationInfo(ApplicationInfo applicationInfo) {
         if (applicationInfo.sourceDir == null) {
             applicationInfo.sourceDir = mPluginFile.getPath();
@@ -438,7 +434,6 @@ public class PluginPackageParser {
         } catch (Throwable e) {
             //Do nothing
         }
-
 
         applicationInfo.uid = mHostPackageInfo.applicationInfo.uid;
 
@@ -493,7 +488,6 @@ public class PluginPackageParser {
         fixApplicationInfo(packageInfo.applicationInfo);
         return packageInfo;
     }
-
 
     public Map<ActivityInfo, List<IntentFilter>> getReceiverIntentFilter() {
         synchronized (mReceiverIntentFilterCache) {

@@ -62,5 +62,4 @@ public class WebViewFactoryProviderHook extends ProxyHook {
         Object newObj = MyProxy.newProxyInstance(clazz.getClassLoader(), ifs, this);
         FieldUtils.writeStaticField(WebViewFactoryCompat.Class(), "sProviderInstance", newObj);
     }
-
 }

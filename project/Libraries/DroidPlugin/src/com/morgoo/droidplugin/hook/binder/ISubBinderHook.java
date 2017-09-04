@@ -34,7 +34,6 @@ import com.morgoo.helper.compat.ITelephonyRegistryCompat;
  */
 public class ISubBinderHook extends BinderHook {
 
-
     private final static String SERVICE_NAME = "isub";
 
     public ISubBinderHook(Context hostContext) {

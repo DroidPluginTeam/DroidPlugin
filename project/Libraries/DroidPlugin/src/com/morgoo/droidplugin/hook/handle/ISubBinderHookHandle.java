@@ -38,7 +38,6 @@ public class ISubBinderHookHandle extends BaseHookHandle {
 
     @Override
     protected void init() {
-
 //        interface ISub {
 //            /**
 //             * @param callingPackage The package maing the call.
@@ -173,8 +172,6 @@ public class ISubBinderHookHandle extends BaseHookHandle {
 //            int getSimStateForSlotIdx(int slotIdx);
 //            boolean isActiveSubId(int subId);
 //        }
-
-
 
         sHookedMethodHandlers.put("getAllSubInfoList", new MyBaseHandler(mHostContext));
         sHookedMethodHandlers.put("getAllSubInfoCount", new MyBaseHandler(mHostContext));

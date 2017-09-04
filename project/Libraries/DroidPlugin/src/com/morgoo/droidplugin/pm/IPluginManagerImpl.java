@@ -129,7 +129,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         }
     }
 
-
     private void loadAllPlugin(Context context) {
         long b = System.currentTimeMillis();
         ArrayList<File> apkfiles = null;
@@ -205,7 +204,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         }
     }
 
-
     @Override
     public boolean waitForReady() {
         waitForReadyInner();
@@ -223,7 +221,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         }
     }
 
-
     private void handleException(Exception e) throws RemoteException {
         RemoteException remoteException;
         if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
@@ -237,7 +234,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         }
         throw remoteException;
     }
-
 
     @Override
     public PackageInfo getPackageInfo(String packageName, int flags) throws RemoteException {
@@ -260,7 +256,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         }
         return null;
     }
-
 
     @Override
     public boolean isPluginPackage(String packageName) throws RemoteException {
@@ -407,7 +402,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         return null;
     }
 
-
     @Override
     public List<ResolveInfo> queryIntentActivities(Intent intent, String resolvedType, int flags) throws RemoteException {
         waitForReadyInner();
@@ -535,7 +529,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         }
         return null;
     }
-
 
     @Override
     public List<PackageInfo> getInstalledPackages(int flags) throws RemoteException {
@@ -814,7 +807,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         return null;
     }
 
-
     @Override
     public int installPackage(String filepath, int flags) throws RemoteException {
         //install plugin
@@ -973,7 +965,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         return signatures.toArray(new Signature[signatures.size()]);
     }
 
-
     private void sendInstalledBroadcast(String packageName) {
         Intent intent = new Intent(PluginManager.ACTION_PACKAGE_ADDED);
         intent.setData(Uri.parse("package://" + packageName));
@@ -990,7 +981,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         String nativeLibraryDir = PluginDirHelper.getPluginNativeLibraryDir(context, applicationInfo.packageName);
         return NativeLibraryHelperCompat.copyNativeBinaries(new File(apkfile), new File(nativeLibraryDir));
     }
-
 
     @Override
     public int deletePackage(String packageName, int flags) throws RemoteException {
@@ -1159,7 +1149,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
         return null;
     }
 
-
     @Override
     public ServiceInfo getTargetServiceInfo(ServiceInfo targetInfo) throws RemoteException {
         return mActivityManagerService.getTargetServiceInfo(Binder.getCallingPid(), Binder.getCallingUid(), targetInfo);
@@ -1185,7 +1174,6 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     public String getProcessNameByPid(int pid) throws RemoteException {
         return mActivityManagerService.getProcessNameByPid(pid);
     }
-
 
     @Override
     public boolean killBackgroundProcesses(String pluginPackageName) throws RemoteException {
@@ -1269,5 +1257,4 @@ public class IPluginManagerImpl extends IPluginManager.Stub {
     public int getMyPid() {
         return android.os.Process.myPid();
     }
-
 }

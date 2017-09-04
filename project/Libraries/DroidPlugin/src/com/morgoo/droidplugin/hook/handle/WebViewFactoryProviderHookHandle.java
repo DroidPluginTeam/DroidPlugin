@@ -88,7 +88,6 @@ public class WebViewFactoryProviderHookHandle extends BaseHookHandle {
     }
 
     private static class createWebView extends HookedMethodHandler {
-
         protected WebView mWebView;
 
         @Override
@@ -103,7 +102,6 @@ public class WebViewFactoryProviderHookHandle extends BaseHookHandle {
         public createWebView(Context context) {
             super(context);
         }
-
 
         @Override
         protected void afterInvoke(Object receiver, Method method, Object[] args, final Object invokeResult) throws Throwable {

@@ -26,6 +26,7 @@ package com.morgoo.droidplugin.core;
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/2/6.
  */
 public class Env {
+
     public static final String ACTION_INSTALL_SHORTCUT = "com.android.launcher.action.INSTALL_SHORTCUT";
     public static final String ACTION_UNINSTALL_SHORTCUT = "com.android.launcher.action.UNINSTALL_SHORTCUT";
 
@@ -36,5 +37,4 @@ public class Env {
     public static final String EXTRA_TARGET_AUTHORITY = "TargetAuthority";
     public static final String EXTRA_TYPE = "com.morgoo.droidplugin.EXTRA_TYPE";
     public static final String EXTRA_ACTION = "com.morgoo.droidplugin.EXTRA_ACTION";
-
 }

@@ -36,7 +36,6 @@ import java.util.TreeMap;
  */
 class ServiceStubMap {
 
-
     private static class MyServiceInfo implements Comparable<MyServiceInfo> {
         private ServiceInfo info;
 
@@ -105,6 +104,4 @@ class ServiceStubMap {
             infos.remove(plugin);
         }
     }
-
-
 }

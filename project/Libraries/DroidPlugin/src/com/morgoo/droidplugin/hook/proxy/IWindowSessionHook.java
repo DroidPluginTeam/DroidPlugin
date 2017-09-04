@@ -34,8 +34,6 @@ import com.morgoo.droidplugin.hook.handle.IWindowSessionInvokeHandle;
  */
 public class IWindowSessionHook extends ProxyHook {
 
-
-
     public IWindowSessionHook(Context context, Object oldObj) {
         super(context);
         setOldObj(oldObj);

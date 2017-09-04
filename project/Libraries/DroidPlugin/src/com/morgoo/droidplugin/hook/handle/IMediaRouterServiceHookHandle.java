@@ -50,7 +50,6 @@ public class IMediaRouterServiceHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("registerClientAsUser", new registerClientAsUser(mHostContext));
     }
 
-
     private class registerClientAsUser extends HookedMethodHandler {
         public registerClientAsUser(Context context) {
             super(context);

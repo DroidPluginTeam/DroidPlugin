@@ -147,8 +147,6 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         sHookedMethodHandlers.put("setPackageAskScreenCompat", new setPackageAskScreenCompat(mHostContext));
         sHookedMethodHandlers.put("navigateUpTo", new navigateUpTo(mHostContext));
         sHookedMethodHandlers.put("serviceDoneExecuting", new serviceDoneExecuting(mHostContext));
-
-
     }
 
     private static class startActivity extends ReplaceCallingPackageHookedMethodHandler {

@@ -34,6 +34,7 @@ import java.lang.reflect.Method;
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2015/6/18.
  */
 public class IGraphicsStatsHookHandle extends BaseHookHandle {
+
     public IGraphicsStatsHookHandle(Context hostContext) {
         super(hostContext);
     }

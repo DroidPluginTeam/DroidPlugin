@@ -50,7 +50,6 @@ public abstract class ProxyHook extends Hook implements InvocationHandler {
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
         try {
             if (!isEnable()) {
                 return method.invoke(mOldObj, args);

@@ -49,7 +49,6 @@ public class ServiceManagerBinderHook extends ProxyHook implements InvocationHan
         setEnable(true);
     }
 
-
     @Override
     protected void onInstall(ClassLoader classLoader) throws Throwable {
         Object sServiceManager = FieldUtils.readStaticField(ServiceManagerCompat.Class(), "sServiceManager");
@@ -67,7 +66,6 @@ public class ServiceManagerBinderHook extends ProxyHook implements InvocationHan
     }
 
     private class ServiceManagerHookHandle extends BaseHookHandle {
-
         private ServiceManagerHookHandle(Context context) {
             super(context);
         }
@@ -115,6 +113,4 @@ public class ServiceManagerBinderHook extends ProxyHook implements InvocationHan
     protected BaseHookHandle createHookHandle() {
         return new ServiceManagerHookHandle(mHostContext);
     }
-
-
 }
