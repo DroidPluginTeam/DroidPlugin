@@ -38,6 +38,7 @@ import android.content.pm.PermissionInfo;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -45,8 +46,11 @@ import android.text.TextUtils;
 
 import com.morgoo.droidplugin.BuildConfig;
 import com.morgoo.droidplugin.PluginManagerService;
+import com.morgoo.droidplugin.PluginServiceProvider;
 import com.morgoo.droidplugin.reflect.MethodUtils;
 import com.morgoo.helper.Log;
+import com.morgoo.helper.compat.BundleCompat;
+import com.morgoo.helper.compat.ContentProviderCompat;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -210,10 +214,24 @@ public class PluginManager implements ServiceConnection {
                 Intent intent = new Intent(mHostContext, PluginManagerService.class);
                 intent.setPackage(mHostContext.getPackageName());
                 mHostContext.startService(intent);
-                mHostContext.bindService(intent, this, Context.BIND_AUTO_CREATE);
+
+                String auth = mHostContext.getPackageName() + ".plugin.servicemanager";
+                Uri uri = Uri.parse("content://" + auth);
+                Bundle args = new Bundle();
+                args.putString(PluginServiceProvider.URI_VALUE, "content://" + auth);
+                Bundle res = ContentProviderCompat.call(mHostContext, uri,
+                        PluginServiceProvider.Method_GetManager,
+                        null, args);
+                if (res != null) {
+                    IBinder clientBinder = BundleCompat.getBinder(res, PluginServiceProvider.Arg_Binder);
+                    onServiceConnected(intent.getComponent(), clientBinder);
+                } else {
+                    mHostContext.bindService(intent, this, Context.BIND_AUTO_CREATE);
+                }
             } catch (Exception e) {
                 Log.e(TAG, "connectToService", e);
             }
+
         }
     }
 

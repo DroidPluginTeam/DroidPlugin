@@ -1066,6 +1066,11 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
             Intent service, String resolvedType,
             IServiceConnection connection, int flags, int userId) throws RemoteException;*/
             info = replaceFirstServiceIntentOfArgs(args);
+            if (info != null) {
+                if (!PluginManager.getInstance().isPluginPackage(info.packageName)) {
+                    return super.beforeInvoke(receiver, method, args);
+                }
+            }
             int index = findIServiceConnectionIndex(method);
             if (info != null && index >= 0) {
                 final Object oldIServiceConnection = args[index];

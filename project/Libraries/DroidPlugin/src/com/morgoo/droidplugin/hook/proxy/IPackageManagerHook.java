@@ -63,6 +63,7 @@ public class IPackageManagerHook extends ProxyHook {
     @Override
     protected void onInstall(ClassLoader classLoader) throws Throwable {
         Object currentActivityThread = ActivityThreadCompat.currentActivityThread();
+
         setOldObj(FieldUtils.readField(currentActivityThread, "sPackageManager"));
         Class<?> iPmClass = mOldObj.getClass();
         List<Class<?>> interfaces = Utils.getAllInterfaces(iPmClass);

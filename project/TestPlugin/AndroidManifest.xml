@@ -3,20 +3,36 @@
           package="com.example.TestPlugin"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="23"/>
-    <application android:name="com.morgoo.droidplugin.PluginApplication" android:label="@string/app_name"
-                 android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme">
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="22"/>
+    <application
+        android:name="com.morgoo.droidplugin.PluginApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
         <activity
-                android:name="MyActivity"
-                android:label="@string/app_name"
-                android:screenOrientation="portrait"
-                android:configChanges="orientation"
-                >
+            android:name="MyActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation"
+            android:label="Test"
+            android:screenOrientation="portrait"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

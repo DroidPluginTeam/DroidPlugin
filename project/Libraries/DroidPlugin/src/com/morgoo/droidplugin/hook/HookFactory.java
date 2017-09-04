@@ -24,6 +24,7 @@ package com.morgoo.droidplugin.hook;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 
@@ -55,6 +56,7 @@ import com.morgoo.droidplugin.hook.proxy.LibCoreHook;
 import com.morgoo.droidplugin.hook.proxy.PluginCallbackHook;
 import com.morgoo.droidplugin.hook.xhook.SQLiteDatabaseHook;
 import com.morgoo.helper.Log;
+import com.morgoo.helper.utils.ProcessUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,75 +123,79 @@ public class HookFactory {
 
 
     public final void installHook(Context context, ClassLoader classLoader) throws Throwable {
-        installHook(new IClipboardBinderHook(context), classLoader);
-        //for ISearchManager
-        installHook(new ISearchManagerBinderHook(context), classLoader);
-        //for INotificationManager
-        installHook(new INotificationManagerBinderHook(context), classLoader);
-        installHook(new IMountServiceBinderHook(context), classLoader);
-        installHook(new IAudioServiceBinderHook(context), classLoader);
-        installHook(new IContentServiceBinderHook(context), classLoader);
-        installHook(new IWindowManagerBinderHook(context), classLoader);
-        if (VERSION.SDK_INT > VERSION_CODES.LOLLIPOP_MR1) {
-            installHook(new IGraphicsStatsBinderHook(context), classLoader);
-        }
+        if (ProcessUtils.isMainProcess(context)) {
+            installHook(new IActivityManagerHook(context), classLoader);
+            installHook(new IPackageManagerHook(context), classLoader);
+        } else {
+            installHook(new IClipboardBinderHook(context), classLoader);
+            //for ISearchManager
+            installHook(new ISearchManagerBinderHook(context), classLoader);
+            //for INotificationManager
+            installHook(new INotificationManagerBinderHook(context), classLoader);
+            installHook(new IMountServiceBinderHook(context), classLoader);
+            installHook(new IAudioServiceBinderHook(context), classLoader);
+            installHook(new IContentServiceBinderHook(context), classLoader);
+            installHook(new IWindowManagerBinderHook(context), classLoader);
+            if (VERSION.SDK_INT > VERSION_CODES.LOLLIPOP_MR1) {
+                installHook(new IGraphicsStatsBinderHook(context), classLoader);
+            }
 //        if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
 //            installHook(new WebViewFactoryProviderHook(context), classLoader);
 //        }
-        if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-            installHook(new IMediaRouterServiceBinderHook(context), classLoader);
-        }
-        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-            installHook(new ISessionManagerBinderHook(context), classLoader);
-        }
-        if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
-            installHook(new IWifiManagerBinderHook(context), classLoader);
-        }
+            if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+                installHook(new IMediaRouterServiceBinderHook(context), classLoader);
+            }
+            if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+                installHook(new ISessionManagerBinderHook(context), classLoader);
+            }
+            if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
+                installHook(new IWifiManagerBinderHook(context), classLoader);
+            }
 
-        if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
-            installHook(new IInputMethodManagerBinderHook(context), classLoader);
+            if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
+                installHook(new IInputMethodManagerBinderHook(context), classLoader);
+            }
+            if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                installHook(new ILocationManagerBinderHook(context), classLoader);
+            }
+
+            if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                installHook(new ITelephonyRegistryBinderHook(context), classLoader);
+            }
+
+            if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                installHook(new ISubBinderHook(context), classLoader);
+            }
+
+            if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                installHook(new IPhoneSubInfoBinderHook(context), classLoader);
+            }
+
+            if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                installHook(new ITelephonyBinderHook(context), classLoader);
+            }
+
+            if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                installHook(new ISmsBinderHook(context), classLoader);
+            }
+
+            if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                installHook(new IMmsBinderHook(context), classLoader);
+            }
+
+            if (VERSION.SDK_INT >= VERSION_CODES.M) {
+                installHook(new IAppOpsServiceBinderHook(context), classLoader);
+            }
+            installHook(new IActivityManagerHook(context), classLoader);
+            installHook(new IPackageManagerHook(context), classLoader);
+            installHook(new PluginCallbackHook(context), classLoader);
+            installHook(new InstrumentationHook(context), classLoader);
+            installHook(new LibCoreHook(context), classLoader);
+
+            installHook(new SQLiteDatabaseHook(context), classLoader);
+
+            installHook(new IDisplayManagerBinderHook(context), classLoader);
         }
-        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            installHook(new ILocationManagerBinderHook(context), classLoader);
-        }
-
-        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            installHook(new ITelephonyRegistryBinderHook(context), classLoader);
-        }
-
-        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            installHook(new ISubBinderHook(context), classLoader);
-        }
-
-        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            installHook(new IPhoneSubInfoBinderHook(context), classLoader);
-        }
-
-        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            installHook(new ITelephonyBinderHook(context), classLoader);
-        }
-
-        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            installHook(new ISmsBinderHook(context), classLoader);
-        }
-
-        if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            installHook(new IMmsBinderHook(context), classLoader);
-        }
-
-        if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            installHook(new IAppOpsServiceBinderHook(context), classLoader);
-        }
-
-        installHook(new IPackageManagerHook(context), classLoader);
-        installHook(new IActivityManagerHook(context), classLoader);
-        installHook(new PluginCallbackHook(context), classLoader);
-        installHook(new InstrumentationHook(context), classLoader);
-        installHook(new LibCoreHook(context), classLoader);
-
-        installHook(new SQLiteDatabaseHook(context), classLoader);
-
-        installHook(new IDisplayManagerBinderHook(context), classLoader);
     }
 
     public final void onCallApplicationOnCreate(Context context, Application app) {
