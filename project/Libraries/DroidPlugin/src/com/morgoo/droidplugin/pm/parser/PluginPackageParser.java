@@ -462,11 +462,13 @@ public class PluginPackageParser {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             try {
-                FieldUtils.writeField(applicationInfo, "deviceEncryptedDataDir", applicationInfo.dataDir);
+                if (Build.VERSION.SDK_INT < 26) {
+                    FieldUtils.writeField(applicationInfo, "deviceEncryptedDataDir", applicationInfo.dataDir);
+                    FieldUtils.writeField(applicationInfo, "credentialEncryptedDataDir", applicationInfo.dataDir);
+                }
                 FieldUtils.writeField(applicationInfo, "deviceProtectedDataDir", applicationInfo.dataDir);
-                FieldUtils.writeField(applicationInfo, "credentialEncryptedDataDir", applicationInfo.dataDir);
                 FieldUtils.writeField(applicationInfo, "credentialProtectedDataDir", applicationInfo.dataDir);
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
