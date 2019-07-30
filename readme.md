@@ -3,9 +3,6 @@ Droid Plugin
 
 [中文文档](readme_cn.md "中文文档")
 
-We just transfer the project to a new address for more no-official contributors
-The new address: [DroidPlugin](https://github.com/DroidPluginTeam/DroidPlugin "DroidPlugin")
-
 [Fllow me at github](https://github.com/cmzy)
 
 DroidPlugin is a new **Plugin Framework** developed and maintained by Andy Zhang( [Fllow me at github](https://github.com/cmzy) ).
