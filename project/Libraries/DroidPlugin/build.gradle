@@ -20,7 +20,6 @@ android {
             jniLibs.srcDirs = ['libs']
         }
 
-        instrumentTest.setRoot('tests')
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
@@ -38,6 +37,7 @@ android {
         manifestPlaceholders = [
             authorityName:"${authorityName}",
         ]
+        minSdkVersion 9
     }
 
 }

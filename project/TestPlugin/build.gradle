@@ -36,7 +36,6 @@ android {
             assets.srcDirs = ['assets']
         }
 
-        instrumentTest.setRoot('tests')
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
@@ -49,6 +48,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), "proguard-project.txt"
 //            signingConfig signingConfigs.MySignConfig
         }
+    }
+    defaultConfig {
+        minSdkVersion 9
     }
 }
 
