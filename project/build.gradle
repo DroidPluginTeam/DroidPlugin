@@ -2,15 +2,24 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
     }
 }
 
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+}
+
+
 ext {
-    compileSdkVersion = 25
-    buildToolsVersion = "25.0.2"
+    compileSdkVersion = 28
+    buildToolsVersion = "29.0.2"
 }
 
 allprojects.each { p ->

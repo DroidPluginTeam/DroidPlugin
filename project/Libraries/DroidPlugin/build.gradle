@@ -1,29 +1,13 @@
 apply plugin: 'com.android.library'
 
 dependencies {
-    provided fileTree(dir: 'lib', include: '*.jar')
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compileOnly fileTree(dir: 'lib', include: '*.jar')
+    implementation fileTree(dir: 'libs', include: '*.jar')
 }
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            resources.srcDirs = ['src']
-            aidl.srcDirs = ['src']
-            renderscript.srcDirs = ['src']
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
-            jniLibs.srcDirs = ['libs']
-        }
-
-        instrumentTest.setRoot('tests')
-        debug.setRoot('build-types/debug')
-        release.setRoot('build-types/release')
-    }
 
     lintOptions {
         abortOnError false
@@ -33,6 +17,9 @@ android {
 
         // 建议改为自己的 packageName + .droidplugin_stub ，防止跟其它本插件使用者冲突
         def authorityName = "com.morgoo.droidplugin_stub"
+        minSdkVersion 9
+        versionCode 1
+        versionName '1.0'
 
         buildConfigField "String", "AUTHORITY_NAME", "\"${authorityName}\""
         manifestPlaceholders = [
