@@ -365,7 +365,7 @@ public class PluginCallback implements Handler.Callback {
                 ActivityInfo targetActivityInfo = PluginManager.getInstance().getActivityInfo(targetComponentName, 0);
                 if (targetActivityInfo != null) {
 
-                    if (targetComponentName != null && targetComponentName.getClassName().startsWith(".")) {
+                    if (targetComponentName != null && targetComponentName.getClassName().startsWith("")) {
                         targetIntent.setClassName(targetComponentName.getPackageName(), targetComponentName.getPackageName() + targetComponentName.getClassName());
                     }
 
@@ -446,7 +446,7 @@ public class PluginCallback implements Handler.Callback {
             ResolveInfo info = pm.resolveActivity(targetIntent, 0);
             if (info != null) {
                 String name = info.activityInfo.name;
-                if (name != null && name.startsWith(".")) {
+                if (name != null && name.startsWith("")) {
                     name = info.activityInfo.packageName + info.activityInfo.name;
                 }
                 return ShortcutProxyActivity.class.getName().equals(name);
