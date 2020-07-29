@@ -12,6 +12,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
+        minSdkVersion 14
         ndk {
             moduleName 'Test'
             stl 'stlport_static'
