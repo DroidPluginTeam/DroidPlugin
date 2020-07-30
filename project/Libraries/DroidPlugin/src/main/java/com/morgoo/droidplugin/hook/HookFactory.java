@@ -145,7 +145,7 @@ public class HookFactory {
             }
             if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
                 //这个干吗关闭？？
-                installHook(new WebViewFactoryProviderHook(context), classLoader);
+                //installHook(new WebViewFactoryProviderHook(context), classLoader);
             }
             if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
                 installHook(new IMediaRouterServiceBinderHook(context), classLoader);

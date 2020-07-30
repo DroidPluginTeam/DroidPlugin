@@ -41,6 +41,7 @@ import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.droidplugin.stub.ShortcutProxyActivity;
 import com.morgoo.helper.Log;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 
@@ -245,7 +246,7 @@ public class PluginCallback implements Handler.Callback {
 
             Log.i(TAG, "handleMessage msg.what:%d", msg.what);
 
-            if (msg.what == LAUNCH_ACTIVITY || msg.what == 159/*for API 28*/) {
+            if (msg.what == LAUNCH_ACTIVITY || msg.what == 159/* >28 */) {
                 return handleLaunchActivity(msg);
             }
             /*else if (msg.what == INSTALL_PROVIDER) {
@@ -355,17 +356,40 @@ public class PluginCallback implements Handler.Callback {
 //    }
 
 
-    private void handleActivity(Message msg) {
+    private boolean handleActivity(Message msg) {
         // 这里简单起见,直接取出TargetActivity;
         try {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-                return;
+            Object mClientTransaction = msg.obj;
+            //https://blog.csdn.net/wby371427/article/details/103447375
+            //https://www.cnblogs.com/Jax/p/9521305.html
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                //获取mClientTransaction中的List<ClientTransactionItem> mActivityCallbacks
+                Field mactivityCallbacks = mClientTransaction.getClass().getDeclaredField("mActivityCallbacks");
+                mactivityCallbacks.setAccessible(true);
+                List mActivityCallbacks = (List) mactivityCallbacks.get(mClientTransaction);
+                if (mActivityCallbacks.size() == 0) {
+                    return false;
+                }
+                Class mLaunchActivityItemClass = Class.forName("android.app.servertransaction.LaunchActivityItem");
+                Object mLaunchActivityItem = mActivityCallbacks.get(0);
+                //拿到LaunchActivityItem中的Intent
+                Field mIntentField = mLaunchActivityItemClass.getDeclaredField("mIntent");
+                mIntentField.setAccessible(true);
+                Intent stubIntent = (Intent) mIntentField.get(mLaunchActivityItem);
+
+                Intent targetIntent = stubIntent.getParcelableExtra(Env.EXTRA_TARGET_INTENT);
+                if (targetIntent != null) {
+                    mIntentField.setAccessible(true);
+                    mIntentField.set(mLaunchActivityItem, targetIntent);
+                }
             }
-            Object obj = msg.obj;
-
-
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (mCallback != null) {
+            return mCallback.handleMessage(msg);
+        } else {
+            return false;
         }
     }
 
@@ -373,19 +397,35 @@ public class PluginCallback implements Handler.Callback {
         try {
             Object obj = msg.obj;
             Intent stubIntent = null;
-            //https://www.cnblogs.com/Jax/p/9521305.html
+            Object mLaunchActivityItemP = null;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                List<Object> mActivityCallbacks = (List<Object>) FieldUtils.readField(obj, "mActivityCallbacks");
-                if (mActivityCallbacks.size() > 0) {
-                    String className = "android.app.servertransaction.LaunchActivityItem";
-                    if (mActivityCallbacks.get(0).getClass().getCanonicalName().equals(className)) {
-                        Object object = mActivityCallbacks.get(0);
-                        stubIntent = (Intent) FieldUtils.readField(object, "mIntent");
-                    }
+                Object mClientTransaction = msg.obj;
+                Log.i(TAG, "mClientTransaction>>>" + mClientTransaction.getClass());
+                //获取mClientTransaction中的List<ClientTransactionItem> mActivityCallbacks
+                Field mactivityCallbacks = mClientTransaction.getClass().getDeclaredField("mActivityCallbacks");
+                Log.i(TAG, "mactivityCallbacks>>>" + mactivityCallbacks.getClass());
+                mactivityCallbacks.setAccessible(true);
+                List mActivityCallbacks = (List) mactivityCallbacks.get(mClientTransaction);
+                if (mActivityCallbacks == null || mActivityCallbacks.size() == 0) {
+                    return false;
                 }
+                Class mLaunchActivityItemClass = Class.forName("android.app.servertransaction.LaunchActivityItem");
+                mLaunchActivityItemP = mActivityCallbacks.get(0);
+                Log.i(TAG, "mLaunchActivityItemP>>>" + mLaunchActivityItemP.getClass());
+                //拿到LaunchActivityItem中的Intent
+                Field mIntentField = mLaunchActivityItemClass.getDeclaredField("mIntent");
+                mIntentField.setAccessible(true);
+                stubIntent = (Intent) mIntentField.get(mLaunchActivityItemP);
+                Log.i(TAG, "stubIntent>>>" + stubIntent.getClass() + "," + stubIntent.toString());
+//                Intent targetIntent = stubIntent.getParcelableExtra(Env.EXTRA_TARGET_INTENT);
+//                if (targetIntent != null) {
+//                    mIntentField.setAccessible(true);
+//                    mIntentField.set(mLaunchActivityItemP, targetIntent);
+//                }
             }
             if (stubIntent == null) {
                 stubIntent = (Intent) FieldUtils.readField(obj, "intent");
+                Log.i(TAG, "stubIntent null>>>" + stubIntent.getClass() + "," + stubIntent.toString());
             }
             //ActivityInfo activityInfo = (ActivityInfo) FieldUtils.readField(obj, "activityInfo", true);
             stubIntent.setExtrasClassLoader(mHostContext.getClassLoader());
@@ -394,6 +434,9 @@ public class PluginCallback implements Handler.Callback {
             // 也会带上一个EXTRA_TARGET_INTENT的数据，就会导致这里误以为是启动插件Activity，所以这里要先做一个判断。
             // 之前ShortcutProxyActivity错误复用了key，但是为了兼容，所以这里就先这么判断吧。
             if (targetIntent != null && !isShortcutProxyActivity(stubIntent)) {
+
+                Log.i(TAG, "targetIntent >>>" + targetIntent.getClass() + "," + targetIntent.toString());
+
                 IPackageManagerHook.fixContextPackageManager(mHostContext);
                 ComponentName targetComponentName = targetIntent.resolveActivity(mHostContext.getPackageManager());
                 ActivityInfo targetActivityInfo = PluginManager.getInstance().getActivityInfo(targetComponentName, 0);
@@ -440,8 +483,6 @@ public class PluginCallback implements Handler.Callback {
                         }
                     }
 
-                    handleActivity(msg);
-
                     if (!success) {
                         Intent newTargetIntent = new Intent();
                         newTargetIntent.setComponent(targetIntent.getComponent());
@@ -449,12 +490,26 @@ public class PluginCallback implements Handler.Callback {
                         if (stubActivityInfo != null) {
                             newTargetIntent.putExtra(Env.EXTRA_STUB_INFO, stubActivityInfo);
                         }
-                        FieldUtils.writeDeclaredField(msg.obj, "intent", newTargetIntent);
+                        //FieldUtils.writeDeclaredField(msg.obj, "intent", newTargetIntent);
+                        if (mLaunchActivityItemP != null) {
+                            FieldUtils.writeDeclaredField(mLaunchActivityItemP, "mIntent", newTargetIntent);
+                        } else {
+                            FieldUtils.writeDeclaredField(msg.obj, "intent", newTargetIntent);
+                        }
                     } else {
-                        FieldUtils.writeDeclaredField(msg.obj, "intent", targetIntent);
+                        //FieldUtils.writeDeclaredField(msg.obj, "intent", targetIntent);
+                        if (mLaunchActivityItemP != null) {
+                            FieldUtils.writeDeclaredField(mLaunchActivityItemP, "mIntent", targetIntent);
+                        } else {
+                            FieldUtils.writeDeclaredField(msg.obj, "intent", targetIntent);
+                        }
                     }
-                    FieldUtils.writeDeclaredField(msg.obj, "activityInfo", targetActivityInfo);
-
+                    //FieldUtils.writeDeclaredField(msg.obj, "activityInfo", targetActivityInfo);
+                    if (mLaunchActivityItemP != null) {
+                        FieldUtils.writeDeclaredField(mLaunchActivityItemP, "mInfo", targetActivityInfo);
+                    } else {
+                        FieldUtils.writeDeclaredField(msg.obj, "activityInfo", targetActivityInfo);
+                    }
                     Log.i(TAG, "handleLaunchActivity OK");
                 } else {
                     Log.e(TAG, "handleLaunchActivity oldInfo==null");

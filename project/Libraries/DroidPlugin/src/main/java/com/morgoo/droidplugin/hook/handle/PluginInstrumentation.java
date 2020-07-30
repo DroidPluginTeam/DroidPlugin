@@ -320,41 +320,4 @@ public class PluginInstrumentation extends Instrumentation {
             super.callActivityOnNewIntent(activity, intent);
         }
     }
-
-    //https://www.cnblogs.com/Jax/p/9521305.html
-
-    /**
-     * if (mThread == null) {
-     * Log.e(TAG, "Uninitialized ActivityThread, likely app-created Instrumentation,"
-     * + " disabling AppComponentFactory", new Throwable());
-     * return AppComponentFactory.DEFAULT;
-     * }
-     *
-     * @param intent
-     * @return
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     * @throws ClassNotFoundException
-     */
-    public ActivityResult execStartActivity(
-            Context who, IBinder contextThread, IBinder token, Activity target,
-            Intent intent, int requestCode, Bundle options) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-
-        Log.d(TAG, "execStartActivity!");
-
-        return (ActivityResult) MethodUtils.invokeMethod(mTarget, "execStartActivity",
-                who,
-                contextThread,
-                token,
-                target,
-                intent,
-                requestCode,
-                options);
-    }
-
-
-    public Activity newActivity(ClassLoader cl, String className,
-                                Intent intent) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        return mTarget.newActivity(cl, className, intent);
-    }
 }
