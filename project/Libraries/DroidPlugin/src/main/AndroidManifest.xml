@@ -171,6 +171,7 @@
     <uses-permission android:name="com.qihoo.appstore.rtservice.ACCESS_RTSERVICE" />
     <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.LOCATION_HARDWARE" />
 
 
     <uses-feature android:name="android.hardware.camera" />
