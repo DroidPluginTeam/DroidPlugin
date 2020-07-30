@@ -1,24 +1,24 @@
 /*
-**        DroidPlugin Project
-**
-** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
-**
-** This file is part of DroidPlugin.
-**
-** DroidPlugin is free software: you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation, either
-** version 3 of the License, or (at your option) any later version.
-**
-** DroidPlugin is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
-**
-**/
+ **        DroidPlugin Project
+ **
+ ** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
+ **
+ ** This file is part of DroidPlugin.
+ **
+ ** DroidPlugin is free software: you can redistribute it and/or
+ ** modify it under the terms of the GNU Lesser General Public
+ ** License as published by the Free Software Foundation, either
+ ** version 3 of the License, or (at your option) any later version.
+ **
+ ** DroidPlugin is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public
+ ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
+ **
+ **/
 
 package com.morgoo.droidplugin.core;
 
@@ -37,6 +37,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
+import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Handler;
@@ -169,6 +170,29 @@ public class PluginProcessManager {
     }
 
 
+    public static void removeSettingsProvider() {
+        if (Build.VERSION.SDK_INT >= 28) {
+            try {
+                Object object = ActivityThreadCompat.currentActivityThread();
+                Object mProviderMapObj = FieldUtils.readField(object, "mProviderMap");
+                MethodUtils.invokeMethod(mProviderMapObj, "clear");
+                Object mProviderRefCountMap = FieldUtils.readField(object, "mProviderRefCountMap");
+                MethodUtils.invokeMethod(mProviderRefCountMap, "clear");
+
+                Object sProviderHolder = FieldUtils.readStaticField(Class.forName("android.provider.Settings$Global"), "sProviderHolder");
+                FieldUtils.writeField(sProviderHolder, "mContentProvider", null);
+                sProviderHolder = FieldUtils.readStaticField(Class.forName("android.provider.Settings$System"), "sProviderHolder");
+                FieldUtils.writeField(sProviderHolder, "mContentProvider", null);
+                sProviderHolder = FieldUtils.readStaticField(Class.forName("android.provider.Settings$Secure"), "sProviderHolder");
+                FieldUtils.writeField(sProviderHolder, "mContentProvider", null);
+
+            } catch (Exception e) {
+                Log.e("Android28Helper", "removeSettingsProvider", e);
+            }
+        }
+
+    }
+
     public static void preLoadApk(Context hostContext, ComponentInfo pluginInfo) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, PackageManager.NameNotFoundException, ClassNotFoundException {
         if (pluginInfo == null && hostContext == null) {
             return;
@@ -176,6 +200,9 @@ public class PluginProcessManager {
         if (pluginInfo != null && getPluginContext(pluginInfo.packageName) != null) {
             return;
         }
+
+        //https://github.com/DroidPluginTeam/DroidPlugin/issues/446
+        removeSettingsProvider();
 
         /*添加插件的LoadedApk对象到ActivityThread.mPackages*/
 
@@ -194,7 +221,7 @@ public class PluginProcessManager {
                     }
                     sPluginLoadedApkCache.put(pluginInfo.packageName, loadedApk);
 
-                /*添加ClassLoader LoadedApk.mClassLoader*/
+                    /*添加ClassLoader LoadedApk.mClassLoader*/
 
                     String optimizedDirectory = PluginDirHelper.getPluginDalvikCacheDir(hostContext, pluginInfo.packageName);
                     String libraryPath = PluginDirHelper.getPluginNativeLibraryDir(hostContext, pluginInfo.packageName);
@@ -209,7 +236,7 @@ public class PluginProcessManager {
                             classloader = new PluginClassLoader(apk, optimizedDirectory, libraryPath, hostContext.getClassLoader().getParent());
                         } catch (Exception e) {
                         }
-                        if(classloader==null){
+                        if (classloader == null) {
                             PluginDirHelper.cleanOptimizedDirectory(optimizedDirectory);
                             classloader = new PluginClassLoader(apk, optimizedDirectory, libraryPath, hostContext.getClassLoader().getParent());
                         }
@@ -365,7 +392,7 @@ public class PluginProcessManager {
         sSkipService.add("tv_input");
         sSkipService.add("jobscheduler");
         sSkipService.add("sensorhub");
-        
+
         //NSDManager init初始化anr的问题
         sSkipService.add("servicediscovery");
 //        sSkipService.add("usagestats");
