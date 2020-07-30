@@ -111,6 +111,13 @@ class PackageParserApi21 extends PackageParser {
     @Override
     public void collectCertificates(int flags) throws Exception {
         // public void collectCertificates(Package pkg, int flags) throws PackageParserException
+        if (VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            //http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/java/android/content/pm/PackageParser.java
+            Method method = MethodUtils.getAccessibleMethod(sPackageParserClass, "collectCertificates",
+                    mPackage.getClass(), boolean.class);
+            method.invoke(mPackageParser, mPackage, flags == 1);
+            return;
+        }
         Method method = MethodUtils.getAccessibleMethod(sPackageParserClass, "collectCertificates",
                 mPackage.getClass(), int.class);
         method.invoke(mPackageParser, mPackage, flags);

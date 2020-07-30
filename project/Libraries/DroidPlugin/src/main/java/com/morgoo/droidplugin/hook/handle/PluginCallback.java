@@ -1,24 +1,24 @@
 /*
-**        DroidPlugin Project
-**
-** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
-**
-** This file is part of DroidPlugin.
-**
-** DroidPlugin is free software: you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation, either
-** version 3 of the License, or (at your option) any later version.
-**
-** DroidPlugin is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
-**
-**/
+ **        DroidPlugin Project
+ **
+ ** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
+ **
+ ** This file is part of DroidPlugin.
+ **
+ ** DroidPlugin is free software: you can redistribute it and/or
+ ** modify it under the terms of the GNU Lesser General Public
+ ** License as published by the Free Software Foundation, either
+ ** version 3 of the License, or (at your option) any later version.
+ **
+ ** DroidPlugin is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public
+ ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
+ **
+ **/
 
 package com.morgoo.droidplugin.hook.handle;
 
@@ -40,6 +40,8 @@ import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.droidplugin.stub.ShortcutProxyActivity;
 import com.morgoo.helper.Log;
+
+import java.util.List;
 
 
 public class PluginCallback implements Handler.Callback {
@@ -241,9 +243,12 @@ public class PluginCallback implements Handler.Callback {
                 }
             }
 
-            if (msg.what == LAUNCH_ACTIVITY) {
+            Log.i(TAG, "handleMessage msg.what:%d", msg.what);
+
+            if (msg.what == LAUNCH_ACTIVITY || msg.what == 159/*for API 28*/) {
                 return handleLaunchActivity(msg);
-            } /*else if (msg.what == INSTALL_PROVIDER) {
+            }
+            /*else if (msg.what == INSTALL_PROVIDER) {
                 return handleInstallProvider(msg);
             } else if (msg.what == CREATE_BACKUP_AGENT) {
                 //TODO 处理CREATE_BACKUP_AGENT
@@ -349,10 +354,39 @@ public class PluginCallback implements Handler.Callback {
 //        return false;
 //    }
 
+
+    private void handleActivity(Message msg) {
+        // 这里简单起见,直接取出TargetActivity;
+        try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                return;
+            }
+            Object obj = msg.obj;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private boolean handleLaunchActivity(Message msg) {
         try {
             Object obj = msg.obj;
-            Intent stubIntent = (Intent) FieldUtils.readField(obj, "intent");
+            Intent stubIntent = null;
+            //https://www.cnblogs.com/Jax/p/9521305.html
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                List<Object> mActivityCallbacks = (List<Object>) FieldUtils.readField(obj, "mActivityCallbacks");
+                if (mActivityCallbacks.size() > 0) {
+                    String className = "android.app.servertransaction.LaunchActivityItem";
+                    if (mActivityCallbacks.get(0).getClass().getCanonicalName().equals(className)) {
+                        Object object = mActivityCallbacks.get(0);
+                        stubIntent = (Intent) FieldUtils.readField(object, "mIntent");
+                    }
+                }
+            }
+            if (stubIntent == null) {
+                stubIntent = (Intent) FieldUtils.readField(obj, "intent");
+            }
             //ActivityInfo activityInfo = (ActivityInfo) FieldUtils.readField(obj, "activityInfo", true);
             stubIntent.setExtrasClassLoader(mHostContext.getClassLoader());
             Intent targetIntent = stubIntent.getParcelableExtra(Env.EXTRA_TARGET_INTENT);
@@ -405,6 +439,8 @@ public class PluginCallback implements Handler.Callback {
                             Log.e(TAG, "putExtra 2 fail", e);
                         }
                     }
+
+                    handleActivity(msg);
 
                     if (!success) {
                         Intent newTargetIntent = new Intent();

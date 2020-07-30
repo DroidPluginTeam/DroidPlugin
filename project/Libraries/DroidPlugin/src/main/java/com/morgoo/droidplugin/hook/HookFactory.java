@@ -1,24 +1,24 @@
 /*
-**        DroidPlugin Project
-**
-** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
-**
-** This file is part of DroidPlugin.
-**
-** DroidPlugin is free software: you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation, either
-** version 3 of the License, or (at your option) any later version.
-**
-** DroidPlugin is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
-**
-**/
+ **        DroidPlugin Project
+ **
+ ** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
+ **
+ ** This file is part of DroidPlugin.
+ **
+ ** DroidPlugin is free software: you can redistribute it and/or
+ ** modify it under the terms of the GNU Lesser General Public
+ ** License as published by the Free Software Foundation, either
+ ** version 3 of the License, or (at your option) any later version.
+ **
+ ** DroidPlugin is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public
+ ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
+ **
+ **/
 
 package com.morgoo.droidplugin.hook;
 
@@ -54,6 +54,7 @@ import com.morgoo.droidplugin.hook.proxy.IPackageManagerHook;
 import com.morgoo.droidplugin.hook.proxy.InstrumentationHook;
 import com.morgoo.droidplugin.hook.proxy.LibCoreHook;
 import com.morgoo.droidplugin.hook.proxy.PluginCallbackHook;
+import com.morgoo.droidplugin.hook.proxy.WebViewFactoryProviderHook;
 import com.morgoo.droidplugin.hook.xhook.SQLiteDatabaseHook;
 import com.morgoo.helper.Log;
 import com.morgoo.helper.utils.ProcessUtils;
@@ -132,16 +133,20 @@ public class HookFactory {
             installHook(new ISearchManagerBinderHook(context), classLoader);
             //for INotificationManager
             installHook(new INotificationManagerBinderHook(context), classLoader);
-            installHook(new IMountServiceBinderHook(context), classLoader);
+            if (VERSION.SDK_INT < VERSION_CODES.P) {
+                //先让这个不要抛出异常先
+                installHook(new IMountServiceBinderHook(context), classLoader);
+            }
             installHook(new IAudioServiceBinderHook(context), classLoader);
             installHook(new IContentServiceBinderHook(context), classLoader);
             installHook(new IWindowManagerBinderHook(context), classLoader);
             if (VERSION.SDK_INT > VERSION_CODES.LOLLIPOP_MR1) {
                 installHook(new IGraphicsStatsBinderHook(context), classLoader);
             }
-//        if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-//            installHook(new WebViewFactoryProviderHook(context), classLoader);
-//        }
+            if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+                //这个干吗关闭？？
+                installHook(new WebViewFactoryProviderHook(context), classLoader);
+            }
             if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
                 installHook(new IMediaRouterServiceBinderHook(context), classLoader);
             }
@@ -186,10 +191,11 @@ public class HookFactory {
             if (VERSION.SDK_INT >= VERSION_CODES.M) {
                 installHook(new IAppOpsServiceBinderHook(context), classLoader);
             }
+            //优先hook这个InstrumentationHook
+            installHook(new InstrumentationHook(context), classLoader);
             installHook(new IActivityManagerHook(context), classLoader);
             installHook(new IPackageManagerHook(context), classLoader);
             installHook(new PluginCallbackHook(context), classLoader);
-            installHook(new InstrumentationHook(context), classLoader);
             installHook(new LibCoreHook(context), classLoader);
 
             installHook(new SQLiteDatabaseHook(context), classLoader);
