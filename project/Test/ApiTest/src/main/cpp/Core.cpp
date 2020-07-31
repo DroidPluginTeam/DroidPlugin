@@ -10,6 +10,11 @@
 
 #define NATIVE_CLASS "com/morgoo/nativec/NativeCHelper"
 
+//extern "C"
+//JNIEXPORT jint JNICALL
+//Java_com_morgoo_nativec_NativeCHelper_nativePing(JNIEnv* env){
+//}
+
 int registerNativeMethodsAndSetup(JNIEnv* env) {
 	jclass nativeClass = env->FindClass(NATIVE_CLASS);
 	if (clearJniExpcetion(env, TAG) || !nativeClass) {

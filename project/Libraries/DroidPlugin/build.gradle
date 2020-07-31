@@ -17,7 +17,7 @@ android {
 
         // 建议改为自己的 packageName + .droidplugin_stub ，防止跟其它本插件使用者冲突
         def authorityName = "com.morgoo.droidplugin_stub"
-        minSdkVersion 9
+        minSdkVersion 19
         versionCode 1
         versionName '1.0'
 
