@@ -14,30 +14,30 @@ android {
     defaultConfig {
         minSdkVersion 19
 
-        externalNativeBuild {
-            cmake {
-                arguments "-DANDROID_STL=c++_static"//c++_static
-
-                arguments '-DANDROID_ARM_NEON=TRUE', '-DANDROID_TOOLCHAIN=clang'
-
-                cFlags '-D__STDC_FORMAT_MACROS'
-
-                cppFlags '-fexceptions', '-frtti'
-            }
-
-            ndk {
-//                abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a','x86_64'
-            }
-        }
+//        externalNativeBuild {
+//            cmake {
+//                arguments "-DANDROID_STL=c++_static"//c++_static
+//
+//                arguments '-DANDROID_ARM_NEON=TRUE', '-DANDROID_TOOLCHAIN=clang'
+//
+//                cFlags '-D__STDC_FORMAT_MACROS'
+//
+//                cppFlags '-fexceptions', '-frtti'
+//            }
+//
+//            ndk {
+////                abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a','x86_64'
+//            }
+//        }
     }
 
     lintOptions {
         abortOnError false
     }
 
-    externalNativeBuild {
-        cmake {
-            path "CMakeLists.txt"
-        }
-    }
+//    externalNativeBuild {
+//        cmake {
+//            path "CMakeLists.txt"
+//        }
+//    }
 }

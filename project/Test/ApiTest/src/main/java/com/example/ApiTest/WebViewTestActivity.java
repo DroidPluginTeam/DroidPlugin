@@ -21,7 +21,7 @@ public class WebViewTestActivity extends AppCompatActivity {
                 return true;
             }
         });
-        mWebView.loadUrl("http://www.baidu.com");
+        mWebView.loadUrl("https://www.baidu.com");
 
     }
 

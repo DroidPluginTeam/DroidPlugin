@@ -1,24 +1,24 @@
 /*
-**        DroidPlugin Project
-**
-** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
-**
-** This file is part of DroidPlugin.
-**
-** DroidPlugin is free software: you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation, either
-** version 3 of the License, or (at your option) any later version.
-**
-** DroidPlugin is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
-**
-**/
+ **        DroidPlugin Project
+ **
+ ** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
+ **
+ ** This file is part of DroidPlugin.
+ **
+ ** DroidPlugin is free software: you can redistribute it and/or
+ ** modify it under the terms of the GNU Lesser General Public
+ ** License as published by the Free Software Foundation, either
+ ** version 3 of the License, or (at your option) any later version.
+ **
+ ** DroidPlugin is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public
+ ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
+ **
+ **/
 package com.morgoo.droidplugin.hook.handle;
 
 import android.content.Context;
@@ -55,12 +55,20 @@ public class WebViewFactoryProviderHookHandle extends BaseHookHandle {
 
     private static Class sContentMain;
 
+    private static Class sContextUtils;
+
     private static void fixWebViewAsset(Context context) {
         try {
             if (sContentMain == null) {
                 Object provider = WebViewFactoryCompat.getProvider();
                 if (provider != null) {
                     ClassLoader cl = provider.getClass().getClassLoader();
+
+                    try {
+                        sContextUtils = Class.forName("org.chromium.base.ContextUtils", true, cl);
+                    } catch (ClassNotFoundException e) {
+                        Log.e(TAG, "fixWebViewAsset sContextUtils", e);
+                    }
 
                     try {
                         sContentMain = Class.forName("org.chromium.content.app.ContentMain", true, cl);
@@ -75,12 +83,16 @@ public class WebViewFactoryProviderHookHandle extends BaseHookHandle {
                     }
 
                     if (sContentMain == null) {
-                        throw new ClassNotFoundException(String.format("Can not found class %s or %s in classloader %s", "org.chromium.content.app.ContentMain", "com.android.org.chromium.content.app.ContentMain", cl));
+                        //throw new ClassNotFoundException(String.format("Can not found class %s or %s in classloader %s", "org.chromium.content.app.ContentMain", "com.android.org.chromium.content.app.ContentMain", cl));
                     }
                 }
             }
             if (sContentMain != null) {
                 MethodUtils.invokeStaticMethod(sContentMain, "initApplicationContext", context.getApplicationContext());
+            }
+
+            if (sContextUtils != null) {
+                MethodUtils.invokeStaticMethod(sContextUtils, "initApplicationContext", context.getApplicationContext());
             }
         } catch (Exception e) {
             Log.e(TAG, "fixWebViewAsset error", e);

@@ -49,7 +49,7 @@ public class ServiceTest1 extends AppCompatActivity implements OnClickListener {
                 Binder1 binder1 = Binder1.Stub.asInterface(service);
                 msg = String.format("onServiceConnected,binder1=%s,pind(2016)=%s,pingStr(Is Andy Zhang handsome?)=%s", binder1, binder1.ping(2016), binder1.pingStr("Is Andy Zhang handsome?"));
                 Log.e(TAG, msg);
-            } catch (RemoteException e) {
+            } catch (Exception e) {
                 Log.e(TAG, "", e);
             }
         }
@@ -73,7 +73,7 @@ public class ServiceTest1 extends AppCompatActivity implements OnClickListener {
                 Binder2 binder1 = Binder2.Stub.asInterface(service);
                 msg = String.format("onServiceConnected,Binder2=%s,pind(2016)=%s,pingStr(Is Andy Zhang handsome?)=%s", binder1, binder1.ping(2016), binder1.pingStr("Is Andy Zhang handsome?"));
                 Log.e(TAG, msg);
-            } catch (RemoteException e) {
+            } catch (Exception e) {
                 Log.e(TAG, "", e);
             }
         }
