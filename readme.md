@@ -23,6 +23,33 @@ It enables the host app run any third-party apk without installation, modificati
 1.native没测试
 
 2.bindservice有异常信息待处理
+```
+ E/Service1: >>服务Service1:onCreate
+2020-07-31 21:36:12.644 16124-16124/com.example.TestPlugin:PluginP06 E/Service1: >>服务Service1:onBind,intent=Intent { cmp=com.example.ApiTest/.Service1 }
+2020-07-31 21:36:12.652 16124-16146/com.example.TestPlugin:PluginP06 E/JavaBinder: *** Uncaught remote exception!  (Exceptions are not yet supported across processes.)
+    java.lang.AbstractMethodError: abstract method "void android.app.IServiceConnection.connected(android.content.ComponentName, android.os.IBinder, boolean)"
+        at android.app.IServiceConnection$Stub.onTransact(IServiceConnection.java:61)
+        at android.os.Binder.execTransact(Binder.java:731)
+2020-07-31 21:36:12.652 16124-16124/com.example.TestPlugin:PluginP06 I/HookedMethodHandler: doHookInner method(android.app.IActivityManager.publishService) cost 6 ms
+2020-07-31 21:36:12.652 16124-16146/com.example.TestPlugin:PluginP06 E/AndroidRuntime: FATAL EXCEPTION: Binder:16124_3
+    Process: com.example.TestPlugin:PluginP06, PID: 16124
+    java.lang.AbstractMethodError: abstract method "void android.app.IServiceConnection.connected(android.content.ComponentName, android.os.IBinder, boolean)"
+        at android.app.IServiceConnection$Stub.onTransact(IServiceConnection.java:61)
+        at android.os.Binder.execTransact(Binder.java:731)
+2020-07-31 21:36:12.653 16124-16146/com.example.TestPlugin:PluginP06 E/MyCrashHandler: uncaughtExceptionjava.lang.AbstractMethodError: abstract method "void android.app.IServiceConnection.connected(android.content.ComponentName, android.os.IBinder, boolean)"
+        at android.app.IServiceConnection$Stub.onTransact(IServiceConnection.java:61)
+        at android.os.Binder.execTransact(Binder.java:731)
+2020-07-31 21:36:12.660 16124-16146/com.example.TestPlugin:PluginP06 E/MyCrashHandler: 记录uncaughtExceptionjava.io.FileNotFoundException: /storage/emulated/0/PluginLog/CrashLog/CrashLog_20200731213612_16124.log (Permission denied)
+        at java.io.FileOutputStream.open0(Native Method)
+        at java.io.FileOutputStream.open(FileOutputStream.java:308)
+        at java.io.FileOutputStream.<init>(FileOutputStream.java:238)
+        at java.io.FileOutputStream.<init>(FileOutputStream.java:180)
+        at java.io.PrintWriter.<init>(PrintWriter.java:263)
+        at com.morgoo.droidplugin.MyCrashHandler.uncaughtException(MyCrashHandler.java:94)
+        at java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:1068)
+        at java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:1063)
+        at java.lang.Thread.dispatchUncaughtException(Thread.java:1955)
+```
 
 3.有时候会提示Toolbar出问题，后面再看
 ```
