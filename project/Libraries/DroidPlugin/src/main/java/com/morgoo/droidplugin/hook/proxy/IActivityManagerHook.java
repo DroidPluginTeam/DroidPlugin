@@ -1,24 +1,24 @@
 /*
-**        DroidPlugin Project
-**
-** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
-**
-** This file is part of DroidPlugin.
-**
-** DroidPlugin is free software: you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation, either
-** version 3 of the License, or (at your option) any later version.
-**
-** DroidPlugin is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
-**
-**/
+ **        DroidPlugin Project
+ **
+ ** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
+ **
+ ** This file is part of DroidPlugin.
+ **
+ ** DroidPlugin is free software: you can redistribute it and/or
+ ** modify it under the terms of the GNU Lesser General Public
+ ** License as published by the Free Software Foundation, either
+ ** version 3 of the License, or (at your option) any later version.
+ **
+ ** DroidPlugin is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public
+ ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
+ **
+ **/
 
 package com.morgoo.droidplugin.hook.proxy;
 
@@ -73,13 +73,19 @@ public class IActivityManagerHook extends ProxyHook {
 
     @Override
     public void onInstall(ClassLoader classLoader) throws Throwable {
-        if (Build.VERSION.SDK_INT >= 29) {
+        if (Build.VERSION.SDK_INT >= 28) {
             //參考
             //https://github.com/findandroidviewbyid/Hook
             // https://blog.csdn.net/u014379448/article/details/106299656/
             // Q
-            Class<?> clazz = Class.forName("android.app.ActivityTaskManager");
-            Object singleton = FieldUtils.readStaticField(clazz, "IActivityTaskManagerSingleton");
+            Object singleton = null;
+            try {
+                Class<?> clazz = Class.forName("android.app.ActivityTaskManager");
+                singleton = FieldUtils.readStaticField(clazz, "IActivityTaskManagerSingleton");
+            } catch (Exception e) {
+                Log.i(TAG, "ActivityTaskManager", e);
+                singleton = FieldUtils.readStaticField(ActivityManager.class, "IActivityManagerSingleton");
+            }
             Object obj1 = FieldUtils.readField(singleton, "mInstance");
             //IActivityTaskManager 这个实例
             if (obj1 == null) {

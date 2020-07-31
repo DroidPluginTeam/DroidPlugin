@@ -150,7 +150,9 @@ public abstract class BaseActivityManagerService {
     }
 
     public void onDestroy() {
-        mRemoteCallbackList.kill();
+        if (mRemoteCallbackList != null) {
+            mRemoteCallbackList.kill();
+        }
         mRemoteCallbackList = null;
     }
 }

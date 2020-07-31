@@ -209,11 +209,6 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <!--插件管理服务，提供插件的包管理，进程管理。-->
-        <service
-            android:name=".PluginManagerService"
-            android:label="@string/service_name_plugin_manager_service" />
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.pluginFileProvider"
@@ -223,6 +218,22 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <!--解决Not allowed to start service Intent-->
+        <activity android:name="com.moziqi.compat.OActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/XXAppTheme">
+            <intent-filter>
+                <action android:name="android.${applicationId}" />
+            </intent-filter>
+        </activity>
+
+        <!--插件管理服务，提供插件的包管理，进程管理。-->
+        <service
+            android:name=".PluginManagerService"
+            android:label="@string/service_name_plugin_manager_service" />
 
         <provider
             android:name=".PluginServiceProvider"

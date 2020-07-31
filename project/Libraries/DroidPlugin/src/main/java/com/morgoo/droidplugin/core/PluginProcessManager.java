@@ -202,7 +202,7 @@ public class PluginProcessManager {
         }
 
         //https://github.com/DroidPluginTeam/DroidPlugin/issues/446
-        removeSettingsProvider();
+//        removeSettingsProvider();
 
         /*添加插件的LoadedApk对象到ActivityThread.mPackages*/
 

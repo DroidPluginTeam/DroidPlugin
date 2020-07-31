@@ -67,6 +67,8 @@ class PackageParserApi21 extends PackageParser {
     protected Class<?> sPermissionClass;
     protected Class<?> sPermissionGroupClass;
     protected Class<?> sArraySetClass;
+    //P Q
+    protected Class<?> sPackageSignatures;
 
     protected Object mPackage;
     protected Object mDefaultPackageUserState;
@@ -88,6 +90,8 @@ class PackageParserApi21 extends PackageParser {
         sInstrumentationClass = Class.forName("android.content.pm.PackageParser$Instrumentation");
         sPermissionClass = Class.forName("android.content.pm.PackageParser$Permission");
         sPermissionGroupClass = Class.forName("android.content.pm.PackageParser$PermissionGroup");
+        //P Q
+//        sPackageSignatures = Class.forName("com.android.server.pm.PackageSignatures");
         try {
             sArraySetClass = Class.forName("android.util.ArraySet");
         } catch (ClassNotFoundException e) {
@@ -301,6 +305,9 @@ class PackageParserApi21 extends PackageParser {
 
     @Override
     public void writeSignature(Signature[] signatures) throws Exception {
+        if (android.os.Build.VERSION.SDK_INT >= 28) {
+            return;
+        }
         FieldUtils.writeField(mPackage, "mSignatures", signatures);
     }
 }
