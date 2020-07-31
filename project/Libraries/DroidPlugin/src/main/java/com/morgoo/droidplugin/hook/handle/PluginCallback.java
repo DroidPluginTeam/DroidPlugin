@@ -407,7 +407,11 @@ public class PluginCallback implements Handler.Callback {
                 mactivityCallbacks.setAccessible(true);
                 List mActivityCallbacks = (List) mactivityCallbacks.get(mClientTransaction);
                 if (mActivityCallbacks == null || mActivityCallbacks.size() == 0) {
-                    return false;
+                    if (mCallback != null) {
+                        return mCallback.handleMessage(msg);
+                    } else {
+                        return false;
+                    }
                 }
                 Class mLaunchActivityItemClass = Class.forName("android.app.servertransaction.LaunchActivityItem");
                 mLaunchActivityItemP = mActivityCallbacks.get(0);
