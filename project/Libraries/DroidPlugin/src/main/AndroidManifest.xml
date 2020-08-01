@@ -191,6 +191,8 @@
     <uses-permission
         android:name="android.permission.LOCATION_HARDWARE"
         tools:ignore="ProtectedPermissions" />
+    <!--Q-->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
 
 
     <uses-feature android:name="android.hardware.camera" />

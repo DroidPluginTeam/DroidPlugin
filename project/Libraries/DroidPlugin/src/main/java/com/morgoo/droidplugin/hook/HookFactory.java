@@ -50,6 +50,7 @@ import com.morgoo.droidplugin.hook.binder.ITelephonyRegistryBinderHook;
 import com.morgoo.droidplugin.hook.binder.IWifiManagerBinderHook;
 import com.morgoo.droidplugin.hook.binder.IWindowManagerBinderHook;
 import com.morgoo.droidplugin.hook.proxy.IActivityManagerHook;
+import com.morgoo.droidplugin.hook.proxy.IActivityTaskManagerHook;
 import com.morgoo.droidplugin.hook.proxy.IPackageManagerHook;
 import com.morgoo.droidplugin.hook.proxy.InstrumentationHook;
 import com.morgoo.droidplugin.hook.proxy.LibCoreHook;
@@ -125,6 +126,7 @@ public class HookFactory {
 
     public final void installHook(Context context, ClassLoader classLoader) throws Throwable {
         if (ProcessUtils.isMainProcess(context)) {
+            installHook(new IActivityTaskManagerHook(context), classLoader);
             installHook(new IActivityManagerHook(context), classLoader);
             installHook(new IPackageManagerHook(context), classLoader);
         } else {
@@ -191,11 +193,11 @@ public class HookFactory {
             if (VERSION.SDK_INT >= VERSION_CODES.M) {
                 installHook(new IAppOpsServiceBinderHook(context), classLoader);
             }
-            //优先hook这个InstrumentationHook
-            installHook(new InstrumentationHook(context), classLoader);
+            installHook(new IActivityTaskManagerHook(context), classLoader);
             installHook(new IActivityManagerHook(context), classLoader);
             installHook(new IPackageManagerHook(context), classLoader);
             installHook(new PluginCallbackHook(context), classLoader);
+            installHook(new InstrumentationHook(context), classLoader);
             installHook(new LibCoreHook(context), classLoader);
 
             installHook(new SQLiteDatabaseHook(context), classLoader);

@@ -73,33 +73,6 @@ public class IActivityManagerHook extends ProxyHook {
 
     @Override
     public void onInstall(ClassLoader classLoader) throws Throwable {
-        if (Build.VERSION.SDK_INT >= 28) {
-            //參考
-            //https://github.com/findandroidviewbyid/Hook
-            // https://blog.csdn.net/u014379448/article/details/106299656/
-            // Q
-            Object singleton = null;
-            try {
-                Class<?> clazz = Class.forName("android.app.ActivityTaskManager");
-                singleton = FieldUtils.readStaticField(clazz, "IActivityTaskManagerSingleton");
-            } catch (Exception e) {
-                Log.i(TAG, "ActivityTaskManager", e);
-                singleton = FieldUtils.readStaticField(ActivityManager.class, "IActivityManagerSingleton");
-            }
-            Object obj1 = FieldUtils.readField(singleton, "mInstance");
-            //IActivityTaskManager 这个实例
-            if (obj1 == null) {
-                SingletonCompat.get(singleton);
-                obj1 = FieldUtils.readField(singleton, "mInstance");
-            }
-            setOldObj(obj1);
-            Class<?> objClass = mOldObj.getClass();
-            List<Class<?>> interfaces = Utils.getAllInterfaces(objClass);
-            Class[] ifs = interfaces != null && interfaces.size() > 0 ? interfaces.toArray(new Class[interfaces.size()]) : new Class[0];
-            Object proxiedActivityManager = MyProxy.newProxyInstance(objClass.getClassLoader(), ifs, this);
-            FieldUtils.writeField(singleton, "mInstance", proxiedActivityManager);
-            return;
-        }
         if (Build.VERSION.SDK_INT >= 26) {
             // o
             Object singleton = FieldUtils.readStaticField(ActivityManager.class, "IActivityManagerSingleton");

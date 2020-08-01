@@ -229,6 +229,9 @@ public class PluginCallback implements Handler.Callback {
     public boolean handleMessage(Message msg) {
         long b = System.currentTimeMillis();
         try {
+
+            Log.i(TAG, "PluginCallback.handleMessage msg.what:%d", msg.what);
+
             if (!mEnable) {
                 return false;
             }
@@ -243,8 +246,6 @@ public class PluginCallback implements Handler.Callback {
                     return true;
                 }
             }
-
-            Log.i(TAG, "handleMessage msg.what:%d", msg.what);
 
             if (msg.what == LAUNCH_ACTIVITY || msg.what == 159/* >28 */) {
                 return handleLaunchActivity(msg);
@@ -395,6 +396,15 @@ public class PluginCallback implements Handler.Callback {
 
     private boolean handleLaunchActivity(Message msg) {
         try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P + 1) {
+                //android.app.servertransaction.TopResumedActivityChangeItem
+                //不处理
+                if (mCallback != null) {
+                    return mCallback.handleMessage(msg);
+                } else {
+                    return false;
+                }
+            }
             Object obj = msg.obj;
             Intent stubIntent = null;
             Object mLaunchActivityItemP = null;
@@ -416,10 +426,18 @@ public class PluginCallback implements Handler.Callback {
                 Class mLaunchActivityItemClass = Class.forName("android.app.servertransaction.LaunchActivityItem");
                 mLaunchActivityItemP = mActivityCallbacks.get(0);
                 Log.i(TAG, "mLaunchActivityItemP>>>" + mLaunchActivityItemP.getClass());
-                //拿到LaunchActivityItem中的Intent
-                Field mIntentField = mLaunchActivityItemClass.getDeclaredField("mIntent");
-                mIntentField.setAccessible(true);
-                stubIntent = (Intent) mIntentField.get(mLaunchActivityItemP);
+                if ("android.app.servertransaction.TopResumedActivityChangeItem".equals(mLaunchActivityItemP.getClass().getName())) {
+                    //https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/app/servertransaction/TopResumedActivityChangeItem.java;bpv=0;bpt=1
+                    //android Q 改为：android.app.servertransaction.TopResumedActivityChangeItem
+                    //Class mTopResumedActivityChangeItem = Class.forName("android.app.servertransaction.TopResumedActivityChangeItem");
+                    throw new RuntimeException("Android Q 的 TopResumedActivityChangeItem 没有 mIntent");
+                } else {
+                    //拿到LaunchActivityItem中的Intent
+                    Field mIntentField = mLaunchActivityItemClass.getDeclaredField("mIntent");
+                    mIntentField.setAccessible(true);
+                    stubIntent = (Intent) mIntentField.get(mLaunchActivityItemP);
+                }
+
                 Log.i(TAG, "stubIntent>>>" + stubIntent.getClass() + "," + stubIntent.toString());
 //                Intent targetIntent = stubIntent.getParcelableExtra(Env.EXTRA_TARGET_INTENT);
 //                if (targetIntent != null) {

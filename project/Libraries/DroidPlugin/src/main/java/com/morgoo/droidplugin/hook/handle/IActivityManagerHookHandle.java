@@ -1,24 +1,24 @@
 /*
-**        DroidPlugin Project
-**
-** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
-**
-** This file is part of DroidPlugin.
-**
-** DroidPlugin is free software: you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation, either
-** version 3 of the License, or (at your option) any later version.
-**
-** DroidPlugin is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
-**
-**/
+ **        DroidPlugin Project
+ **
+ ** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
+ **
+ ** This file is part of DroidPlugin.
+ **
+ ** DroidPlugin is free software: you can redistribute it and/or
+ ** modify it under the terms of the GNU Lesser General Public
+ ** License as published by the Free Software Foundation, either
+ ** version 3 of the License, or (at your option) any later version.
+ **
+ ** DroidPlugin is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public
+ ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
+ **
+ **/
 
 package com.morgoo.droidplugin.hook.handle;
 
@@ -71,6 +71,7 @@ import com.morgoo.helper.compat.ContentProviderHolderCompat;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -87,6 +88,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
     @Override
     protected void init() {
+        //android Q
+        sHookedMethodHandlers.put("activityTopResumedStateLost", new activityTopResumedStateLost(mHostContext));
         sHookedMethodHandlers.put("startActivity", new startActivity(mHostContext));
         sHookedMethodHandlers.put("startActivityAsUser", new startActivityAsUser(mHostContext));
         sHookedMethodHandlers.put("startActivityAsCaller", new startActivityAsCaller(mHostContext));
@@ -150,6 +153,21 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
 
     }
+
+    //android Q
+    private static class activityTopResumedStateLost extends ReplaceCallingPackageHookedMethodHandler {
+        public activityTopResumedStateLost(Context hostContext) {
+            super(hostContext);
+        }
+
+        @Override
+        protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
+            Log.i(TAG, "activityTopResumedStateLost.beforeInvoke.method:" + (method != null ? method.getName() : "null"));
+            Log.i(TAG, "activityTopResumedStateLost.beforeInvoke.args." + Arrays.toString(args));
+            return super.beforeInvoke(receiver, method, args);
+        }
+    }
+
 
     private static class startActivity extends ReplaceCallingPackageHookedMethodHandler {
 
@@ -519,6 +537,8 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
+
+            Log.i(TAG, "registerReceiver--->beforeInvoke");
             //API 2.3
         /* public Intent registerReceiver(IApplicationThread caller,
             IIntentReceiver receiver, IntentFilter filter,
@@ -533,11 +553,16 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
        /*  public Intent registerReceiver(IApplicationThread caller, String callerPackage,
                 IIntentReceiver receiver, IntentFilter filter,
                 String requiredPermission, int userId) throws RemoteException;*/
+            //Q
+       /* public Intent registerReceiver(IApplicationThread caller, String callerPackage,
+                    IIntentReceiver receiver, IntentFilter filter, String permission, int userId,
+            int flags)*/
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 if (args != null && args.length > 0) {
                     for (int index = 0; index < args.length; index++) {
                         if (args[index] instanceof String) {
                             String callerPackage = (String) args[index];
+                            Log.i(TAG, "registerReceiver--->beforeInvoke.callerPackage:" + callerPackage);
                             if (isPackagePlugin(callerPackage)) {
                                 args[index] = mHostContext.getPackageName();
                             }
@@ -762,9 +787,9 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         @Override
         protected void afterInvoke(Object receiver, Method method, Object[] args, Object invokeResult) throws Throwable {
             //api  2.3,15,16,17,18
-        /*public List getServices(int maxNum, int flags) throws RemoteException;*/
+            /*public List getServices(int maxNum, int flags) throws RemoteException;*/
             //API 19,21
-        /*public List<RunningServiceInfo> getServices(int maxNum, int flags) throws RemoteException;*/
+            /*public List<RunningServiceInfo> getServices(int maxNum, int flags) throws RemoteException;*/
             if (invokeResult != null && invokeResult instanceof List) {
                 List<Object> objectList = (List<Object>) invokeResult;
                 for (Object obj : objectList) {
@@ -1165,7 +1190,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
             //API 2.3, 15, 16, 17, 18, 19, 21
-        /* public IBinder peekService(Intent service, String resolvedType) throws RemoteException;*/
+            /* public IBinder peekService(Intent service, String resolvedType) throws RemoteException;*/
             replaceFirstServiceIntentOfArgs(args);
             return super.beforeInvoke(receiver, method, args);
         }
@@ -1204,7 +1229,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
             //API 2.3,15,16,17,18,19, 21
-        /* public void backupAgentCreated(String packageName, IBinder agent) throws RemoteException;*/
+            /* public void backupAgentCreated(String packageName, IBinder agent) throws RemoteException;*/
             final int index = 0;
             if (args != null && args.length > index) {
                 if (args[index] != null && args[index] instanceof String) {
@@ -1227,7 +1252,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
             //API 2.3,15,16,17,18,19, 21
-        /* public void unbindBackupAgent(ApplicationInfo appInfo) throws RemoteException;*/
+            /* public void unbindBackupAgent(ApplicationInfo appInfo) throws RemoteException;*/
             final int index = 0;
             if (args != null && args.length > index) {
                 if (args[index] != null && args[index] instanceof ApplicationInfo) {
@@ -1250,7 +1275,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
             //API 2.3,15,16,17,18,19, 21
-        /* public void killApplicationProcess(String processName, int uid) throws RemoteException;*/
+            /* public void killApplicationProcess(String processName, int uid) throws RemoteException;*/
 
             final int index = 0;
             if (args != null && args.length > index) {
@@ -1303,7 +1328,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         }
 
         //API  2.3,15,16,17,18,19, 21
-       /* public ComponentName getActivityClassForToken(IBinder token) throws RemoteException;*/
+        /* public ComponentName getActivityClassForToken(IBinder token) throws RemoteException;*/
         //FIXME I don't know what function of this,just hook it.
         //通过token拿Activity？搞不懂，不改。
     }
@@ -1612,7 +1637,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
             //API 2.3,15,16
-        /*public void killBackgroundProcesses(final String packageName) throws RemoteException;*/
+            /*public void killBackgroundProcesses(final String packageName) throws RemoteException;*/
 
             //API 17,18,19,21
         /* public void killBackgroundProcesses(final String packageName, int userId)
@@ -1665,6 +1690,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
         @Override
         protected void afterInvoke(Object receiver, Method method, Object[] args, Object invokeResult) throws Throwable {
+            Log.i(TAG, "getRunningAppProcesses>>>>afterInvoke");
             //2.3,15,16,17,18,19,21
              /*    public List<ActivityManager.RunningAppProcessInfo> getRunningAppProcesses()
             throws RemoteException;*/
@@ -1945,7 +1971,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
-             /* public int getPackageScreenCompatMode(String packageName) throws RemoteException;*/
+            /* public int getPackageScreenCompatMode(String packageName) throws RemoteException;*/
             //我也不知道这个函数是干嘛的，不过既然写了，我们就改一下。
             //因为如果万一插件调用了这个函数，则会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
@@ -2001,7 +2027,7 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
         @Override
         protected boolean beforeInvoke(Object receiver, Method method, Object[] args) throws Throwable {
             //API 15, 16, 17, 18, 19, 21
-             /* public boolean getPackageAskScreenCompat(String packageName) throws RemoteException;*/
+            /* public boolean getPackageAskScreenCompat(String packageName) throws RemoteException;*/
             //我也不知道这个函数是干嘛的，不过既然写了，我们就改一下。
             //因为如果万一插件调用了这个函数，则会传插件自己的包名，而此插件并未被安装。就这样调用原来函数传给系统，是会出问题的。所以改成宿主程序的包名。
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {

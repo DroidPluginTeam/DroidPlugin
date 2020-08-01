@@ -86,6 +86,7 @@ public class MyActivityManagerService extends BaseActivityManagerService {
     protected void onProcessDied(int pid, int uid) {
         mRunningProcessList.onProcessDied(pid, uid);
         runProcessGC();
+        Log.i(TAG, "onProcessDied");
         super.onProcessDied(pid, uid);
     }
 

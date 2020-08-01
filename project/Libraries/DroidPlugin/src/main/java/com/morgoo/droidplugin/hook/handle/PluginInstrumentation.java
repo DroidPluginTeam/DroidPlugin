@@ -24,6 +24,7 @@ package com.morgoo.droidplugin.hook.handle;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AppComponentFactory;
 import android.app.Application;
 import android.app.Instrumentation;
 import android.content.ContentResolver;
@@ -50,6 +51,7 @@ import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.droidplugin.reflect.MethodUtils;
 import com.morgoo.helper.Log;
+import com.morgoo.helper.compat.ActivityThreadCompat;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -319,5 +321,33 @@ public class PluginInstrumentation extends Instrumentation {
         } else {
             super.callActivityOnNewIntent(activity, intent);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.P)
+    public AppComponentFactory getFactory(String pkg) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+//        if (pkg == null) {
+//            android.util.Log.e(TAG, "No pkg specified, disabling AppComponentFactory");
+//            return AppComponentFactory.DEFAULT;
+//        }
+//        if (mThread == null) {
+//            android.util.Log.e(TAG, "Uninitialized ActivityThread, likely app-created Instrumentation,"
+//                    + " disabling AppComponentFactory", new Throwable());
+//            return AppComponentFactory.DEFAULT;
+//        }
+//        LoadedApk apk = mThread.peekPackageInfo(pkg, true);
+//        // This is in the case of starting up "android".
+//        if (apk == null) apk = mThread.getSystemContext().mPackageInfo;
+//        return apk.getAppFactory();
+
+        Log.i(TAG,"我来了吗？getFactory");
+        Object mThread = FieldUtils.readField(mTarget, "mThread", true);
+        if (mThread == null) {
+            try {
+                FieldUtils.writeField(mTarget, "mThread", ActivityThreadCompat.currentActivityThread());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return (AppComponentFactory) MethodUtils.invokeMethod(mTarget, "getFactory", pkg);
     }
 }

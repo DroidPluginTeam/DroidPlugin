@@ -197,12 +197,13 @@ public class PluginProcessManager {
         if (pluginInfo == null && hostContext == null) {
             return;
         }
+
         if (pluginInfo != null && getPluginContext(pluginInfo.packageName) != null) {
             return;
         }
 
         //https://github.com/DroidPluginTeam/DroidPlugin/issues/446
-//        removeSettingsProvider();
+        removeSettingsProvider();
 
         /*添加插件的LoadedApk对象到ActivityThread.mPackages*/
 
@@ -397,6 +398,9 @@ public class PluginProcessManager {
         sSkipService.add("servicediscovery");
 //        sSkipService.add("usagestats");
 
+        //P Q
+        sSkipService.add("color_display");
+//        sSkipService.add("network_watchlist");
     }
 
 
@@ -440,8 +444,19 @@ public class PluginProcessManager {
                 Context originContext = getBaseContext(hostContext);
 
                 Object mServiceCache = FieldUtils.readField(originContext, "mServiceCache");
+
+                Log.i(TAG, "mServiceCache class is %s", mServiceCache.getClass());
+
                 if (mServiceCache instanceof List) {
+                    Log.i(TAG, "mServiceCache instanceof List");
                     ((List) mServiceCache).clear();
+                } else if (mServiceCache instanceof Object[]) {
+                    //P Q
+                    Log.i(TAG, "mServiceCache instanceof Object[]");
+                    int length = ((Object[]) mServiceCache).length;
+                    mServiceCache = new Object[length];
+                    //先写个空集合
+                    FieldUtils.writeField(originContext, "mServiceCache", mServiceCache);
                 }
 
                 for (Object key : sSYSTEM_SERVICE_MAP.keySet()) {
@@ -451,17 +466,18 @@ public class PluginProcessManager {
                     Object serviceFetcher = sSYSTEM_SERVICE_MAP.get(key);
 
                     try {
+                        //Log.i(TAG, "serviceFetcher class is " + (serviceFetcher != null ? serviceFetcher.getClass().getName() : "null") + " and value is " + serviceFetcher);
                         Method getService = serviceFetcher.getClass().getMethod("getService", baseContext.getClass());
                         getService.invoke(serviceFetcher, originContext);
                     } catch (InvocationTargetException e) {
                         Throwable cause = e.getCause();
                         if (cause != null) {
-                            Log.w(TAG, "Fake system service faile", e);
+                            Log.w(TAG, "Fake system service 1 faile ", e);
                         } else {
-                            Log.w(TAG, "Fake system service faile", e);
+                            Log.w(TAG, "Fake system service 2 faile ", e);
                         }
                     } catch (Exception e) {
-                        Log.w(TAG, "Fake system service faile", e);
+                        Log.w(TAG, "Fake system service 3 faile ", e);
                     }
                 }
                 mServiceCache = FieldUtils.readField(originContext, "mServiceCache");
