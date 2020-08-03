@@ -396,15 +396,16 @@ public class PluginCallback implements Handler.Callback {
 
     private boolean handleLaunchActivity(Message msg) {
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P + 1) {
-                //android.app.servertransaction.TopResumedActivityChangeItem
-                //不处理
-                if (mCallback != null) {
-                    return mCallback.handleMessage(msg);
-                } else {
-                    return false;
-                }
-            }
+            //这逻辑在真机不行，注释算了
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P + 1) {
+//                //android.app.servertransaction.TopResumedActivityChangeItem
+//                //不处理
+//                if (mCallback != null) {
+//                    return mCallback.handleMessage(msg);
+//                } else {
+//                    return false;
+//                }
+//            }
             Object obj = msg.obj;
             Intent stubIntent = null;
             Object mLaunchActivityItemP = null;
