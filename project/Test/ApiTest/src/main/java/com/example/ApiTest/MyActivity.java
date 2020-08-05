@@ -1,5 +1,6 @@
 package com.example.ApiTest;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -39,7 +40,20 @@ public class MyActivity extends AppCompatActivity implements OnClickListener {
             @Override
             public void run() {
                 //测试android 10 后台启动问题
-                startActivity(new Intent(MyActivity.this, SingleTopActivity.class));
+//                try {
+//                    PendingIntent service = PendingIntent.getService(MyActivity.this, 0, new Intent(MyActivity.this, Service1.class), 0);
+//                    service.send();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+                try {
+                    Intent intent = new Intent(getApplication(), SingleTopActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    PendingIntent activity = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+                    activity.send();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }, 5000);
     }
