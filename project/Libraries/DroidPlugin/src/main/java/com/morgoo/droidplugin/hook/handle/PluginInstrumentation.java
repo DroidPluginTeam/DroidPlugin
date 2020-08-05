@@ -39,6 +39,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.os.UserHandle;
 import android.text.TextUtils;
 
 import com.morgoo.droidplugin.am.RunningActivities;
@@ -339,7 +340,7 @@ public class PluginInstrumentation extends Instrumentation {
 //        if (apk == null) apk = mThread.getSystemContext().mPackageInfo;
 //        return apk.getAppFactory();
 
-        Log.i(TAG,"我来了吗？getFactory");
+        Log.i(TAG, "我来了吗？getFactory");
         Object mThread = FieldUtils.readField(mTarget, "mThread", true);
         if (mThread == null) {
             try {
@@ -350,4 +351,29 @@ public class PluginInstrumentation extends Instrumentation {
         }
         return (AppComponentFactory) MethodUtils.invokeMethod(mTarget, "getFactory", pkg);
     }
+
+    /**
+     *  public ActivityResult execStartActivity(
+     *             Context who, IBinder contextThread, IBinder token, Activity target,
+     *             Intent intent, int requestCode, Bundle options) {
+     *             10.0 系统没办法指定 UserHandle user 所有这里拦截也没反应
+     * @param who
+     * @param contextThread
+     * @param token
+     * @param resultWho
+     * @param intent
+     * @param requestCode
+     * @param options
+     * @param user
+     * @return
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
+//    public ActivityResult execStartActivity(
+//            Context who, IBinder contextThread, IBinder token, String resultWho,
+//            Intent intent, int requestCode, Bundle options, UserHandle user) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+//        Log.i(TAG, "我来了吗？execStartActivity");
+//        return (ActivityResult) MethodUtils.invokeMethod(mTarget, "execStartActivity", who, contextThread, token, resultWho, intent, requestCode, options, user);
+//    }
 }

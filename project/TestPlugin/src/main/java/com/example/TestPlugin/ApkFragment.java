@@ -15,6 +15,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.morgoo.droidplugin.pm.PluginManager;
+//import com.morgoo.helper.Log;
 import com.morgoo.helper.compat.PackageManagerCompat;
 
 import java.io.File;
@@ -189,6 +191,7 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
         if (!isViewCreated) {
             return;
         }
+        Log.i("mm", "start");
         new Thread("ApkScanner") {
             @Override
             public void run() {
@@ -217,6 +220,21 @@ public class ApkFragment extends ListFragment implements ServiceConnection {
                     }
 
                 }
+
+                //10.0适配问题
+                file = getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+                Log.i("mm", file.getAbsolutePath());
+                if (file.exists() && file.isDirectory()) {
+                    File[] files1 = file.listFiles();
+                    if (files1 != null) {
+                        for (File apk : files1) {
+                            if (apk.exists() && apk.getPath().toLowerCase().endsWith(".apk")) {
+                                apks.add(apk);
+                            }
+                        }
+                    }
+                }
+
                 PackageManager pm = getActivity().getPackageManager();
                 for (final File apk : apks) {
                     try {
