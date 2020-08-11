@@ -120,3 +120,4 @@ Process: com.example.TestPlugin:PluginP06, PID: 15779
         at java.lang.Thread.dispatchUncaughtException(Thread.java:1955)
 ```
 
+meDev分支支持动态加载dp框架
