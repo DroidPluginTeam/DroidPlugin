@@ -223,6 +223,7 @@
 
         <!--解决Not allowed to start service Intent-->
         <activity android:name="com.moziqi.compat.OActivity"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleInstance"
@@ -258,6 +259,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -276,6 +278,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -293,6 +296,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -310,6 +314,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -327,6 +332,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -344,6 +350,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -361,6 +368,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -378,6 +386,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -395,6 +404,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -412,6 +422,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -429,6 +440,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -446,6 +458,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -463,6 +476,7 @@
         <activity
             android:name=".stub.ActivityStub$P00$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -482,6 +496,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -499,6 +514,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -516,6 +532,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -533,6 +550,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -550,6 +568,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -567,6 +586,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -584,6 +604,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -601,6 +622,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -618,6 +640,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -635,6 +658,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -652,6 +676,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -669,6 +694,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -686,6 +712,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P00$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -721,6 +748,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -739,6 +767,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -757,6 +786,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -775,6 +805,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -793,6 +824,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -811,6 +843,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -829,6 +862,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -847,6 +881,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -865,6 +900,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -884,6 +920,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -902,6 +939,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -920,6 +958,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -938,6 +977,7 @@
         <activity
             android:name=".stub.ActivityStub$P01$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -957,6 +997,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -975,6 +1016,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -993,6 +1035,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1011,6 +1054,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1029,6 +1073,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1047,6 +1092,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1065,6 +1111,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1083,6 +1130,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1101,6 +1149,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1119,6 +1168,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1137,6 +1187,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1155,6 +1206,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1173,6 +1225,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P01$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1211,6 +1264,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1229,6 +1283,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1247,6 +1302,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1265,6 +1321,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1283,6 +1340,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1301,6 +1359,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1319,6 +1378,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1337,6 +1397,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1355,6 +1416,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1373,6 +1435,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1391,6 +1454,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1409,6 +1473,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1427,6 +1492,7 @@
         <activity
             android:name=".stub.ActivityStub$P02$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1446,6 +1512,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1464,6 +1531,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1482,6 +1550,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1500,6 +1569,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1518,6 +1588,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1536,6 +1607,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1554,6 +1626,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1572,6 +1645,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1590,6 +1664,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1608,6 +1683,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1626,6 +1702,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1644,6 +1721,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1662,6 +1740,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P02$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1700,6 +1779,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1718,6 +1798,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1736,6 +1817,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1754,6 +1836,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1772,6 +1855,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1790,6 +1874,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1808,6 +1893,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1826,6 +1912,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1844,6 +1931,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1862,6 +1950,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1880,6 +1969,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1898,6 +1988,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1916,6 +2007,7 @@
         <activity
             android:name=".stub.ActivityStub$P03$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1936,6 +2028,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1954,6 +2047,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1972,6 +2066,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -1990,6 +2085,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2008,6 +2104,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2026,6 +2123,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2044,6 +2142,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2062,6 +2161,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2080,6 +2180,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2098,6 +2199,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2116,6 +2218,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2134,6 +2237,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2152,6 +2256,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P03$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2190,6 +2295,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2208,6 +2314,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2226,6 +2333,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2244,6 +2352,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2262,6 +2371,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2280,6 +2390,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2298,6 +2409,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2316,6 +2428,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2334,6 +2447,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2352,6 +2466,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2370,6 +2485,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2388,6 +2504,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2406,6 +2523,7 @@
         <activity
             android:name=".stub.ActivityStub$P04$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2425,6 +2543,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2443,6 +2562,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2461,6 +2581,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2479,6 +2600,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2497,6 +2619,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2515,6 +2638,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2533,6 +2657,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2551,6 +2676,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2569,6 +2695,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2587,6 +2714,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2605,6 +2733,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2623,6 +2752,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2641,6 +2771,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P04$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2678,6 +2809,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2696,6 +2828,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2714,6 +2847,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2732,6 +2866,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2750,6 +2885,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2768,6 +2904,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2786,6 +2923,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2804,6 +2942,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2822,6 +2961,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2840,6 +2980,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2858,6 +2999,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2876,6 +3018,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2894,6 +3037,7 @@
         <activity
             android:name=".stub.ActivityStub$P05$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2913,6 +3057,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2931,6 +3076,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2949,6 +3095,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2967,6 +3114,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -2985,6 +3133,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3003,6 +3152,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3021,6 +3171,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3039,6 +3190,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3057,6 +3209,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3075,6 +3228,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3093,6 +3247,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3111,6 +3266,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3129,6 +3285,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P05$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3167,6 +3324,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3185,6 +3343,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3203,6 +3362,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3221,6 +3381,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3239,6 +3400,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3257,6 +3419,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3275,6 +3438,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3293,6 +3457,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3311,6 +3476,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3329,6 +3495,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3347,6 +3514,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3365,6 +3533,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3383,6 +3552,7 @@
         <activity
             android:name=".stub.ActivityStub$P06$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3403,6 +3573,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3421,6 +3592,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3439,6 +3611,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3457,6 +3630,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3475,6 +3649,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3493,6 +3668,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3511,6 +3687,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3529,6 +3706,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3547,6 +3725,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3565,6 +3744,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3583,6 +3763,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3601,6 +3782,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3619,6 +3801,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P06$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3657,6 +3840,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3675,6 +3859,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3693,6 +3878,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3711,6 +3897,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3729,6 +3916,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3747,6 +3935,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3765,6 +3954,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3783,6 +3973,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3801,6 +3992,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3819,6 +4011,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3837,6 +4030,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3855,6 +4049,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3873,6 +4068,7 @@
         <activity
             android:name=".stub.ActivityStub$P07$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3891,6 +4087,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3909,6 +4106,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3927,6 +4125,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3945,6 +4144,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3963,6 +4163,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3981,6 +4182,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -3999,6 +4201,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4017,6 +4220,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4035,6 +4239,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4053,6 +4258,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4071,6 +4277,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4089,6 +4296,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4107,6 +4315,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P07$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4149,6 +4358,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4167,6 +4377,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4185,6 +4396,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4203,6 +4415,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4221,6 +4434,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4239,6 +4453,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4257,6 +4472,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4275,6 +4491,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4293,6 +4510,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4311,6 +4529,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4329,6 +4548,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4347,6 +4567,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4365,6 +4586,7 @@
         <activity
             android:name=".stub.ActivityStub$P08$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4384,6 +4606,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$Standard00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4402,6 +4625,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleInstance00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4420,6 +4644,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleInstance01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4438,6 +4663,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleInstance02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4456,6 +4682,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleInstance03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4474,6 +4701,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleTask00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4492,6 +4720,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleTask01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4510,6 +4739,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleTask02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4528,6 +4758,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleTask03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4546,6 +4777,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleTop00"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4564,6 +4796,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleTop01"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4582,6 +4815,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleTop02"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
@@ -4600,6 +4834,7 @@
         <activity
             android:name=".stub.ActivityStub$Dialog$P08$SingleTop03"
             android:allowTaskReparenting="true"
+            android:documentLaunchMode="intoExisting"
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
