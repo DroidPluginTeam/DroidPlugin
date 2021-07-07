@@ -32,6 +32,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.ArrayMap;
 
 import com.morgoo.droidplugin.core.Env;
 import com.morgoo.droidplugin.core.PluginProcessManager;
@@ -40,7 +41,9 @@ import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.droidplugin.stub.ShortcutProxyActivity;
 import com.morgoo.helper.Log;
+import com.morgoo.helper.compat.ActivityThreadCompat;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -414,9 +417,9 @@ public class PluginCallback implements Handler.Callback {
                 Log.i(TAG, "mClientTransaction>>>" + mClientTransaction.getClass());
                 //获取mClientTransaction中的List<ClientTransactionItem> mActivityCallbacks
                 Field mactivityCallbacks = mClientTransaction.getClass().getDeclaredField("mActivityCallbacks");
-                Log.i(TAG, "mactivityCallbacks>>>" + mactivityCallbacks.getClass());
                 mactivityCallbacks.setAccessible(true);
                 List mActivityCallbacks = (List) mactivityCallbacks.get(mClientTransaction);
+                Log.i(TAG, "mactivityCallbacks>>>" + mActivityCallbacks);
                 if (mActivityCallbacks == null || mActivityCallbacks.size() == 0) {
                     if (mCallback != null) {
                         return mCallback.handleMessage(msg);
@@ -432,6 +435,12 @@ public class PluginCallback implements Handler.Callback {
                     //android Q 改为：android.app.servertransaction.TopResumedActivityChangeItem
                     //Class mTopResumedActivityChangeItem = Class.forName("android.app.servertransaction.TopResumedActivityChangeItem");
                     throw new RuntimeException("Android Q 的 TopResumedActivityChangeItem 没有 mIntent");
+                } else if ("android.app.servertransaction.NewIntentItem".equals(mLaunchActivityItemP.getClass().getName())) {
+                    // private List<ReferrerIntent> mIntents;
+                    Field mIntentLists = mLaunchActivityItemP.getClass().getDeclaredField("mIntents");
+                    mIntentLists.setAccessible(true);
+                    List intentLists = (List) mIntentLists.get(mLaunchActivityItemP);
+                    stubIntent = (Intent) intentLists.get(0);
                 } else {
                     //拿到LaunchActivityItem中的Intent
                     Field mIntentField = mLaunchActivityItemClass.getDeclaredField("mIntent");
@@ -439,7 +448,9 @@ public class PluginCallback implements Handler.Callback {
                     stubIntent = (Intent) mIntentField.get(mLaunchActivityItemP);
                 }
 
-                Log.i(TAG, "stubIntent>>>" + stubIntent.getClass() + "," + stubIntent.toString());
+                if (stubIntent != null) {
+                    Log.i(TAG, "stubIntent>>>" + stubIntent.getClass() + "," + stubIntent.toString());
+                }
 //                Intent targetIntent = stubIntent.getParcelableExtra(Env.EXTRA_TARGET_INTENT);
 //                if (targetIntent != null) {
 //                    mIntentField.setAccessible(true);
@@ -506,6 +517,13 @@ public class PluginCallback implements Handler.Callback {
                         }
                     }
 
+                    Object activityClientRecordObj = null;
+                    Field mActivities = ActivityThreadCompat.currentActivityThread().getClass().getDeclaredField("mActivities");
+                    mActivities.setAccessible(true);
+                    ArrayMap mActivitiesArrayMap = (ArrayMap) mActivities.get(ActivityThreadCompat.currentActivityThread());
+                    for (Object o : mActivitiesArrayMap.keySet()) {
+                        activityClientRecordObj = mActivitiesArrayMap.get(o);
+                    }
                     if (!success) {
                         Intent newTargetIntent = new Intent();
                         newTargetIntent.setComponent(targetIntent.getComponent());
@@ -515,21 +533,73 @@ public class PluginCallback implements Handler.Callback {
                         }
                         //FieldUtils.writeDeclaredField(msg.obj, "intent", newTargetIntent);
                         if (mLaunchActivityItemP != null) {
-                            FieldUtils.writeDeclaredField(mLaunchActivityItemP, "mIntent", newTargetIntent);
+                            if ("android.app.servertransaction.NewIntentItem".equals(mLaunchActivityItemP.getClass().getName())) {
+//                                if (activityClientRecordObj != null) {
+//                                    Field intent = activityClientRecordObj.getClass().getDeclaredField("intent");
+//                                    intent.setAccessible(true);
+//                                    intent.set(activityClientRecordObj, newTargetIntent);
+//                                }
+                                //构建替换intent
+                                Field mReferrerField = stubIntent.getClass().getDeclaredField("mReferrer");
+                                mReferrerField.setAccessible(true);
+                                String mReferrer = (String) mReferrerField.get(stubIntent);
+                                Constructor<?> constructor = stubIntent.getClass().getConstructor(Intent.class, String.class);
+                                constructor.setAccessible(true);
+                                Object newIntent = constructor.newInstance(targetIntent, mReferrer);
+                                //重新赋值回去
+                                Field mIntentListFields = mLaunchActivityItemP.getClass().getDeclaredField("mIntents");
+                                mIntentListFields.setAccessible(true);
+                                List intentLists = (List) mIntentListFields.get(mLaunchActivityItemP);
+                                intentLists.clear();
+                                intentLists.add(newIntent);
+                                mIntentListFields.set(mLaunchActivityItemP, intentLists);
+                            } else {
+                                FieldUtils.writeDeclaredField(mLaunchActivityItemP, "mIntent", newTargetIntent);
+                            }
                         } else {
                             FieldUtils.writeDeclaredField(msg.obj, "intent", newTargetIntent);
                         }
                     } else {
                         //FieldUtils.writeDeclaredField(msg.obj, "intent", targetIntent);
                         if (mLaunchActivityItemP != null) {
-                            FieldUtils.writeDeclaredField(mLaunchActivityItemP, "mIntent", targetIntent);
+                            if ("android.app.servertransaction.NewIntentItem".equals(mLaunchActivityItemP.getClass().getName())) {
+//                                if (activityClientRecordObj != null) {
+//                                    Field intent = activityClientRecordObj.getClass().getDeclaredField("intent");
+//                                    intent.setAccessible(true);
+//                                    intent.set(activityClientRecordObj, targetIntent);
+//                                }
+                                //构建替换intent
+                                Field mReferrerField = stubIntent.getClass().getDeclaredField("mReferrer");
+                                mReferrerField.setAccessible(true);
+                                String mReferrer = (String) mReferrerField.get(stubIntent);
+                                Constructor<?> constructor = stubIntent.getClass().getConstructor(Intent.class, String.class);
+                                constructor.setAccessible(true);
+                                Object newIntent = constructor.newInstance(targetIntent, mReferrer);
+                                //重新赋值回去
+                                Field mIntentListFields = mLaunchActivityItemP.getClass().getDeclaredField("mIntents");
+                                mIntentListFields.setAccessible(true);
+                                List intentLists = (List) mIntentListFields.get(mLaunchActivityItemP);
+                                intentLists.clear();
+                                intentLists.add(newIntent);
+                                mIntentListFields.set(mLaunchActivityItemP, intentLists);
+                            } else {
+                                FieldUtils.writeDeclaredField(mLaunchActivityItemP, "mIntent", targetIntent);
+                            }
                         } else {
                             FieldUtils.writeDeclaredField(msg.obj, "intent", targetIntent);
                         }
                     }
                     //FieldUtils.writeDeclaredField(msg.obj, "activityInfo", targetActivityInfo);
                     if (mLaunchActivityItemP != null) {
-                        FieldUtils.writeDeclaredField(mLaunchActivityItemP, "mInfo", targetActivityInfo);
+                        if ("android.app.servertransaction.NewIntentItem".equals(mLaunchActivityItemP.getClass().getName())) {
+                            if (activityClientRecordObj != null) {
+                                Field activityInfoFiled = activityClientRecordObj.getClass().getDeclaredField("activityInfo");
+                                activityInfoFiled.setAccessible(true);
+                                activityInfoFiled.set(activityClientRecordObj, targetActivityInfo);
+                            }
+                        } else {
+                            FieldUtils.writeDeclaredField(mLaunchActivityItemP, "mInfo", targetActivityInfo);
+                        }
                     } else {
                         FieldUtils.writeDeclaredField(msg.obj, "activityInfo", targetActivityInfo);
                     }

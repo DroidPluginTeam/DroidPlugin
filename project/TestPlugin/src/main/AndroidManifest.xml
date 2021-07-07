@@ -4,6 +4,9 @@
     android:versionCode="1"
     android:versionName="1.0">
 
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_TEST_NETWORKS" />
+
     <application
         android:name="com.morgoo.droidplugin.PluginApplication"
         android:icon="@drawable/ic_launcher"
