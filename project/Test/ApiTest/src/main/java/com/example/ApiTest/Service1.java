@@ -15,6 +15,12 @@ import android.widget.Toast;
 public class Service1 extends BaseService {
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        Toast.makeText(getApplicationContext(), "Service1", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     String getTag() {
         return Service1.class.getSimpleName();
     }

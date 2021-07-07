@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--context.getFileDir()  /data/data/包名/files-->
+    <files-path
+        name="files-path"
+        path="." />
+    <!--context.getCacheDir()  /data/data/包名/cache-->
+    <cache-path
+        name="cache-path"
+        path="." />
+    <!--Environment.getExternalStorageDirectory()  /storage/emulated/0 -->
+    <external-path
+        name="external-path"
+        path="." />
+    <!--context.getExternalFilesDirs() /storage/emulated/0/Android/data/包名/files-->
+    <external-files-path
+        name="external-files-path"
+        path="." />
+    <!--context.getExternalCacheDirs() /storage/emulated/0/Android/data/包名/cache-->
+    <external-cache-path
+        name="external-cache-path"
+        path="." />
+</paths>

@@ -67,6 +67,8 @@ class PackageParserApi21 extends PackageParser {
     protected Class<?> sPermissionClass;
     protected Class<?> sPermissionGroupClass;
     protected Class<?> sArraySetClass;
+    //P Q
+    protected Class<?> sPackageSignatures;
 
     protected Object mPackage;
     protected Object mDefaultPackageUserState;
@@ -88,6 +90,8 @@ class PackageParserApi21 extends PackageParser {
         sInstrumentationClass = Class.forName("android.content.pm.PackageParser$Instrumentation");
         sPermissionClass = Class.forName("android.content.pm.PackageParser$Permission");
         sPermissionGroupClass = Class.forName("android.content.pm.PackageParser$PermissionGroup");
+        //P Q
+//        sPackageSignatures = Class.forName("com.android.server.pm.PackageSignatures");
         try {
             sArraySetClass = Class.forName("android.util.ArraySet");
         } catch (ClassNotFoundException e) {
@@ -111,6 +115,13 @@ class PackageParserApi21 extends PackageParser {
     @Override
     public void collectCertificates(int flags) throws Exception {
         // public void collectCertificates(Package pkg, int flags) throws PackageParserException
+        if (VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            //http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/java/android/content/pm/PackageParser.java
+            Method method = MethodUtils.getAccessibleMethod(sPackageParserClass, "collectCertificates",
+                    mPackage.getClass(), boolean.class);
+            method.invoke(mPackageParser, mPackage, flags == 1);
+            return;
+        }
         Method method = MethodUtils.getAccessibleMethod(sPackageParserClass, "collectCertificates",
                 mPackage.getClass(), int.class);
         method.invoke(mPackageParser, mPackage, flags);
@@ -294,6 +305,9 @@ class PackageParserApi21 extends PackageParser {
 
     @Override
     public void writeSignature(Signature[] signatures) throws Exception {
+        if (android.os.Build.VERSION.SDK_INT >= 28) {
+            return;
+        }
         FieldUtils.writeField(mPackage, "mSignatures", signatures);
     }
 }

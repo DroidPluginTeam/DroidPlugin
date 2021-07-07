@@ -98,6 +98,7 @@ public abstract class BaseActivityManagerService {
         @Override
         public void onCallbackDied(IApplicationCallback callback, Object cookie) {
             super.onCallbackDied(callback, cookie);
+            Log.i(TAG, "onCallbackDied");
             if (cookie != null && cookie instanceof ProcessCookie) {
                 ProcessCookie p = (ProcessCookie) cookie;
                 onProcessDied(p.pid, p.uid);
@@ -150,7 +151,9 @@ public abstract class BaseActivityManagerService {
     }
 
     public void onDestroy() {
-        mRemoteCallbackList.kill();
+        if (mRemoteCallbackList != null) {
+            mRemoteCallbackList.kill();
+        }
         mRemoteCallbackList = null;
     }
 }

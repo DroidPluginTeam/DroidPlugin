@@ -48,11 +48,16 @@ public class InstalledFragment extends ListFragment implements ServiceConnection
         if (v.getId() == R.id.button2) {
 
             PackageManager pm = getActivity().getPackageManager();
-            Intent intent = pm.getLaunchIntentForPackage(item.packageInfo.packageName);
+            final Intent intent = pm.getLaunchIntentForPackage(item.packageInfo.packageName);
             if (intent != null) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Log.i("DroidPlugin", "start " + item.packageInfo.packageName + "@" + intent);
-                startActivity(intent);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getContext().startActivity(intent);
+                    }
+                }, 3000);
             } else {
                 Log.e("DroidPlugin", "pm " + pm.toString() + " no find intent " + item.packageInfo.packageName);
             }

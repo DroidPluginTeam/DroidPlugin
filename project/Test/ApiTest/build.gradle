@@ -12,16 +12,33 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        ndk {
-            moduleName 'Test'
-            stl 'stlport_static'
-            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
-            ldLibs 'log'
-            cFlags '-DMY_LOG_LEVEL=LOG_VERBOSE'
-        }
+        minSdkVersion 21
+        targetSdkVersion  29
+
+//        externalNativeBuild {
+//            cmake {
+//                arguments "-DANDROID_STL=c++_static"//c++_static
+//
+//                arguments '-DANDROID_ARM_NEON=TRUE', '-DANDROID_TOOLCHAIN=clang'
+//
+//                cFlags '-D__STDC_FORMAT_MACROS'
+//
+//                cppFlags '-fexceptions', '-frtti'
+//            }
+//
+//            ndk {
+////                abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a','x86_64'
+//            }
+//        }
     }
 
     lintOptions {
         abortOnError false
     }
+
+//    externalNativeBuild {
+//        cmake {
+//            path "CMakeLists.txt"
+//        }
+//    }
 }

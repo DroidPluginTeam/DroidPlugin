@@ -1,24 +1,24 @@
 /*
-**        DroidPlugin Project
-**
-** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
-**
-** This file is part of DroidPlugin.
-**
-** DroidPlugin is free software: you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation, either
-** version 3 of the License, or (at your option) any later version.
-**
-** DroidPlugin is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
-**
-**/
+ **        DroidPlugin Project
+ **
+ ** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
+ **
+ ** This file is part of DroidPlugin.
+ **
+ ** DroidPlugin is free software: you can redistribute it and/or
+ ** modify it under the terms of the GNU Lesser General Public
+ ** License as published by the Free Software Foundation, either
+ ** version 3 of the License, or (at your option) any later version.
+ **
+ ** DroidPlugin is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public
+ ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
+ **
+ **/
 
 package com.morgoo.droidplugin;
 
@@ -27,7 +27,9 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.os.Environment;
+
 import com.morgoo.helper.Log;
 import com.morgoo.helper.compat.SystemPropertiesCompat;
 
@@ -78,7 +80,12 @@ public class MyCrashHandler implements UncaughtExceptionHandler {
             Date date = new Date();
             String dateStr = SIMPLE_DATE_FORMAT1.format(date);
 
-            File file = new File(Environment.getExternalStorageDirectory(), String.format("PluginLog/CrashLog/CrashLog_%s_%s.log", dateStr, android.os.Process.myPid()));
+            File file = null;
+            if (Build.VERSION.SDK_INT >= 30) {
+                file = new File(mContext.getExternalCacheDir(), String.format("PluginLog/CrashLog/CrashLog_%s_%s.log", dateStr, android.os.Process.myPid()));
+            } else {
+                file = new File(Environment.getExternalStorageDirectory(), String.format("PluginLog/CrashLog/CrashLog_%s_%s.log", dateStr, android.os.Process.myPid()));
+            }
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }

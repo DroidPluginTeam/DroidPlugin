@@ -25,6 +25,8 @@ package com.morgoo.droidplugin;
 import android.app.Application;
 import android.content.Context;
 
+import me.weishu.reflection.Reflection;
+
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) 2014/12/5.
  */
@@ -41,6 +43,7 @@ public class PluginApplication extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
+        Reflection.unseal(base);
         PluginHelper.getInstance().applicationAttachBaseContext(base);
         super.attachBaseContext(base);
     }

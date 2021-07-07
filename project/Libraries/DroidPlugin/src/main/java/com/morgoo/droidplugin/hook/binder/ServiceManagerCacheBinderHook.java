@@ -1,24 +1,24 @@
 /*
-**        DroidPlugin Project
-**
-** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
-**
-** This file is part of DroidPlugin.
-**
-** DroidPlugin is free software: you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation, either
-** version 3 of the License, or (at your option) any later version.
-**
-** DroidPlugin is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
-**
-**/
+ **        DroidPlugin Project
+ **
+ ** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
+ **
+ ** This file is part of DroidPlugin.
+ **
+ ** DroidPlugin is free software: you can redistribute it and/or
+ ** modify it under the terms of the GNU Lesser General Public
+ ** License as published by the Free Software Foundation, either
+ ** version 3 of the License, or (at your option) any later version.
+ **
+ ** DroidPlugin is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public
+ ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
+ **
+ **/
 
 package com.morgoo.droidplugin.hook.binder;
 
@@ -31,6 +31,7 @@ import com.morgoo.droidplugin.hook.Hook;
 import com.morgoo.droidplugin.hook.HookedMethodHandler;
 import com.morgoo.droidplugin.reflect.FieldUtils;
 import com.morgoo.droidplugin.reflect.Utils;
+import com.morgoo.helper.Log;
 import com.morgoo.helper.MyProxy;
 import com.morgoo.helper.compat.ServiceManagerCompat;
 
@@ -48,6 +49,8 @@ import java.util.Map;
 public class ServiceManagerCacheBinderHook extends Hook implements InvocationHandler {
 
 
+    private final static String TAG = ServiceManagerCacheBinderHook.class.getSimpleName();
+
     private String mServiceName;
 
     public ServiceManagerCacheBinderHook(Context hostContext, String servicename) {
@@ -60,6 +63,7 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
     @Override
     protected void onInstall(ClassLoader classLoader) throws Throwable {
         Object sCacheObj = FieldUtils.readStaticField(ServiceManagerCompat.Class(), "sCache");
+        //Log.i(TAG, "sCacheObj class is " + sCacheObj.getClass());
         if (sCacheObj instanceof Map) {
             Map sCache = (Map) sCacheObj;
             Object Obj = sCache.get(mServiceName);
@@ -68,6 +72,7 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
                 //但是这样有缺陷。
                 throw new RuntimeException("Can not install binder hook for " + mServiceName);
             } else {
+                Log.i(TAG, "mServiceName is " + mServiceName);
                 sCache.remove(mServiceName);
                 IBinder mServiceIBinder = ServiceManagerCompat.getService(mServiceName);
                 if (mServiceIBinder == null) {
@@ -76,6 +81,7 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
                     }
                 }
                 if (mServiceIBinder != null) {
+                    //Log.i(TAG, "mServiceIBinder is " + mServiceIBinder.getClass());
                     MyServiceManager.addOriginService(mServiceName, mServiceIBinder);
                     Class clazz = mServiceIBinder.getClass();
                     List<Class<?>> interfaces = Utils.getAllInterfaces(clazz);
@@ -97,7 +103,9 @@ public class ServiceManagerCacheBinderHook extends Hook implements InvocationHan
                 return method.invoke(originService, args);
             }
             HookedMethodHandler hookedMethodHandler = mHookHandles.getHookedMethodHandler(method);
+            Log.i(TAG, "hookedMethodHandler is " + hookedMethodHandler);
             if (hookedMethodHandler != null) {
+                Log.i(TAG, "hookedMethodHandler doHookInner method is " + method.getName());
                 return hookedMethodHandler.doHookInner(originService, method, args);
             } else {
                 return method.invoke(originService, args);

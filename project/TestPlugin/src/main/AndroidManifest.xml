@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.TestPlugin"
-          android:versionCode="1"
-          android:versionName="1.0">
+    package="com.example.TestPlugin"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_TEST_NETWORKS" />
 
     <application
         android:name="com.morgoo.droidplugin.PluginApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="MyActivity"
+            android:name=".MyActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation"
+            android:enabled="false"
             android:label="Test"
-            android:screenOrientation="portrait"
-            android:enabled="false">
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

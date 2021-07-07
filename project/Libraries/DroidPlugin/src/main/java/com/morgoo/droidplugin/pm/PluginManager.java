@@ -39,6 +39,7 @@ import android.content.pm.ProviderInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -51,6 +52,7 @@ import com.morgoo.droidplugin.reflect.MethodUtils;
 import com.morgoo.helper.Log;
 import com.morgoo.helper.compat.BundleCompat;
 import com.morgoo.helper.compat.ContentProviderCompat;
+import com.moziqi.compat.OActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -212,8 +214,17 @@ public class PluginManager implements ServiceConnection {
         if (mPluginManager == null) {
             try {
                 Intent intent = new Intent(mHostContext, PluginManagerService.class);
-                intent.setPackage(mHostContext.getPackageName());
-                mHostContext.startService(intent);
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    //connectToService java.lang.IllegalStateException: Not allowed to start service Intent
+                    Intent startIntent = new Intent(mHostContext, OActivity.class);
+                    startIntent.setPackage(mHostContext.getPackageName());
+                    startIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mHostContext.startActivity(startIntent);
+                } else {
+                    intent.setPackage(mHostContext.getPackageName());
+                    mHostContext.startService(intent);
+                }
+
 
                 String auth = mHostContext.getPackageName() + ".plugin.servicemanager";
                 Uri uri = Uri.parse("content://" + auth);

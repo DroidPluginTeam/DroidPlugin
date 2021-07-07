@@ -13,7 +13,7 @@ public class NativeCHelper {
     private static Throwable sThrowable;
 
     static {
-        tryLoadLibraryByName("Test");
+        tryLoadLibraryByName("Test1");
     }
 
     public static void tryLoadLibraryByName(String name) {
@@ -41,7 +41,7 @@ public class NativeCHelper {
     }
 
     // ************************ Helper Start *******************************//
-    private final native static int nativePing();
+    public native static int nativePing();
 
     public final static int ping() {
         if (sSoLoaded) {

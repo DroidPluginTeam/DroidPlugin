@@ -1,29 +1,30 @@
 /*
-**        DroidPlugin Project
-**
-** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
-**
-** This file is part of DroidPlugin.
-**
-** DroidPlugin is free software: you can redistribute it and/or
-** modify it under the terms of the GNU Lesser General Public
-** License as published by the Free Software Foundation, either
-** version 3 of the License, or (at your option) any later version.
-**
-** DroidPlugin is distributed in the hope that it will be useful,
-** but WITHOUT ANY WARRANTY; without even the implied warranty of
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-** Lesser General Public License for more details.
-**
-** You should have received a copy of the GNU Lesser General Public
-** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
-**
-**/
+ **        DroidPlugin Project
+ **
+ ** Copyright(c) 2015 Andy Zhang <zhangyong232@gmail.com>
+ **
+ ** This file is part of DroidPlugin.
+ **
+ ** DroidPlugin is free software: you can redistribute it and/or
+ ** modify it under the terms of the GNU Lesser General Public
+ ** License as published by the Free Software Foundation, either
+ ** version 3 of the License, or (at your option) any later version.
+ **
+ ** DroidPlugin is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ ** Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public
+ ** License along with DroidPlugin.  If not, see <http://www.gnu.org/licenses/lgpl.txt>
+ **
+ **/
 
 package com.morgoo.droidplugin.hook.handle;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AppComponentFactory;
 import android.app.Application;
 import android.app.Instrumentation;
 import android.content.ContentResolver;
@@ -36,7 +37,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.RemoteException;
+import android.os.UserHandle;
 import android.text.TextUtils;
 
 import com.morgoo.droidplugin.am.RunningActivities;
@@ -47,9 +50,12 @@ import com.morgoo.droidplugin.hook.binder.IWindowManagerBinderHook;
 import com.morgoo.droidplugin.hook.proxy.IPackageManagerHook;
 import com.morgoo.droidplugin.pm.PluginManager;
 import com.morgoo.droidplugin.reflect.FieldUtils;
+import com.morgoo.droidplugin.reflect.MethodUtils;
 import com.morgoo.helper.Log;
+import com.morgoo.helper.compat.ActivityThreadCompat;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Andy Zhang(zhangyong232@gmail.com) on 2014/12/5.
@@ -318,5 +324,56 @@ public class PluginInstrumentation extends Instrumentation {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.P)
+    public AppComponentFactory getFactory(String pkg) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+//        if (pkg == null) {
+//            android.util.Log.e(TAG, "No pkg specified, disabling AppComponentFactory");
+//            return AppComponentFactory.DEFAULT;
+//        }
+//        if (mThread == null) {
+//            android.util.Log.e(TAG, "Uninitialized ActivityThread, likely app-created Instrumentation,"
+//                    + " disabling AppComponentFactory", new Throwable());
+//            return AppComponentFactory.DEFAULT;
+//        }
+//        LoadedApk apk = mThread.peekPackageInfo(pkg, true);
+//        // This is in the case of starting up "android".
+//        if (apk == null) apk = mThread.getSystemContext().mPackageInfo;
+//        return apk.getAppFactory();
 
+        Log.i(TAG, "我来了吗？getFactory");
+        Object mThread = FieldUtils.readField(mTarget, "mThread", true);
+        if (mThread == null) {
+            try {
+                FieldUtils.writeField(mTarget, "mThread", ActivityThreadCompat.currentActivityThread());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return (AppComponentFactory) MethodUtils.invokeMethod(mTarget, "getFactory", pkg);
+    }
+
+    /**
+     *  public ActivityResult execStartActivity(
+     *             Context who, IBinder contextThread, IBinder token, Activity target,
+     *             Intent intent, int requestCode, Bundle options) {
+     *             10.0 系统没办法指定 UserHandle user 所有这里拦截也没反应
+     * @param who
+     * @param contextThread
+     * @param token
+     * @param resultWho
+     * @param intent
+     * @param requestCode
+     * @param options
+     * @param user
+     * @return
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
+//    public ActivityResult execStartActivity(
+//            Context who, IBinder contextThread, IBinder token, String resultWho,
+//            Intent intent, int requestCode, Bundle options, UserHandle user) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+//        Log.i(TAG, "我来了吗？execStartActivity");
+//        return (ActivityResult) MethodUtils.invokeMethod(mTarget, "execStartActivity", who, contextThread, token, resultWho, intent, requestCode, options, user);
+//    }
 }

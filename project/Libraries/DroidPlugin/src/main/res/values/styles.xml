@@ -30,4 +30,10 @@
     <style name="DroidPluginThemeDialog" parent="android:Theme.Dialog" >
         <item name="android:windowBackground">@drawable/plugin_activity_loading</item>
     </style>
+
+
+    <style name="XXAppTheme" parent="@android:style/Theme.Translucent.NoTitleBar">
+        <!-- Customize your theme here. -->
+
+    </style>
 </resources>
