@@ -48,6 +48,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
+import android.os.UserHandle;
 import android.text.TextUtils;
 
 import com.morgoo.droidplugin.PluginManagerService;
@@ -220,6 +221,20 @@ public class IActivityManagerHookHandle extends BaseHookHandle {
 
                         args[intentOfArgIndex] = newIntent;
                         args[1] = mHostContext.getPackageName();
+
+                        if (args[args.length - 1] != null) {
+                            Class<?> aClass = args[args.length - 1].getClass();
+                            Log.i(TAG, "last agrs class is " + aClass);
+                            if (args[args.length - 1] instanceof Integer) {
+                                try {
+                                    UserHandle owner = (UserHandle) FieldUtils.readStaticField(UserHandle.class, "OWNER");
+                                    args[args.length - 1] = MethodUtils.invokeMethod(owner, "getCallingUserId");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
                     } else {
                         Log.w(TAG, "startActivity,replace selectProxyActivity fail");
                     }
